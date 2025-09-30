@@ -71,8 +71,8 @@ export default function ForgotPasswordPage() {
 				{/* Back Button - Top Left (only show when not submitted) */}
 				{!isSubmitted && (
 					<div className="mb-4 md:mb-3">
-						<button
-							onClick={() => window.history.back()}
+						<Link
+							href="/login/email"
 							className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
 						>
 							<svg
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
 								/>
 							</svg>
 							戻る
-						</button>
+						</Link>
 					</div>
 				)}
 

@@ -89,8 +89,8 @@ function EmailLoginContent() {
 				{/* Desktop Header - Horizontal Layout */}
 				<div className="hidden lg:flex items-center justify-between mb-6">
 					{/* Back Button */}
-					<button
-						onClick={() => window.history.back()}
+					<Link
+						href="/login"
 						className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
 					>
 						<svg
@@ -107,7 +107,7 @@ function EmailLoginContent() {
 							/>
 						</svg>
 						戻る
-					</button>
+					</Link>
 
 					{/* Title */}
 					<h1 className="text-2xl font-bold text-gray-900">
@@ -159,8 +159,8 @@ function EmailLoginContent() {
 				<div className="lg:hidden">
 					{/* Back Button - Top Left */}
 					<div className="mb-4 md:mb-3">
-						<button
-							onClick={() => window.history.back()}
+						<Link
+							href="/login"
 							className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
 						>
 							<svg
@@ -177,7 +177,7 @@ function EmailLoginContent() {
 								/>
 							</svg>
 							戻る
-						</button>
+						</Link>
 					</div>
 
 					{/* Logo */}
