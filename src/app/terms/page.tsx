@@ -1,37 +1,19 @@
 "use client";
 
+import PageLayout from "@/components/ui/PageLayout";
+
 export default function TermsPage() {
 	return (
-		<div className="min-h-screen bg-stone-50 px-4 py-4">
-			<div className="w-full max-w-md md:max-w-lg lg:max-w-xl md:mx-auto">
-				{/* Back Button - Top Left */}
-				<div className="mb-4 md:mb-3">
-					<button
-						onClick={() => window.history.back()}
-						className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
-					>
+		<PageLayout 
+			title="" 
+			backOnClick={() => window.history.back()}
+			showLogo={false}
+		>
+			<div className="text-center">
+				<div className="mb-8">
+					<div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
 						<svg
-							className="w-5 h-5 mr-2"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M15 19l-7-7 7-7"
-							/>
-						</svg>
-						戻る
-					</button>
-				</div>
-
-				{/* Content */}
-				<div className="text-center py-8">
-					<div className="w-24 h-24 mx-auto bg-gradient-to-br from-cyan-100 to-pink-100 rounded-full flex items-center justify-center mb-8">
-						<svg
-							className="w-12 h-12 text-cyan-500"
+							className="w-10 h-10 text-blue-600"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -44,24 +26,19 @@ export default function TermsPage() {
 							/>
 						</svg>
 					</div>
-					<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-						🚀 準備中です！
-					</h2>
-					<p className="text-lg text-gray-600 mb-8 leading-relaxed">
-						利用規約の詳細を現在準備中です。
-						<br />
-						<span className="text-cyan-500 font-medium">
-							素晴らしいサービス
-						</span>
-						をお届けするために
-						<br />
-						しっかりと整備しています。
+					<h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+						現在作成中です
+					</h1>
+					<p className="text-lg md:text-xl text-gray-600 mb-8">
+						利用規約ページを準備中です
 					</p>
-					<div className="bg-gradient-to-r from-cyan-50 to-pink-50 rounded-2xl p-6 border border-cyan-100">
-						<p className="text-sm text-gray-500">✨ もうすぐ公開予定です</p>
-					</div>
+					<div className="text-6xl mb-6">⏳</div>
+					<p className="text-sm md:text-base text-gray-500 leading-relaxed">
+						申し訳ございませんが、利用規約ページは現在作成中です。<br />
+						もうしばらくお待ちください。
+					</p>
 				</div>
 			</div>
-		</div>
+		</PageLayout>
 	);
 }
