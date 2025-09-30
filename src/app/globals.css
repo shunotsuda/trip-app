@@ -30,6 +30,7 @@ html,
 body {
 	height: 100%;
 	overflow-x: hidden;
+	overflow-y: hidden; /* 縦スクロールを無効化 */
 }
 
 /* iPhoneでの動的ビューポート高さ対応 */
@@ -38,89 +39,98 @@ body {
 	min-height: 100dvh; /* 動的ビューポート高さ */
 }
 
+.h-screen {
+	height: 100vh;
+	height: 100dvh; /* 動的ビューポート高さ */
+}
+
 /* iPhoneでの入力フィールドの色を固定 */
 input[type="email"],
 input[type="password"],
 input[type="text"] {
-  -webkit-text-fill-color: #1f2937 !important;
-  color: #1f2937 !important;
-  background-color: #ffffff !important;
-  border-color: #d1d5db !important;
+	-webkit-text-fill-color: #1f2937 !important;
+	color: #1f2937 !important;
+	background-color: #ffffff !important;
+	border-color: #d1d5db !important;
 }
 
 /* プレイスホルダーの色を半透明に */
 input[type="email"]::placeholder,
 input[type="password"]::placeholder,
 input[type="text"]::placeholder {
-  -webkit-text-fill-color: #9ca3af !important;
-  color: #9ca3af !important;
-  opacity: 1 !important;
+	-webkit-text-fill-color: #9ca3af !important;
+	color: #9ca3af !important;
+	opacity: 1 !important;
 }
 
 /* iOS Safariでの自動スタイル調整を無効化 */
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
-  -webkit-text-fill-color: #1f2937 !important;
-  color: #1f2937 !important;
-  background-color: #ffffff !important;
-  border-color: #3b82f6 !important;
+	-webkit-text-fill-color: #1f2937 !important;
+	color: #1f2937 !important;
+	background-color: #ffffff !important;
+	border-color: #3b82f6 !important;
 }
 
 /* エラー状態でも色を保持 */
 input[type="email"].border-red-300,
 input[type="password"].border-red-300,
 input[type="text"].border-red-300 {
-  -webkit-text-fill-color: #1f2937 !important;
-  color: #1f2937 !important;
-  background-color: #fef2f2 !important;
-  border-color: #f87171 !important;
+	-webkit-text-fill-color: #1f2937 !important;
+	color: #1f2937 !important;
+	background-color: #fef2f2 !important;
+	border-color: #f87171 !important;
 }
 
 /* 画像と同じ背景グラデーション（ピーチベージュ） */
 .bg-stone-50 {
-  background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%) !important;
+	background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%) !important;
 }
 
 /* 画像と同じテキスト色 */
 .text-gray-600 {
-  color: #525252 !important; /* 画像と同じグレー */
+	color: #525252 !important; /* 画像と同じグレー */
 }
 
 .text-gray-500 {
-  color: #737373 !important; /* 画像と同じグレー */
+	color: #737373 !important; /* 画像と同じグレー */
 }
 
 .text-gray-400 {
-  color: #a3a3a3 !important; /* 画像と同じグレー */
+	color: #a3a3a3 !important; /* 画像と同じグレー */
 }
 
 .text-gray-900 {
-  color: #171717 !important; /* 画像と同じ黒 */
+	color: #171717 !important; /* 画像と同じ黒 */
 }
 
 .text-gray-700 {
-  color: #404040 !important; /* 画像と同じグレー */
+	color: #404040 !important; /* 画像と同じグレー */
 }
 
 /* 画像と同じボーダー色 */
 .border-gray-200 {
-  border-color: #e5e5e5 !important;
+	border-color: #e5e5e5 !important;
 }
 
 .border-gray-300 {
-  border-color: #d4d4d4 !important;
+	border-color: #d4d4d4 !important;
 }
 
 /* 画像と同じボタン色（オレンジ系） */
 .bg-gradient-to-r.from-cyan-400.to-pink-400 {
-  background: linear-gradient(to right, #fb923c, #f97316) !important; /* オレンジ系グラデーション */
+	background: linear-gradient(
+		to right,
+		#fb923c,
+		#f97316
+	) !important; /* オレンジ系グラデーション */
 }
 
 .hover\:from-cyan-500:hover {
-  background: linear-gradient(to right, #ea580c, #dc2626) !important;
+	background: linear-gradient(to right, #ea580c, #dc2626) !important;
 }
 
 .hover\:to-pink-500:hover {
-  background: linear-gradient(to right, #ea580c, #dc2626) !important;
+	background: linear-gradient(to right, #ea580c, #dc2626) !important;
 }
