@@ -1,6 +1,5 @@
 "use client";
 
-
 export default function TermsPage() {
 	return (
 		<div className="min-h-screen bg-stone-50 px-4 py-4">

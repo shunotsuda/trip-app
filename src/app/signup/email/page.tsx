@@ -89,8 +89,9 @@ export default function EmailSignupPage() {
 	return (
 		<div className="min-h-screen bg-stone-50 px-4 py-4">
 			<div className="w-full max-w-md md:max-w-lg lg:max-w-xl md:mx-auto pb-20 md:pb-0">
-				{/* Back Button - Top Left */}
-				<div className="mb-4 md:mb-3">
+				{/* Desktop Header - Horizontal Layout */}
+				<div className="hidden lg:flex items-center justify-between mb-6">
+					{/* Back Button */}
 					<button
 						onClick={() => window.history.back()}
 						className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
@@ -110,24 +111,78 @@ export default function EmailSignupPage() {
 						</svg>
 						戻る
 					</button>
-				</div>
 
-				{/* Logo */}
-				<div className="text-center mb-4 md:mb-3">
-					<div className="w-18 h-18 md:w-20 md:h-20 lg:w-22 lg:h-22 mx-auto bg-gradient-to-br from-cyan-400 via-pink-400 to-amber-200 rounded-2xl flex items-center justify-center">
-						<div className="w-12 h-12 md:w-12 md:h-12 lg:w-13 lg:h-13 bg-white rounded-xl flex items-center justify-center">
-							<span className="text-2xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-pink-400 bg-clip-text text-transparent">
-								T
-							</span>
-						</div>
-					</div>
-				</div>
-
-				{/* App Name */}
-				<div className="text-center mb-4 md:mb-3">
-					<h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-						TRIP APP
+					{/* Title */}
+					<h1 className="text-2xl font-bold text-gray-900">
+						メールアドレスで新規登録
 					</h1>
+
+					{/* Logo */}
+					<Link href="/login" className="w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150" style={{
+						background: '#faf7f0'
+					}}>
+						{/* 波模様の装飾 */}
+						<div className="absolute inset-0 rounded-2xl overflow-hidden">
+							<div className="absolute top-1 left-1 w-6 h-6 rounded-full" style={{background: 'linear-gradient(45deg, #e0f2fe, #bae6fd)'}}></div>
+							<div className="absolute top-2 right-2 w-4 h-4 rounded-full" style={{background: 'linear-gradient(45deg, #fce7f3, #fbcfe8)'}}></div>
+							<div className="absolute bottom-2 left-2 w-5 h-5 rounded-full" style={{background: 'linear-gradient(45deg, #fef3c7, #fde68a)'}}></div>
+							<div className="absolute bottom-1 right-1 w-3 h-3 rounded-full" style={{background: 'linear-gradient(45deg, #e0e7ff, #c7d2fe)'}}></div>
+						</div>
+						<span className="text-sm font-bold text-gray-800 relative z-10">
+							SHUN
+						</span>
+					</Link>
+				</div>
+
+				{/* Mobile Layout */}
+				<div className="lg:hidden">
+					{/* Back Button - Top Left */}
+					<div className="mb-4 md:mb-3">
+						<button
+							onClick={() => window.history.back()}
+							className="inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors"
+						>
+							<svg
+								className="w-5 h-5 mr-2"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M15 19l-7-7 7-7"
+								/>
+							</svg>
+							戻る
+						</button>
+					</div>
+
+					{/* Logo */}
+					<div className="text-center mb-4 md:mb-3">
+						<Link href="/login" className="w-20 h-20 md:w-24 md:h-24 mx-auto rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150" style={{
+							background: '#faf7f0'
+						}}>
+							{/* 波模様の装飾 */}
+							<div className="absolute inset-0 rounded-2xl overflow-hidden">
+								<div className="absolute top-2 left-2 w-8 h-8 rounded-full" style={{background: 'linear-gradient(45deg, #e0f2fe, #bae6fd)'}}></div>
+								<div className="absolute top-4 right-3 w-6 h-6 rounded-full" style={{background: 'linear-gradient(45deg, #fce7f3, #fbcfe8)'}}></div>
+								<div className="absolute bottom-3 left-4 w-7 h-7 rounded-full" style={{background: 'linear-gradient(45deg, #fef3c7, #fde68a)'}}></div>
+								<div className="absolute bottom-2 right-2 w-5 h-5 rounded-full" style={{background: 'linear-gradient(45deg, #e0e7ff, #c7d2fe)'}}></div>
+							</div>
+							<span className="text-lg md:text-xl font-bold text-gray-800 relative z-10">
+								SHUN
+							</span>
+						</Link>
+					</div>
+
+					{/* Title */}
+					<div className="text-center mb-4 md:mb-3">
+						<h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+							メールアドレスで新規登録
+						</h1>
+					</div>
 				</div>
 
 				{/* Signup Form */}
