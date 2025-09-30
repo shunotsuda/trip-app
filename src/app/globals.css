@@ -53,6 +53,11 @@ a:active,
 	transition: opacity 0.1s ease, transform 0.1s ease !important;
 }
 
+/* GoogleとFacebookボタンは基本のタップ効果を無効化 */
+.bg-white.border-gray-200:active {
+	opacity: 1 !important; /* 基本のopacity効果を無効化 */
+}
+
 /* タップ時のスタイルを維持 */
 button:active:focus,
 a:active:focus,
@@ -75,6 +80,14 @@ a:not(:active),
 
 .bg-white:active {
 	background-color: #f3f4f6 !important; /* より薄いグレー */
+}
+
+/* GoogleとFacebookボタン専用のタップ効果 */
+.bg-white.border-gray-200:active {
+	background-color: #f9fafb !important; /* より薄いグレー */
+	border-color: #d1d5db !important;
+	opacity: 0.8 !important;
+	transform: scale(0.98) !important;
 }
 
 /* リンクのタップ効果 */
