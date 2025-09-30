@@ -7,11 +7,11 @@ interface BackButtonProps {
 	children?: React.ReactNode;
 }
 
-export default function BackButton({ 
-	href, 
-	onClick, 
-	className = "", 
-	children = "戻る" 
+export default function BackButton({
+	href,
+	onClick,
+	className = "",
+	children = "戻る",
 }: BackButtonProps) {
 	const buttonContent = (
 		<>
