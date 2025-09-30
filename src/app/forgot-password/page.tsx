@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ForgotPasswordPage() {
@@ -10,6 +10,14 @@ export default function ForgotPasswordPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const router = useRouter();
+	const emailInputRef = useRef<HTMLInputElement>(null);
+
+	// ページ読み込み時にメールアドレス入力欄にフォーカス
+	useEffect(() => {
+		if (emailInputRef.current) {
+			emailInputRef.current.focus();
+		}
+	}, []);
 
 	const validateEmail = (email: string) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,6 +122,7 @@ export default function ForgotPasswordPage() {
 									メールアドレス
 								</label>
 								<input
+									ref={emailInputRef}
 									type="email"
 									id="email"
 									name="email"
@@ -200,12 +209,6 @@ export default function ForgotPasswordPage() {
 								💡 メールが届かない場合は、迷惑メールフォルダもご確認ください。
 							</p>
 						</div>
-						<Link
-							href={`/login/email?email=${encodeURIComponent(email)}`}
-							className="inline-block bg-gradient-to-r from-cyan-400 to-pink-400 text-white px-6 py-3 rounded-lg font-medium hover:from-cyan-500 hover:to-pink-500 transition-all duration-200"
-						>
-							メールアドレスログインに戻る
-						</Link>
 					</div>
 				)}
 			</div>

@@ -115,7 +115,7 @@ export default function LoginPage() {
 						<div className="text-center mt-4 md:mt-3">
 							<Link
 								href="/login/email"
-								className="email-link text-gray-700 hover:text-gray-900 underline text-sm md:text-base transition-colors duration-150"
+								className="text-gray-700 hover:text-gray-900 underline text-sm md:text-base transition-colors duration-150"
 							>
 								メールアドレスで続ける
 							</Link>

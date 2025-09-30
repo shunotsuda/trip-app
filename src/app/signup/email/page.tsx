@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function EmailSignupPage() {
 	const [email, setEmail] = useState("");
@@ -13,6 +13,14 @@ export default function EmailSignupPage() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+	const emailInputRef = useRef<HTMLInputElement>(null);
+
+	// ページ読み込み時にメールアドレス入力欄にフォーカス
+	useEffect(() => {
+		if (emailInputRef.current) {
+			emailInputRef.current.focus();
+		}
+	}, []);
 
 	const validateEmail = (email: string) => {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -118,15 +126,39 @@ export default function EmailSignupPage() {
 					</h1>
 
 					{/* Logo */}
-					<Link href="/login" className="w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150" style={{
-						background: '#faf7f0'
-					}}>
+					<Link
+						href="/login"
+						className="logo-link w-16 h-16 rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150"
+						style={{
+							background: "#faf7f0",
+						}}
+					>
 						{/* 波模様の装飾 */}
 						<div className="absolute inset-0 rounded-2xl overflow-hidden">
-							<div className="absolute top-1 left-1 w-6 h-6 rounded-full" style={{background: 'linear-gradient(45deg, #e0f2fe, #bae6fd)'}}></div>
-							<div className="absolute top-2 right-2 w-4 h-4 rounded-full" style={{background: 'linear-gradient(45deg, #fce7f3, #fbcfe8)'}}></div>
-							<div className="absolute bottom-2 left-2 w-5 h-5 rounded-full" style={{background: 'linear-gradient(45deg, #fef3c7, #fde68a)'}}></div>
-							<div className="absolute bottom-1 right-1 w-3 h-3 rounded-full" style={{background: 'linear-gradient(45deg, #e0e7ff, #c7d2fe)'}}></div>
+							<div
+								className="absolute top-1 left-1 w-6 h-6 rounded-full"
+								style={{
+									background: "linear-gradient(45deg, #e0f2fe, #bae6fd)",
+								}}
+							></div>
+							<div
+								className="absolute top-2 right-2 w-4 h-4 rounded-full"
+								style={{
+									background: "linear-gradient(45deg, #fce7f3, #fbcfe8)",
+								}}
+							></div>
+							<div
+								className="absolute bottom-2 left-2 w-5 h-5 rounded-full"
+								style={{
+									background: "linear-gradient(45deg, #fef3c7, #fde68a)",
+								}}
+							></div>
+							<div
+								className="absolute bottom-1 right-1 w-3 h-3 rounded-full"
+								style={{
+									background: "linear-gradient(45deg, #e0e7ff, #c7d2fe)",
+								}}
+							></div>
 						</div>
 						<span className="text-sm font-bold text-gray-800 relative z-10">
 							SHUN
@@ -161,15 +193,39 @@ export default function EmailSignupPage() {
 
 					{/* Logo */}
 					<div className="text-center mb-4 md:mb-3">
-						<Link href="/login" className="w-20 h-20 md:w-24 md:h-24 mx-auto rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150" style={{
-							background: '#faf7f0'
-						}}>
+						<Link
+							href="/login"
+							className="logo-link w-20 h-20 md:w-24 md:h-24 mx-auto rounded-2xl flex items-center justify-center relative overflow-hidden hover:opacity-80 transition-opacity duration-150"
+							style={{
+								background: "#faf7f0",
+							}}
+						>
 							{/* 波模様の装飾 */}
 							<div className="absolute inset-0 rounded-2xl overflow-hidden">
-								<div className="absolute top-2 left-2 w-8 h-8 rounded-full" style={{background: 'linear-gradient(45deg, #e0f2fe, #bae6fd)'}}></div>
-								<div className="absolute top-4 right-3 w-6 h-6 rounded-full" style={{background: 'linear-gradient(45deg, #fce7f3, #fbcfe8)'}}></div>
-								<div className="absolute bottom-3 left-4 w-7 h-7 rounded-full" style={{background: 'linear-gradient(45deg, #fef3c7, #fde68a)'}}></div>
-								<div className="absolute bottom-2 right-2 w-5 h-5 rounded-full" style={{background: 'linear-gradient(45deg, #e0e7ff, #c7d2fe)'}}></div>
+								<div
+									className="absolute top-2 left-2 w-8 h-8 rounded-full"
+									style={{
+										background: "linear-gradient(45deg, #e0f2fe, #bae6fd)",
+									}}
+								></div>
+								<div
+									className="absolute top-4 right-3 w-6 h-6 rounded-full"
+									style={{
+										background: "linear-gradient(45deg, #fce7f3, #fbcfe8)",
+									}}
+								></div>
+								<div
+									className="absolute bottom-3 left-4 w-7 h-7 rounded-full"
+									style={{
+										background: "linear-gradient(45deg, #fef3c7, #fde68a)",
+									}}
+								></div>
+								<div
+									className="absolute bottom-2 right-2 w-5 h-5 rounded-full"
+									style={{
+										background: "linear-gradient(45deg, #e0e7ff, #c7d2fe)",
+									}}
+								></div>
 							</div>
 							<span className="text-lg md:text-xl font-bold text-gray-800 relative z-10">
 								SHUN
@@ -198,6 +254,7 @@ export default function EmailSignupPage() {
 							メールアドレス
 						</label>
 						<input
+							ref={emailInputRef}
 							type="email"
 							id="email"
 							name="email"
@@ -463,7 +520,7 @@ export default function EmailSignupPage() {
 					<p className="text-sm md:text-base lg:text-lg text-gray-600">
 						すでにアカウントをお持ちの方は
 						<Link
-							href="/login"
+							href="/login/email"
 							className="text-cyan-400 hover:text-cyan-500 transition-colors font-medium"
 						>
 							ログイン
