@@ -44,6 +44,66 @@ body {
 	height: 100dvh; /* 動的ビューポート高さ */
 }
 
+/* iPhoneでのタップ時のスタイル */
+button:active,
+a:active,
+[role="button"]:active {
+	opacity: 0.6 !important;
+	transform: scale(0.98) !important;
+	transition: opacity 0.1s ease, transform 0.1s ease !important;
+}
+
+/* タップ時のスタイルを維持 */
+button:active:focus,
+a:active:focus,
+[role="button"]:active:focus {
+	opacity: 0.6 !important;
+	transform: scale(0.98) !important;
+}
+
+/* タップ後のリセット */
+button:not(:active),
+a:not(:active),
+[role="button"]:not(:active) {
+	transition: opacity 0.2s ease, transform 0.2s ease !important;
+}
+
+/* 特定のボタンスタイル用のタップ効果 */
+.bg-black:active {
+	background-color: #374151 !important; /* より薄いグレー */
+}
+
+.bg-white:active {
+	background-color: #f3f4f6 !important; /* より薄いグレー */
+}
+
+/* リンクのタップ効果 */
+.text-gray-700:active,
+.text-cyan-400:active {
+	opacity: 0.4 !important;
+	background-color: rgba(0, 0, 0, 0.1) !important;
+	border-radius: 8px !important;
+	padding: 4px 8px !important;
+	margin: -4px -8px !important;
+	transition: all 0.1s ease !important;
+}
+
+/* ロゴのタップ効果 */
+.hover\:opacity-80:active {
+	opacity: 0.5 !important;
+}
+
+/* メールアドレスで続けるリンク専用のタップ効果 */
+.email-link:active {
+	opacity: 0.3 !important;
+	background-color: rgba(0, 0, 0, 0.15) !important;
+	border-radius: 12px !important;
+	padding: 8px 12px !important;
+	margin: -8px -12px !important;
+	transition: all 0.1s ease !important;
+	transform: scale(0.95) !important;
+}
+
 /* iPhoneでの入力フィールドの色を固定 */
 input[type="email"],
 input[type="password"],
