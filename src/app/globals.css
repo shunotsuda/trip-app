@@ -30,7 +30,7 @@ html,
 body {
 	height: 100%;
 	overflow-x: hidden;
-	overflow-y: hidden; /* 縦スクロールを無効化 */
+	overflow-y: auto; /* 縦スクロールを有効化（モバイル・PC共通） */
 }
 
 /* iPhoneでの動的ビューポート高さ対応 */

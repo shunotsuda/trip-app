@@ -1,0 +1,153 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+
+interface ProfileHeaderProps {
+	username: string;
+	posts: number;
+	followers: number;
+	following: number;
+	bio: string[];
+	profileImage: string;
+	onEditProfile: () => void;
+	onShareProfile: () => void;
+	onAddFriend: () => void;
+}
+
+export default function ProfileHeader({
+	username,
+	posts,
+	followers,
+	following,
+	bio,
+	profileImage,
+	onEditProfile,
+	onShareProfile,
+	onAddFriend,
+}: ProfileHeaderProps) {
+	const [showFullBio, setShowFullBio] = useState(false);
+
+	// 3行まで表示、それ以上は「続きを読む」で省略
+	const maxLines = 3;
+	const shouldShowReadMore = bio.length > maxLines;
+	const displayedBio = showFullBio ? bio : bio.slice(0, maxLines);
+	return (
+		<div className="px-4 py-6 bg-white">
+			{/* プロフィール写真と基本情報 */}
+			<div className="flex items-start space-x-4 mb-4">
+				<div className="relative">
+					{/* プロフィール写真 */}
+					<div className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-gray-300 relative">
+						<Image
+							src={profileImage}
+							alt="Profile"
+							fill
+							sizes="(max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
+							quality={95}
+							priority
+							className="object-cover"
+						/>
+					</div>
+
+					{/* ストーリー追加ボタン */}
+					<button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
+						<svg
+							className="w-3 h-3 text-black"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M12 4v16m8-8H4"
+							/>
+						</svg>
+					</button>
+				</div>
+
+				{/* 統計情報 */}
+				<div className="flex-1">
+					<div className="flex space-x-6 mb-3">
+						<div className="text-center">
+							<div className="text-lg font-semibold text-black">{posts}</div>
+							<div className="text-sm text-gray-600">投稿</div>
+						</div>
+						<div className="text-center">
+							<div className="text-lg font-semibold text-black">
+								{followers}
+							</div>
+							<div className="text-sm text-gray-600">フォロワー</div>
+						</div>
+						<div className="text-center">
+							<div className="text-lg font-semibold text-black">
+								{following}
+							</div>
+							<div className="text-sm text-gray-600">フォロー中</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* ユーザー名 */}
+			<div className="mb-3">
+				<h2 className="text-sm font-semibold text-black">{username}</h2>
+			</div>
+
+			{/* 自己紹介 */}
+			<div className="mb-4">
+				{displayedBio.map((line, index) => (
+					<div key={index} className="text-sm text-black leading-relaxed">
+						{line}
+					</div>
+				))}
+
+				{/* 続きを読むボタン */}
+				{shouldShowReadMore && (
+					<button
+						onClick={() => setShowFullBio(!showFullBio)}
+						className="text-sm text-blue-500 hover:text-blue-700 mt-1 transition-colors"
+					>
+						{showFullBio ? "続きを隠す" : "続きを読む"}
+					</button>
+				)}
+			</div>
+
+			{/* アクションボタン */}
+			<div className="flex space-x-2">
+				<button
+					onClick={onEditProfile}
+					className="flex-1 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+				>
+					プロフィールを編集
+				</button>
+				<button
+					onClick={onShareProfile}
+					className="flex-1 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+				>
+					プロフィールをシェア
+				</button>
+				<button
+					onClick={onAddFriend}
+					className="p-1.5 rounded-lg bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+				>
+					<svg
+						className="w-5 h-5"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth={2}
+							d="M12 4v16m8-8H4"
+						/>
+					</svg>
+				</button>
+			</div>
+		</div>
+	);
+}
