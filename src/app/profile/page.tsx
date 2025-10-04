@@ -16,14 +16,14 @@ export default function ProfilePage() {
 	// プロフィールデータ（画像から抽出した正確な値）
 	const profileData = {
 		username: "~Shun~", // ユーザーがコピペしたフォント部分
-		posts: 33, // 全ての画像を使用
-		followers: 27,
-		following: 239,
+		posts: 1580, // 全ての画像を使用
+		followers: 125000, // 12.5万
+		following: 2390000, // 239万
 		bio: [
 			"/",
 			"❤ Italian ❤",
 			"~ 1999.10.20 ~",
-			"Chiba ⇔ Tokyo... 続きを読む",
+			"Chiba ⇔ Tokyo",
 			"@ shun.1020_potd",
 		],
 		profileImage: "/images/profile/プロフィールアイコン画像.JPG",

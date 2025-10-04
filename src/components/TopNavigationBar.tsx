@@ -16,8 +16,8 @@ export default function TopNavigationBar({
 	return (
 		<header className="bg-white border-b border-gray-200 px-4 py-3">
 			<div className="flex items-center justify-between">
-				{/* 時刻表示 */}
-				<div className="text-sm font-semibold text-black">19:11</div>
+				{/* 左側空白 */}
+				<div></div>
 
 				{/* 中央のユーザー名 */}
 				<div className="flex items-center space-x-1">

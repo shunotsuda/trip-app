@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { formatJapaneseNumber } from "@/lib/numberFormat";
 
 interface ProfileHeaderProps {
 	username: string;
@@ -68,32 +69,34 @@ export default function ProfileHeader({
 					</button>
 				</div>
 
-				{/* 統計情報 */}
+				{/* ユーザー名 */}
 				<div className="flex-1">
-					<div className="flex space-x-6 mb-3">
-						<div className="text-center">
-							<div className="text-lg font-semibold text-black">{posts}</div>
+					<div className="mb-3">
+						<h2 className="text-sm font-semibold text-black">{username}</h2>
+					</div>
+
+					{/* 統計情報 */}
+					<div className="flex justify-between">
+						<div className="text-center flex-1">
+							<div className="text-lg font-semibold text-black">
+								{formatJapaneseNumber(posts)}
+							</div>
 							<div className="text-sm text-gray-600">投稿</div>
 						</div>
-						<div className="text-center">
+						<div className="text-center flex-1">
 							<div className="text-lg font-semibold text-black">
-								{followers}
+								{formatJapaneseNumber(followers)}
 							</div>
 							<div className="text-sm text-gray-600">フォロワー</div>
 						</div>
-						<div className="text-center">
+						<div className="text-center flex-1">
 							<div className="text-lg font-semibold text-black">
-								{following}
+								{formatJapaneseNumber(following)}
 							</div>
 							<div className="text-sm text-gray-600">フォロー中</div>
 						</div>
 					</div>
 				</div>
-			</div>
-
-			{/* ユーザー名 */}
-			<div className="mb-3">
-				<h2 className="text-sm font-semibold text-black">{username}</h2>
 			</div>
 
 			{/* 自己紹介 */}
