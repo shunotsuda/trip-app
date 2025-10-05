@@ -9,64 +9,36 @@ import {
 	TopNavigationBar,
 } from "@/components";
 
-export default function ProfilePage() {
+export default function OtherProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
+	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("home");
 
-	// 自分のプロフィールかどうかの判定（URLパラメータやpropsで制御可能）
-	const isOwnProfile = true; // 現在は自分のプロフィールとして設定
+	// 他人のプロフィールとして設定
+	const isOwnProfile = false;
 
-	// プロフィールデータ（画像から抽出した正確な値）
+	// 他人のプロフィールデータ
 	const profileData = {
-		username: "~Shun~", // ユーザーがコピペしたフォント部分
-		posts: 1580, // 全ての画像を使用
-		followers: 125000, // 12.5万
-		following: 2390000, // 239万
+		username: "田中太郎",
+		posts: 42,
+		followers: 1250,
+		following: 380,
 		bio: [
-			"/",
-			"❤ Italian ❤",
-			"~ 1999.10.20 ~",
-			"Chiba ⇔ Tokyo",
-			"@ shun.1020_potd",
+			"旅行好きのサラリーマン",
+			"📸 写真撮影が趣味",
+			"🌍 世界一周を目指しています",
+			"✈️ 次はヨーロッパ旅行予定",
 		],
-		profileImage: "/images/profile/プロフィールアイコン画像.JPG",
+		profileImage: "/images/profile/IMG_7659.JPG", // 仮の画像
 	};
 
-	// 投稿データ（全ての画像を使用）
+	// 投稿データ（少なめ）
 	const posts = [
-		{ id: "1", image: "/images/profile/投稿画像1.JPG" },
-		{ id: "2", image: "/images/profile/投稿画像2.JPG" },
-		{ id: "3", image: "/images/profile/投稿画像3.JPG" },
-		{ id: "4", image: "/images/profile/投稿画像4.JPG", isVideo: true }, // 動画アイコンあり
-		{ id: "5", image: "/images/profile/投稿画像5.JPG" },
-		{ id: "6", image: "/images/profile/投稿画像6.JPG" },
-		{ id: "7", image: "/images/profile/投稿画像7.JPG" },
-		{ id: "8", image: "/images/profile/IMG_7659.JPG" },
-		{ id: "9", image: "/images/profile/IMG_7660.JPG" },
-		{ id: "10", image: "/images/profile/IMG_7661.JPG" },
-		{ id: "11", image: "/images/profile/IMG_7663.JPG" },
-		{ id: "12", image: "/images/profile/IMG_7671.JPG" },
-		{ id: "13", image: "/images/profile/IMG_7672.JPG" },
-		{ id: "14", image: "/images/profile/IMG_7673.JPG" },
-		{ id: "15", image: "/images/profile/IMG_7674.JPG" },
-		{ id: "16", image: "/images/profile/IMG_7675.JPG" },
-		{ id: "17", image: "/images/profile/IMG_7677.JPG" },
-		{ id: "18", image: "/images/profile/IMG_7678.JPG" },
-		{ id: "19", image: "/images/profile/IMG_7679.JPG" },
-		{ id: "20", image: "/images/profile/IMG_7680.JPG" },
-		{ id: "21", image: "/images/profile/IMG_7681.JPG" },
-		{ id: "22", image: "/images/profile/IMG_7682.JPG" },
-		{ id: "23", image: "/images/profile/IMG_7683.JPG" },
-		{ id: "24", image: "/images/profile/IMG_7684.JPG" },
-		{ id: "25", image: "/images/profile/IMG_7685.JPG" },
-		{ id: "26", image: "/images/profile/IMG_7686.JPG" },
-		{ id: "27", image: "/images/profile/IMG_7687.JPG" },
-		{ id: "28", image: "/images/profile/IMG_7688.JPG" },
-		{ id: "29", image: "/images/profile/IMG_7689.JPG" },
-		{ id: "30", image: "/images/profile/IMG_7690.JPG" },
-		{ id: "31", image: "/images/profile/IMG_7691.JPG" },
-		{ id: "32", image: "/images/profile/IMG_7692.JPG" },
-		{ id: "33", image: "/images/profile/IMG_7693.JPG" },
+		{ id: "1", image: "/images/profile/IMG_7660.JPG" },
+		{ id: "2", image: "/images/profile/IMG_7661.JPG" },
+		{ id: "3", image: "/images/profile/IMG_7663.JPG" },
+		{ id: "4", image: "/images/profile/IMG_7664.JPG" },
+		{ id: "5", image: "/images/profile/IMG_7665.JPG" },
+		{ id: "6", image: "/images/profile/IMG_7666.JPG" },
 	];
 
 	// イベントハンドラー
@@ -96,15 +68,17 @@ export default function ProfilePage() {
 
 	const handleBackClick = () => {
 		console.log("戻る");
-		// ここで前のページに戻る処理を実装
-		// window.history.back() など
+		// 前のページに戻る処理
+		if (typeof window !== "undefined") {
+			window.history.back();
+		}
 	};
 
 	return (
 		<div className="min-h-screen bg-white pb-16 md:pb-0">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
-				username="shun.1020_potd"
+				username="田中太郎"
 				onMentionClick={handleMentionClick}
 				onCreatePost={handleCreatePost}
 				onMenuClick={handleMenuClick}
@@ -205,7 +179,7 @@ export default function ProfilePage() {
 			<BottomNavigationBar
 				activeTab={bottomNavActiveTab}
 				onTabChange={setBottomNavActiveTab}
-				profileImage={profileData.profileImage}
+				profileImage="/images/profile/プロフィールアイコン画像.JPG"
 			/>
 		</div>
 	);

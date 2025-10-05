@@ -18,7 +18,7 @@ export default function BottomNavigationBar({
 			id: "home",
 			icon: (
 				<svg
-					className="w-6 h-6"
+					className="w-7 h-7"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -36,7 +36,7 @@ export default function BottomNavigationBar({
 			id: "search",
 			icon: (
 				<svg
-					className="w-6 h-6"
+					className="w-7 h-7"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -54,7 +54,7 @@ export default function BottomNavigationBar({
 			id: "create",
 			icon: (
 				<svg
-					className="w-6 h-6"
+					className="w-7 h-7"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -72,7 +72,7 @@ export default function BottomNavigationBar({
 			id: "reels",
 			icon: (
 				<svg
-					className="w-6 h-6"
+					className="w-7 h-7"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -90,7 +90,7 @@ export default function BottomNavigationBar({
 			id: "profile",
 			icon: (
 				<div
-					className={`w-6 h-6 rounded-full overflow-hidden ${
+					className={`w-7 h-7 rounded-full overflow-hidden ${
 						activeTab === "profile"
 							? "border-2 border-black"
 							: "border border-gray-300"
@@ -99,8 +99,8 @@ export default function BottomNavigationBar({
 					<Image
 						src={profileImage}
 						alt="Profile"
-						width={24}
-						height={24}
+						width={28}
+						height={28}
 						className="w-full h-full object-cover"
 					/>
 				</div>
@@ -110,15 +110,15 @@ export default function BottomNavigationBar({
 
 	return (
 		<nav className="fixed bottom-0 left-0 right-0 z-1000 bg-white border-t border-gray-200">
-			<div className="flex items-center justify-around w-full px-2 py-2">
+			<div className="flex items-center justify-around w-full px-3 py-3">
 				{navItems.map((item) => (
 					<button
 						key={item.id}
 						onClick={() => onTabChange(item.id)}
-						className="flex flex-col items-center justify-center py-2 px-1 min-w-0 flex-1"
+						className="flex flex-col items-center justify-center py-2 px-2 min-w-0 flex-1"
 					>
 						<div
-							className={`w-6 h-6 flex items-center justify-center ${
+							className={`w-7 h-7 flex items-center justify-center ${
 								activeTab === item.id ? "text-black" : "text-gray-400"
 							}`}
 						>

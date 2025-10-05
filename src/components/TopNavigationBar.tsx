@@ -5,6 +5,8 @@ interface TopNavigationBarProps {
 	onMentionClick: () => void;
 	onCreatePost: () => void;
 	onMenuClick: () => void;
+	showBackButton?: boolean;
+	onBackClick?: () => void;
 }
 
 export default function TopNavigationBar({
@@ -12,12 +14,33 @@ export default function TopNavigationBar({
 	onMentionClick,
 	onCreatePost,
 	onMenuClick,
+	showBackButton = false,
+	onBackClick,
 }: TopNavigationBarProps) {
 	return (
 		<header className="bg-white border-b border-gray-200 px-4 py-3">
 			<div className="flex items-center justify-between">
-				{/* 左側空白 */}
-				<div></div>
+				{/* 左側：戻るボタンまたは何も表示しない */}
+				{showBackButton && (
+					<button
+						onClick={onBackClick}
+						className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+					>
+						<svg
+							className="w-6 h-6 text-black"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={1.5}
+								d="M15 19l-7-7 7-7"
+							/>
+						</svg>
+					</button>
+				)}
 
 				{/* 中央のユーザー名 */}
 				<div className="flex items-center space-x-1">
