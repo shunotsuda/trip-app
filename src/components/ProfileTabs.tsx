@@ -16,37 +16,26 @@ export default function ProfileTabs({
 			icon: (isActive: boolean) => (
 				<svg
 					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
-					fill={isActive ? "url(#gradient)" : "none"}
-					stroke={isActive ? "none" : "currentColor"}
+					fill={isActive ? "url(#rainbow)" : "none"}
+					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
 				>
-					{isActive && (
-						<defs>
-							<linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-								<stop
-									offset="0%"
-									style={{ stopColor: "#87CEEB", stopOpacity: 1 }}
-								/>
-								<stop
-									offset="60%"
-									style={{ stopColor: "#87CEEB", stopOpacity: 1 }}
-								/>
-								<stop
-									offset="60%"
-									style={{ stopColor: "#9ACD32", stopOpacity: 1 }}
-								/>
-								<stop
-									offset="100%"
-									style={{ stopColor: "#9ACD32", stopOpacity: 1 }}
-								/>
-							</linearGradient>
-						</defs>
-					)}
+					<defs>
+						<linearGradient id="rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stopColor="#ff0000" />
+							<stop offset="16.66%" stopColor="#ff8000" />
+							<stop offset="33.33%" stopColor="#ffff00" />
+							<stop offset="50%" stopColor="#80ff00" />
+							<stop offset="66.66%" stopColor="#00ff00" />
+							<stop offset="83.33%" stopColor="#0080ff" />
+							<stop offset="100%" stopColor="#8000ff" />
+						</linearGradient>
+					</defs>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
 						strokeWidth={1.5}
-						d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+						d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z"
 					/>
 				</svg>
 			),
@@ -57,10 +46,18 @@ export default function ProfileTabs({
 			icon: (isActive: boolean) => (
 				<svg
 					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
-					fill={isActive ? "#FFA500" : "none"}
-					stroke={isActive ? "none" : "currentColor"}
+					fill={isActive ? "url(#gold-star)" : "none"}
+					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
 				>
+					<defs>
+						<linearGradient id="gold-star" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stopColor="#FFD700" />
+							<stop offset="30%" stopColor="#FFA500" />
+							<stop offset="60%" stopColor="#FFD700" />
+							<stop offset="100%" stopColor="#FFA500" />
+						</linearGradient>
+					</defs>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
@@ -76,10 +73,17 @@ export default function ProfileTabs({
 			icon: (isActive: boolean) => (
 				<svg
 					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
-					fill={isActive ? "#E91E63" : "none"}
-					stroke={isActive ? "none" : "currentColor"}
+					fill={isActive ? "url(#red-heart)" : "none"}
+					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
 				>
+					<defs>
+						<linearGradient id="red-heart" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stopColor="#FF0000" />
+							<stop offset="50%" stopColor="#FF4444" />
+							<stop offset="100%" stopColor="#FF0000" />
+						</linearGradient>
+					</defs>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
@@ -95,10 +99,17 @@ export default function ProfileTabs({
 			icon: (isActive: boolean) => (
 				<svg
 					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
-					fill={isActive ? "#3B82F6" : "none"}
-					stroke={isActive ? "none" : "currentColor"}
+					fill={isActive ? "url(#blue-plane)" : "none"}
+					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
 				>
+					<defs>
+						<linearGradient id="blue-plane" x1="0%" y1="0%" x2="100%" y2="100%">
+							<stop offset="0%" stopColor="#3B82F6" />
+							<stop offset="50%" stopColor="#60A5FA" />
+							<stop offset="100%" stopColor="#3B82F6" />
+						</linearGradient>
+					</defs>
 					<path
 						strokeLinecap="round"
 						strokeLinejoin="round"
