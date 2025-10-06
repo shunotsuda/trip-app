@@ -154,3 +154,11 @@ input[type="text"].border-red-300 {
 .hover\:to-pink-500:hover {
 	background: linear-gradient(to right, #ea580c, #dc2626) !important;
 }
+
+/* Line clamp utilities */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}

@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 interface TopNavigationBarProps {
 	username: string;
 	onMentionClick: () => void;
@@ -18,7 +20,7 @@ export default function TopNavigationBar({
 	onBackClick,
 }: TopNavigationBarProps) {
 	return (
-		<header className="bg-white border-b border-gray-200 px-4 py-3">
+		<header className="sticky top-0 z-50 h-16 bg-white border-b border-gray-200 px-4 py-3">
 			<div className="flex items-center justify-between">
 				{/* 左側：戻るボタンまたは何も表示しない */}
 				{showBackButton && (

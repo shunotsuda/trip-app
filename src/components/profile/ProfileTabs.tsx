@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 interface ProfileTabsProps {
 	activeTab: string;
 	onTabChange: (tab: string) => void;
@@ -122,28 +124,34 @@ export default function ProfileTabs({
 	];
 
 	return (
-		<div className="bg-white border-t border-gray-200">
-			<div className="flex">
-				{tabs.map((tab) => (
-					<button
-						key={tab.id}
-						onClick={() => onTabChange(tab.id)}
-						className={`flex-1 flex items-center justify-center py-3 relative ${
-							activeTab === tab.id ? "text-gray-700" : "text-gray-400"
-						}`}
-					>
-						<div className="flex items-center space-x-1">
-							{typeof tab.icon === "function"
-								? tab.icon(activeTab === tab.id)
-								: tab.icon}
-							<span className="text-xs font-medium">{tab.label}</span>
-						</div>
-						{activeTab === tab.id && (
-							<div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-700"></div>
-						)}
-					</button>
-				))}
+		<>
+			{/* タブメニュー */}
+			<div
+				className="sticky top-16 z-40 bg-white border-t border-b border-gray-200"
+				style={{ height: 48 }}
+			>
+				<div className="flex">
+					{tabs.map((tab) => (
+						<button
+							key={tab.id}
+							onClick={() => onTabChange(tab.id)}
+							className={`flex-1 flex items-center justify-center py-3 relative ${
+								activeTab === tab.id ? "text-gray-700" : "text-gray-400"
+							}`}
+						>
+							<div className="flex items-center space-x-1">
+								{typeof tab.icon === "function"
+									? tab.icon(activeTab === tab.id)
+									: tab.icon}
+								<span className="text-xs font-medium">{tab.label}</span>
+							</div>
+							{activeTab === tab.id && (
+								<div className="absolute bottom-0 left-2 right-2 h-px bg-gradient-to-r from-orange-400 to-orange-600"></div>
+							)}
+						</button>
+					))}
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
