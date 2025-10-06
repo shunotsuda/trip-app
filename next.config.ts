@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
 		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 		// 最小化を無効にして高品質を維持
 		minimumCacheTTL: 60,
+		// 画像品質の設定
+		qualities: [75, 80, 85, 90, 95],
 	},
 };
 

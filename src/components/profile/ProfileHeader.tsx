@@ -111,7 +111,7 @@ export default function ProfileHeader({
 				{shouldShowReadMore && (
 					<button
 						onClick={() => setShowFullBio(!showFullBio)}
-						className="text-sm text-blue-500 hover:text-blue-700 mt-1 transition-colors"
+						className="text-sm text-gray-400 hover:text-gray-600 mt-1 transition-colors"
 					>
 						{showFullBio ? "続きを隠す" : "続きを読む"}
 					</button>
@@ -122,13 +122,13 @@ export default function ProfileHeader({
 			<div className="flex space-x-2">
 				<button
 					onClick={onEditProfile}
-					className="flex-1 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors whitespace-nowrap"
 				>
 					プロフィールを編集
 				</button>
 				<button
 					onClick={onShareProfile}
-					className="flex-1 py-1.5 px-3 rounded-lg text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors whitespace-nowrap"
 				>
 					プロフィールをシェア
 				</button>

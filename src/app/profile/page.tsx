@@ -9,10 +9,39 @@ import {
 	BottomNavigationBar,
 	TopNavigationBar,
 } from "@/components";
+// TabPanelコンポーネントを手動で実装
+interface TabPanelProps {
+	children?: React.ReactNode;
+	index: string;
+	value: string;
+}
+
+function TabPanel(props: TabPanelProps) {
+	const { children, value, index, ...other } = props;
+
+	return (
+		<div
+			role="tabpanel"
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+			{...other}
+		>
+			{value === index && <div>{children}</div>}
+		</div>
+	);
+}
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
 	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
+
+	// タブ切り替え時に一番上から表示
+	const handleTabChange = (newTab: string) => {
+		setActiveTab(newTab);
+		// タブ切り替え時にページトップに戻る
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	};
 
 	// 自分のプロフィールかどうかの判定（URLパラメータやpropsで制御可能）
 	const isOwnProfile = true; // 現在は自分のプロフィールとして設定
@@ -257,7 +286,6 @@ export default function ProfilePage() {
 	];
 
 	// テスト用に空配列に変更
-	const itineraryDataNone = [];
 	// 投稿データ（全ての画像を使用）
 	const posts = [
 		{
@@ -541,60 +569,71 @@ export default function ProfilePage() {
 			/>
 
 			{/* プロフィールタブ */}
-			<ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
-
-			{/* コンテンツエリア */}
-			<div className="flex-1">
-				{activeTab === "posts" && <PostGrid posts={posts} />}
-
-				{activeTab === "reviews" && (
-					<div className="text-center py-12">
-						<svg
-							className="w-16 h-16 text-gray-400 mx-auto mb-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-							/>
-						</svg>
-						<div className="text-black text-lg mb-2">レビューがありません</div>
-						<button className="text-blue-500 text-sm">
-							最初のレビューを書く
-						</button>
+			<ProfileTabs activeTab={activeTab} onTabChange={handleTabChange}>
+				{/* 投稿タブ */}
+				<TabPanel value={activeTab} index="posts">
+					<div className="flex-1">
+						<PostGrid posts={posts} />
 					</div>
-				)}
+				</TabPanel>
 
-				{activeTab === "favorites" && (
-					<div className="text-center py-12">
-						<svg
-							className="w-16 h-16 text-gray-400 mx-auto mb-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-							/>
-						</svg>
-						<div className="text-black text-lg mb-2">
-							気になる投稿がありません
+				{/* レビュータブ */}
+				<TabPanel value={activeTab} index="reviews">
+					<div className="flex-1">
+						<div className="text-center py-12">
+							<svg
+								className="w-16 h-16 text-gray-400 mx-auto mb-4"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+								/>
+							</svg>
+							<div className="text-black text-lg mb-2">
+								レビューがありません
+							</div>
+							<button className="text-blue-500 text-sm">
+								最初のレビューを書く
+							</button>
 						</div>
-						<button className="text-blue-500 text-sm">
-							投稿を探してみよう
-						</button>
 					</div>
-				)}
+				</TabPanel>
 
-				{activeTab === "itinerary" && (
-					<>
+				{/* 気になるタブ */}
+				<TabPanel value={activeTab} index="favorites">
+					<div className="flex-1">
+						<div className="text-center py-12">
+							<svg
+								className="w-16 h-16 text-gray-400 mx-auto mb-4"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+								/>
+							</svg>
+							<div className="text-black text-lg mb-2">
+								気になる投稿がありません
+							</div>
+							<button className="text-blue-500 text-sm">
+								投稿を探してみよう
+							</button>
+						</div>
+					</div>
+				</TabPanel>
+
+				{/* 旅しおりタブ */}
+				<TabPanel value={activeTab} index="itinerary">
+					<div className="flex-1">
 						{itineraryData.length > 0 ? (
 							<div className="p-4">
 								<div className="grid grid-cols-2 gap-3">
@@ -633,9 +672,9 @@ export default function ProfilePage() {
 								</button>
 							</div>
 						)}
-					</>
-				)}
-			</div>
+					</div>
+				</TabPanel>
+			</ProfileTabs>
 
 			{/* ボトムナビゲーションバー */}
 			<BottomNavigationBar

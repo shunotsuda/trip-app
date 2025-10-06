@@ -1,15 +1,18 @@
 "use client";
 
 import React from "react";
+import { Tabs, Tab, Box } from "@mui/material";
 
 interface ProfileTabsProps {
 	activeTab: string;
 	onTabChange: (tab: string) => void;
+	children: React.ReactNode;
 }
 
 export default function ProfileTabs({
 	activeTab,
 	onTabChange,
+	children,
 }: ProfileTabsProps) {
 	const tabs = [
 		{
@@ -17,7 +20,7 @@ export default function ProfileTabs({
 			label: "投稿",
 			icon: (isActive: boolean) => (
 				<svg
-					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
+					className={`w-4 h-4 ${isActive ? "drop-shadow-md" : ""}`}
 					fill={isActive ? "url(#rainbow)" : "none"}
 					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
@@ -47,7 +50,7 @@ export default function ProfileTabs({
 			label: "レビュー",
 			icon: (isActive: boolean) => (
 				<svg
-					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
+					className={`w-4 h-4 ${isActive ? "drop-shadow-md" : ""}`}
 					fill={isActive ? "url(#gold-star)" : "none"}
 					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
@@ -74,7 +77,7 @@ export default function ProfileTabs({
 			label: "気になる",
 			icon: (isActive: boolean) => (
 				<svg
-					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
+					className={`w-4 h-4 ${isActive ? "drop-shadow-md" : ""}`}
 					fill={isActive ? "url(#red-heart)" : "none"}
 					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
@@ -100,7 +103,7 @@ export default function ProfileTabs({
 			label: "旅しおり",
 			icon: (isActive: boolean) => (
 				<svg
-					className={`w-5 h-5 ${isActive ? "drop-shadow-md" : ""}`}
+					className={`w-4 h-4 ${isActive ? "drop-shadow-md" : ""}`}
 					fill={isActive ? "url(#blue-plane)" : "none"}
 					stroke={isActive ? "none" : "#9CA3AF"}
 					viewBox="0 0 24 24"
@@ -123,35 +126,76 @@ export default function ProfileTabs({
 		},
 	];
 
+	const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+		onTabChange(newValue);
+	};
+
 	return (
 		<>
-			{/* タブメニュー */}
-			<div
-				className="sticky top-16 z-40 bg-white border-t border-b border-gray-200"
-				style={{ height: 48 }}
+			<Box
+				sx={{
+					position: "sticky",
+					top: "64px", // 16 * 4 = 64px (top-16)
+					zIndex: 40,
+					backgroundColor: "white",
+					borderBottom: "1px solid #e5e7eb",
+				}}
 			>
-				<div className="flex">
+				<Tabs
+					value={activeTab}
+					onChange={handleTabChange}
+					variant="fullWidth"
+					sx={{
+						minHeight: "48px",
+						"& .MuiTabs-indicator": {
+							backgroundColor: "transparent",
+						},
+						"& .MuiTab-root": {
+							minHeight: "48px",
+							fontSize: "0.7rem",
+							fontWeight: 700,
+							color: "#9CA3AF",
+							textTransform: "none",
+							whiteSpace: "nowrap",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+							"&.Mui-selected": {
+								color: "#374151",
+							},
+							"&::after": {
+								content: '""',
+								position: "absolute",
+								bottom: 0,
+								left: "16px",
+								right: "16px",
+								height: "3px",
+								backgroundColor: "transparent",
+								transition: "all 0.3s ease-in-out",
+								borderRadius: "2px 2px 0 0",
+							},
+						},
+						"& .MuiTab-root.Mui-selected::after": {
+							background:
+								"linear-gradient(135deg, #374151 0%, #6b7280 50%, #374151 100%)",
+							boxShadow:
+								"0 2px 4px rgba(55, 65, 81, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+						},
+					}}
+				>
 					{tabs.map((tab) => (
-						<button
+						<Tab
 							key={tab.id}
-							onClick={() => onTabChange(tab.id)}
-							className={`flex-1 flex items-center justify-center py-3 relative ${
-								activeTab === tab.id ? "text-gray-700" : "text-gray-400"
-							}`}
-						>
-							<div className="flex items-center space-x-1">
-								{typeof tab.icon === "function"
-									? tab.icon(activeTab === tab.id)
-									: tab.icon}
-								<span className="text-xs font-medium">{tab.label}</span>
-							</div>
-							{activeTab === tab.id && (
-								<div className="absolute bottom-0 left-2 right-2 h-px bg-gradient-to-r from-orange-400 to-orange-600"></div>
-							)}
-						</button>
+							value={tab.id}
+							label={tab.label}
+							icon={tab.icon(activeTab === tab.id)}
+							iconPosition="start"
+						/>
 					))}
-				</div>
-			</div>
+				</Tabs>
+			</Box>
+
+			{/* TabPanelコンテンツ */}
+			{children}
 		</>
 	);
 }
