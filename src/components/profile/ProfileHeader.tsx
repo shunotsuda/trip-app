@@ -34,7 +34,7 @@ export default function ProfileHeader({
 	const shouldShowReadMore = bio.length > maxLines;
 	const displayedBio = showFullBio ? bio : bio.slice(0, maxLines);
 	return (
-		<div className="px-4 py-6 bg-white">
+		<div className="px-4  bg-white">
 			{/* プロフィール写真と基本情報 */}
 			<div className="flex items-start space-x-4 mb-4">
 				<div className="relative">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
 	ProfileHeader,
 	ProfileTabs,
@@ -8,33 +8,19 @@ import {
 	ItineraryCard,
 	BottomNavigationBar,
 	TopNavigationBar,
+	TabPanel,
+	PWAInstallButton,
 } from "@/components";
-// TabPanelコンポーネントを手動で実装
-interface TabPanelProps {
-	children?: React.ReactNode;
-	index: string;
-	value: string;
-}
-
-function TabPanel(props: TabPanelProps) {
-	const { children, value, index, ...other } = props;
-
-	return (
-		<div
-			role="tabpanel"
-			hidden={value !== index}
-			id={`simple-tabpanel-${index}`}
-			aria-labelledby={`simple-tab-${index}`}
-			{...other}
-		>
-			{value === index && <div>{children}</div>}
-		</div>
-	);
-}
+import { registerServiceWorker } from "@/lib/pwa";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
 	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
+
+	// PWA Service Worker登録
+	useEffect(() => {
+		registerServiceWorker();
+	}, []);
 
 	// タブ切り替え時に一番上から表示
 	const handleTabChange = (newTab: string) => {
@@ -642,7 +628,6 @@ export default function ProfilePage() {
 											key={itinerary.id}
 											title={itinerary.title}
 											startDate={itinerary.startDate}
-											endDate={itinerary.endDate}
 											images={itinerary.images}
 											members={itinerary.members}
 										/>
@@ -682,6 +667,9 @@ export default function ProfilePage() {
 				onTabChange={setBottomNavActiveTab}
 				profileImage={profileData.profileImage}
 			/>
+
+			{/* PWAインストールボタン */}
+			<PWAInstallButton />
 		</div>
 	);
 }

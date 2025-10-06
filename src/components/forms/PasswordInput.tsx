@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, forwardRef } from "react";
 
 interface PasswordInputProps {
@@ -17,7 +19,21 @@ interface PasswordInputProps {
 }
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-	({ id, name, value, onChange, placeholder, error, required, className = "", showValidation = false, validation }, ref) => {
+	(
+		{
+			id,
+			name,
+			value,
+			onChange,
+			placeholder,
+			error,
+			required,
+			className = "",
+			showValidation = false,
+			validation,
+		},
+		ref
+	) => {
 		const [showPassword, setShowPassword] = useState(false);
 
 		return (
@@ -84,9 +100,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 						)}
 					</button>
 				</div>
-				{error && (
-					<p className="mt-1 text-xs text-red-600">{error}</p>
-				)}
+				{error && <p className="mt-1 text-xs text-red-600">{error}</p>}
 
 				{/* Password Validation */}
 				{showValidation && validation && value && (
@@ -115,9 +129,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							</div>
 							<span
 								className={
-									validation.length
-										? "text-green-600"
-										: "text-gray-500"
+									validation.length ? "text-green-600" : "text-gray-500"
 								}
 							>
 								8文字以上
@@ -147,9 +159,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 							</div>
 							<span
 								className={
-									validation.alphanumeric
-										? "text-green-600"
-										: "text-gray-500"
+									validation.alphanumeric ? "text-green-600" : "text-gray-500"
 								}
 							>
 								英数字を含む

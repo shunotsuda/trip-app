@@ -6,7 +6,11 @@ interface LogoProps {
 	className?: string;
 }
 
-export default function Logo({ size = "md", href = "/login", className = "" }: LogoProps) {
+export default function Logo({
+	size = "md",
+	href = "/login",
+	className = "",
+}: LogoProps) {
 	const sizeClasses = {
 		sm: "w-16 h-16 text-sm",
 		md: "w-20 h-20 md:w-24 md:h-24 text-lg md:text-xl",
@@ -41,7 +45,9 @@ export default function Logo({ size = "md", href = "/login", className = "" }: L
 				></div>
 				<div
 					className={`absolute rounded-full ${
-						size === "sm" ? "bottom-2 left-2 w-5 h-5" : "bottom-3 left-4 w-7 h-7"
+						size === "sm"
+							? "bottom-2 left-2 w-5 h-5"
+							: "bottom-3 left-4 w-7 h-7"
 					}`}
 					style={{
 						background: "linear-gradient(45deg, #fef3c7, #fde68a)",
@@ -49,16 +55,16 @@ export default function Logo({ size = "md", href = "/login", className = "" }: L
 				></div>
 				<div
 					className={`absolute rounded-full ${
-						size === "sm" ? "bottom-1 right-1 w-3 h-3" : "bottom-2 right-2 w-5 h-5"
+						size === "sm"
+							? "bottom-1 right-1 w-3 h-3"
+							: "bottom-2 right-2 w-5 h-5"
 					}`}
 					style={{
 						background: "linear-gradient(45deg, #e0e7ff, #c7d2fe)",
 					}}
 				></div>
 			</div>
-			<span className="font-bold text-gray-800 relative z-10">
-				SHUN
-			</span>
+			<span className="font-bold text-gray-800 relative z-10">SHUN</span>
 		</Link>
 	);
 }

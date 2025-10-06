@@ -28,23 +28,15 @@ export default function PageLayout({
 					<>
 						{showLogo ? (
 							<div className="hidden lg:flex items-center justify-between mb-6">
-								{/* Back Button */}
 								<BackButton href={backHref} onClick={backOnClick} />
-
-								{/* Title */}
 								<h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-
-								{/* Logo */}
 								<Logo size={logoSize} href={logoHref} />
 							</div>
 						) : (
 							<div className="hidden lg:block mb-6">
-								{/* Back Button - Top Left */}
 								<div className="mb-4">
 									<BackButton href={backHref} onClick={backOnClick} />
 								</div>
-
-								{/* Title - Centered */}
 								<h1 className="text-2xl font-bold text-gray-900 text-center">
 									{title}
 								</h1>
@@ -55,19 +47,16 @@ export default function PageLayout({
 
 				{/* Mobile Layout */}
 				<div className="lg:hidden">
-					{/* Back Button - Top Left */}
 					<div className="mb-4 md:mb-3">
 						<BackButton href={backHref} onClick={backOnClick} />
 					</div>
 
-					{/* Logo */}
 					{showLogo && (
 						<div className="text-center mb-4 md:mb-3">
 							<Logo size={logoSize} href={logoHref} className="mx-auto" />
 						</div>
 					)}
 
-					{/* Title */}
 					{title && (
 						<h1 className="text-2xl font-bold text-gray-900 text-center mb-6 md:mb-8">
 							{title}

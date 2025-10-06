@@ -31,12 +31,3 @@ export function formatJapaneseNumber(num: number): string {
 		}
 	}
 }
-
-// テスト用の例
-// console.log(formatJapaneseNumber(1580)); // "1,580"
-// console.log(formatJapaneseNumber(10000)); // "1万"
-// console.log(formatJapaneseNumber(12000)); // "1.2万"
-// console.log(formatJapaneseNumber(254000)); // "25.4万"
-// console.log(formatJapaneseNumber(1280000)); // "128万"
-// console.log(formatJapaneseNumber(15660)); // "1.6万"
-// console.log(formatJapaneseNumber(120000000)); // "1.2億"

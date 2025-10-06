@@ -7,30 +7,8 @@ import {
 	PostGrid,
 	BottomNavigationBar,
 	TopNavigationBar,
+	TabPanel,
 } from "@/components";
-
-// TabPanelコンポーネントを手動で実装
-interface TabPanelProps {
-	children?: React.ReactNode;
-	index: string;
-	value: string;
-}
-
-function TabPanel(props: TabPanelProps) {
-	const { children, value, index, ...other } = props;
-
-	return (
-		<div
-			role="tabpanel"
-			hidden={value !== index}
-			id={`simple-tabpanel-${index}`}
-			aria-labelledby={`simple-tab-${index}`}
-			{...other}
-		>
-			{value === index && <div>{children}</div>}
-		</div>
-	);
-}
 
 export default function OtherProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");

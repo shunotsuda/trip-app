@@ -9,7 +9,6 @@ import { Avatar, AvatarGroup } from "@mui/material";
 interface ItineraryCardProps {
 	title: string;
 	startDate: string;
-	endDate: string;
 	images: string[];
 	members: Array<{
 		id: string;
@@ -21,7 +20,6 @@ interface ItineraryCardProps {
 export default function ItineraryCard({
 	title,
 	startDate,
-	endDate,
 	images,
 	members,
 }: ItineraryCardProps) {
