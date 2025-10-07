@@ -2,11 +2,13 @@
 
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import PageLayout from "@/components/ui/PageLayout";
-import FormInput from "@/components/forms/FormInput";
-import PasswordInput from "@/components/forms/PasswordInput";
-import SubmitButton from "@/components/forms/SubmitButton";
-import { validateEmail, validatePassword, getEmailError } from "@/lib/validation";
+import { PageLayout } from "@/components/layout";
+import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
+import {
+	validateEmail,
+	validatePassword,
+	getEmailError,
+} from "@/lib/validation";
 
 function EmailLoginContent() {
 	const [email, setEmail] = useState("");
@@ -66,11 +68,12 @@ function EmailLoginContent() {
 	};
 
 	const passwordValidation = validatePassword(password);
-	const isFormValid = validateEmail(email) && Object.values(passwordValidation).every(Boolean);
+	const isFormValid =
+		validateEmail(email) && Object.values(passwordValidation).every(Boolean);
 
 	return (
-		<PageLayout 
-			title="メールアドレスでログイン" 
+		<PageLayout
+			title="メールアドレスでログイン"
 			backHref="/login"
 			logoHref="/login"
 		>
@@ -114,7 +117,7 @@ function EmailLoginContent() {
 			{/* Forgot Password Link */}
 			<div className="mt-4 md:mt-5 lg:mt-6 text-center">
 				<a
-					href="/forgot-password"
+					href="/login/forgot-password"
 					className="text-cyan-400 hover:text-cyan-500 transition-colors text-sm md:text-base"
 				>
 					パスワードを忘れた方

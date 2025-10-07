@@ -9,18 +9,11 @@ import {
 	BottomNavigationBar,
 	TopNavigationBar,
 	TabPanel,
-	PWAInstallButton,
 } from "@/components";
-import { registerServiceWorker } from "@/lib/pwa";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
 	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
-
-	// PWA Service Worker登録
-	useEffect(() => {
-		registerServiceWorker();
-	}, []);
 
 	// タブ切り替え時に一番上から表示
 	const handleTabChange = (newTab: string) => {
@@ -553,7 +546,6 @@ export default function ProfilePage() {
 				onShareProfile={handleShareProfile}
 				onAddFriend={handleAddFriend}
 			/>
-
 			{/* プロフィールタブ */}
 			<ProfileTabs activeTab={activeTab} onTabChange={handleTabChange}>
 				{/* 投稿タブ */}
@@ -667,9 +659,6 @@ export default function ProfilePage() {
 				onTabChange={setBottomNavActiveTab}
 				profileImage={profileData.profileImage}
 			/>
-
-			{/* PWAインストールボタン */}
-			<PWAInstallButton />
 		</div>
 	);
 }

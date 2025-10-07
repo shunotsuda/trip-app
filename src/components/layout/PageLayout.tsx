@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { BackButton, Logo } from "@/components/common";
+import { BackButton, Logo } from "@/components/ui";
 
 interface PageLayoutProps {
 	title: string;

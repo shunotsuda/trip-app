@@ -15,12 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
 	title: "TRIP APP",
 	description: "旅行をより楽しく",
-	manifest: "/manifest.json",
-	appleWebApp: {
-		capable: true,
-		statusBarStyle: "default",
-		title: "TRIP APP",
-	},
 	formatDetection: {
 		telephone: false,
 	},
@@ -31,7 +25,6 @@ export const viewport = {
 	initialScale: 1,
 	maximumScale: 1,
 	userScalable: false,
-	themeColor: "#fb923c",
 };
 
 export default function RootLayout({
@@ -41,13 +34,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="ja" className="dark">
-			<head>
-				<link rel="manifest" href="/manifest.json" />
-				<meta name="apple-mobile-web-app-capable" content="yes" />
-				<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-				<meta name="apple-mobile-web-app-title" content="TRIP APP" />
-				<link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-			</head>
+			<head></head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				suppressHydrationWarning={true}

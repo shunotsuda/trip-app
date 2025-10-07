@@ -2,9 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import PageLayout from "@/components/ui/PageLayout";
-import FormInput from "@/components/forms/FormInput";
-import SubmitButton from "@/components/forms/SubmitButton";
+import { PageLayout } from "@/components/layout";
+import { FormInput, SubmitButton } from "@/components/forms";
 import { validateEmail, getEmailError } from "@/lib/validation";
 
 export default function ForgotPasswordPage() {
@@ -59,8 +58,8 @@ export default function ForgotPasswordPage() {
 	const isFormValid = validateEmail(email);
 
 	return (
-		<PageLayout 
-			title="パスワードを忘れた方" 
+		<PageLayout
+			title="パスワードを忘れた方"
 			backHref="/login/email"
 			showLogo={false}
 		>
@@ -69,7 +68,8 @@ export default function ForgotPasswordPage() {
 					{/* Description */}
 					<div className="text-center mb-6 md:mb-8">
 						<p className="text-sm md:text-base text-gray-600 leading-relaxed">
-							パスワード再設定用の確認コードを送信します<br />
+							パスワード再設定用の確認コードを送信します
+							<br />
 							登録しているメールアドレスを入力してください
 						</p>
 					</div>
@@ -118,12 +118,12 @@ export default function ForgotPasswordPage() {
 								/>
 							</svg>
 						</div>
-						<h2 className="text-xl font-bold text-gray-900 mb-2">
-							送信完了
-						</h2>
+						<h2 className="text-xl font-bold text-gray-900 mb-2">送信完了</h2>
 						<p className="text-sm md:text-base text-gray-600 mb-4">
-							パスワード再設定用の確認コードを<br />
-							<strong>{email}</strong><br />
+							パスワード再設定用の確認コードを
+							<br />
+							<strong>{email}</strong>
+							<br />
 							に送信しました。
 						</p>
 						<div className="bg-gray-50 rounded-lg p-4 mb-6">

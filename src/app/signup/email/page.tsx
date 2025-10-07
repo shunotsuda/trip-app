@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import PageLayout from "@/components/ui/PageLayout";
-import FormInput from "@/components/forms/FormInput";
-import PasswordInput from "@/components/forms/PasswordInput";
-import SubmitButton from "@/components/forms/SubmitButton";
-import { validateEmail, validatePassword, getEmailError, getConfirmPasswordError } from "@/lib/validation";
+import { PageLayout } from "@/components/layout";
+import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
+import {
+	validateEmail,
+	validatePassword,
+	getEmailError,
+	getConfirmPasswordError,
+} from "@/lib/validation";
 
 export default function EmailSignupPage() {
 	const [email, setEmail] = useState("");
@@ -36,7 +39,9 @@ export default function EmailSignupPage() {
 		setPasswordError("");
 	};
 
-	const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleConfirmPasswordChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
 		const value = e.target.value;
 		setConfirmPassword(value);
 		setConfirmPasswordError(getConfirmPasswordError(password, value));
@@ -75,8 +80,8 @@ export default function EmailSignupPage() {
 		password === confirmPassword;
 
 	return (
-		<PageLayout 
-			title="メールアドレスで新規登録" 
+		<PageLayout
+			title="メールアドレスで新規登録"
 			backHref="/login"
 			logoHref="/login"
 		>

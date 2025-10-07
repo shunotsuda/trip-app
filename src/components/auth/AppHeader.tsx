@@ -1,4 +1,4 @@
-import { Logo } from "@/components/common";
+import { Logo } from "@/components/ui";
 
 interface AppHeaderProps {
 	className?: string;
