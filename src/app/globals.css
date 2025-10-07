@@ -113,23 +113,23 @@ input[type="text"].border-red-300 {
 
 /* テキスト色 */
 .text-gray-600 {
-	color: #525252 !important; 
+	color: #525252 !important;
 }
 
 .text-gray-500 {
-	color: #737373 !important; 
+	color: #737373 !important;
 }
 
 .text-gray-400 {
-	color: #a3a3a3 !important; 
+	color: #a3a3a3 !important;
 }
 
 .text-gray-900 {
-	color: #171717 !important; 
+	color: #171717 !important;
 }
 
 .text-gray-700 {
-	color: #404040 !important; 
+	color: #404040 !important;
 }
 
 /*ボーダー色 */

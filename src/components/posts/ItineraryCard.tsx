@@ -85,7 +85,7 @@ export default function ItineraryCard({
 	return (
 		<div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
 			{/* 画像スライダー */}
-			<div className="relative aspect-[4/3] bg-gray-100 group">
+			<div className="relative aspect-[16/9] bg-gray-100 group">
 				{images && images.length > 0 && (
 					<>
 						<Swiper
