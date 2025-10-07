@@ -34,7 +34,7 @@ export default function ProfileHeader({
 	const shouldShowReadMore = bio.length > maxLines;
 	const displayedBio = showFullBio ? bio : bio.slice(0, maxLines);
 	return (
-		<div className="px-4  bg-white">
+		<div className="px-4 bg-white">
 			{/* プロフィール写真と基本情報 */}
 			<div className="flex items-start space-x-4 mb-4">
 				<div className="relative">
@@ -52,7 +52,7 @@ export default function ProfileHeader({
 					</div>
 
 					{/* ストーリー追加ボタン */}
-					<button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
+					{/* <button className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-gray-300 flex items-center justify-center">
 						<svg
 							className="w-3 h-3 text-black"
 							fill="none"
@@ -66,7 +66,7 @@ export default function ProfileHeader({
 								d="M12 4v16m8-8H4"
 							/>
 						</svg>
-					</button>
+					</button> */}
 				</div>
 
 				{/* ユーザー名 */}

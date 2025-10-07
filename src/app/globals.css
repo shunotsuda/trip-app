@@ -106,33 +106,33 @@ input[type="text"].border-red-300 {
 	border-color: #f87171 !important;
 }
 
-/* 画像と同じ背景グラデーション（ピーチベージュ） */
+/* 背景グラデーション（ピーチベージュ） */
 .bg-stone-50 {
 	background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%) !important;
 }
 
-/* 画像と同じテキスト色 */
+/* テキスト色 */
 .text-gray-600 {
-	color: #525252 !important; /* 画像と同じグレー */
+	color: #525252 !important; 
 }
 
 .text-gray-500 {
-	color: #737373 !important; /* 画像と同じグレー */
+	color: #737373 !important; 
 }
 
 .text-gray-400 {
-	color: #a3a3a3 !important; /* 画像と同じグレー */
+	color: #a3a3a3 !important; 
 }
 
 .text-gray-900 {
-	color: #171717 !important; /* 画像と同じ黒 */
+	color: #171717 !important; 
 }
 
 .text-gray-700 {
-	color: #404040 !important; /* 画像と同じグレー */
+	color: #404040 !important; 
 }
 
-/* 画像と同じボーダー色 */
+/*ボーダー色 */
 .border-gray-200 {
 	border-color: #e5e5e5 !important;
 }
@@ -141,7 +141,7 @@ input[type="text"].border-red-300 {
 	border-color: #d4d4d4 !important;
 }
 
-/* 画像と同じボタン色（オレンジ系） */
+/*ボタン色（オレンジ系） */
 .bg-gradient-to-r.from-cyan-400.to-pink-400 {
 	background: linear-gradient(
 		to right,

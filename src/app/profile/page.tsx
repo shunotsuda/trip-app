@@ -9,6 +9,7 @@ import {
 	BottomNavigationBar,
 	TopNavigationBar,
 	TabPanel,
+	FloatingActionButton,
 } from "@/components";
 
 export default function ProfilePage() {
@@ -504,6 +505,12 @@ export default function ProfilePage() {
 		console.log("友達を追加");
 	};
 
+	const handleFloatingButtonClick = () => {
+		// フローティングボタンのクリック処理
+		console.log("フローティングボタンがクリックされました");
+		// ここで新しい投稿作成画面やモーダルを開く処理を実装
+	};
+
 	const handleMentionClick = () => {
 		console.log("メンション");
 	};
@@ -523,7 +530,7 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="min-h-[100svh] bg-white pb-16">
+		<div className="min-h-[100svh] bg-stone-100 pb-16">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				username="shun.1020_potd"
@@ -652,6 +659,9 @@ export default function ProfilePage() {
 					</div>
 				</TabPanel>
 			</ProfileTabs>
+
+			{/* フローティングアクションボタン */}
+			<FloatingActionButton onClick={handleFloatingButtonClick} />
 
 			{/* ボトムナビゲーションバー */}
 			<BottomNavigationBar

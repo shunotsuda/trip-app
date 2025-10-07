@@ -76,7 +76,7 @@ export default function OtherProfilePage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-white pb-16 md:pb-0">
+		<div className="min-h-screen bg-stone-100 pb-16 md:pb-0">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				username="田中太郎"
