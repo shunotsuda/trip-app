@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { Avatar, AvatarGroup } from "@mui/material";
+import { getCopyrightInfo } from "@/data/copyrightData";
 
 interface ItineraryCardProps {
 	title: string;
@@ -119,16 +120,25 @@ export default function ItineraryCard({
 							edgeSwipeDetection={true}
 							edgeSwipeThreshold={20}
 						>
-							{images.map((image, index) => (
-								<SwiperSlide key={index}>
-									<Image
-										src={image}
-										alt={`${title || "画像"} - ${index + 1}`}
-										fill
-										className="object-cover"
-									/>
-								</SwiperSlide>
-							))}
+							{images.map((image, index) => {
+								const copyrightInfo = getCopyrightInfo(image);
+								return (
+									<SwiperSlide key={index}>
+										<Image
+											src={image}
+											alt={`${title || "画像"} - ${index + 1}`}
+											fill
+											className="object-cover"
+										/>
+										{/* 著作権表示 */}
+										{copyrightInfo && (
+											<div className="absolute bottom-0.5 right-0.5 bg-black/50 text-white text-[8px] px-1 py-0.5 rounded opacity-60">
+												{copyrightInfo.displayText}
+											</div>
+										)}
+									</SwiperSlide>
+								);
+							})}
 						</Swiper>
 
 						{/* お気に入りボタン */}

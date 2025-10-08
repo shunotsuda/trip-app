@@ -26,11 +26,7 @@ export const itineraryData = [
 		title: "東京ディズニーランド 1日満喫ツアー",
 		startDate: "2025/03/15",
 		endDate: "2025/03/15",
-		images: [
-			"/images/profile/投稿画像1.JPG",
-			"/images/profile/投稿画像2.JPG",
-			"/images/profile/投稿画像3.JPG",
-		],
+		images: ["/images/profile/disney_tokyo_land.jpg"],
 		members: [
 			{
 				id: "1",
@@ -46,7 +42,7 @@ export const itineraryData = [
 		title: "沖縄リゾート 3泊4日のんびり旅",
 		startDate: "2025/04/20",
 		endDate: "2025/04/23",
-		images: ["/images/profile/投稿画像4.JPG", "/images/profile/投稿画像5.JPG"],
+		images: ["/images/profile/okinawa1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -61,13 +57,7 @@ export const itineraryData = [
 		title: "京都の古都巡り 紅葉シーズン特別企画",
 		startDate: "2025/11/10",
 		endDate: "2025/11/12",
-		images: [
-			"/images/profile/投稿画像6.JPG",
-			"/images/profile/投稿画像7.JPG",
-			"/images/profile/IMG_7661.JPG",
-			"/images/profile/IMG_7663.JPG",
-			"/images/profile/IMG_7671.JPG",
-		],
+		images: ["/images/profile/kyoto1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -85,7 +75,7 @@ export const itineraryData = [
 		title: "北海道スキー旅行 ウィンタースポーツ満喫",
 		startDate: "未定",
 		endDate: "未定",
-		images: ["/images/profile/IMG_7672.JPG"],
+		images: ["/images/profile/hokkaido1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -121,7 +111,12 @@ export const itineraryData = [
 		title: "富士山登山チャレンジ 夏山シーズン",
 		startDate: "2025/07/20",
 		endDate: "2025/07/21",
-		images: ["/images/profile/IMG_7678.JPG", "/images/profile/IMG_7679.JPG"],
+		images: [
+			"/images/profile/fuji1.jpg",
+			"/images/profile/fuji2.jpg",
+			"/images/profile/fuji3.jpg",
+			"/images/profile/fuji4.jpg",
+		],
 		members: [
 			{
 				id: "1",
@@ -135,14 +130,7 @@ export const itineraryData = [
 		title: "広島・宮島 世界遺産巡り 歴史と自然を満喫",
 		startDate: "2025/06/15",
 		endDate: "2025/06/17",
-		images: [
-			"/images/profile/IMG_7680.JPG",
-			"/images/profile/IMG_7681.JPG",
-			"/images/profile/IMG_7682.JPG",
-			"/images/profile/IMG_7683.JPG",
-			"/images/profile/IMG_7684.JPG",
-			"/images/profile/IMG_7685.JPG",
-		],
+		images: ["/images/profile/hiroshima1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -159,7 +147,7 @@ export const itineraryData = [
 		title: "長野温泉旅館 のんびり癒しの旅",
 		startDate: "2025/09/10",
 		endDate: "2025/09/11",
-		images: ["/images/profile/IMG_7686.JPG"],
+		images: ["/images/profile/nagano1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -174,11 +162,7 @@ export const itineraryData = [
 		title: "福岡博多 ラーメンと屋台グルメの旅",
 		startDate: "2025/08/05",
 		endDate: "2025/08/07",
-		images: [
-			"/images/profile/IMG_7687.JPG",
-			"/images/profile/IMG_7688.JPG",
-			"/images/profile/IMG_7689.JPG",
-		],
+		images: ["/images/profile/ramen1.jpg"],
 		members: [
 			{
 				id: "1",
@@ -197,12 +181,7 @@ export const itineraryData = [
 		title: "金沢兼六園 日本庭園と伝統工芸品鑑賞",
 		startDate: "2025/10/20",
 		endDate: "2025/10/23",
-		images: [
-			"/images/profile/IMG_7690.JPG",
-			"/images/profile/IMG_7691.JPG",
-			"/images/profile/IMG_7692.JPG",
-			"/images/profile/IMG_7693.JPG",
-		],
+		images: ["/images/profile/teien1.jpg"],
 		members: [
 			{
 				id: "1",
