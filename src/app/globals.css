@@ -38,6 +38,7 @@
 body {
 	min-height: 100%;
 	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch; /* iOS Safari スムーズスクロール */
 	background: var(--background);
 	color: var(--foreground);
 	font-family: var(

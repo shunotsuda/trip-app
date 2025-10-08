@@ -25,11 +25,28 @@ export default function ProfilePage() {
 	const handleTabChange = (newTab: string) => {
 		setActiveTab(newTab);
 
+		// iOS Safari対応のスクロール
+		const scrollToPosition = (targetY: number) => {
+			// iOS Safari用のスクロール実装
+			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+			if (isIOS) {
+				// iOS: 即座にスクロール（スムーズスクロール無効）
+				window.scrollTo(0, targetY);
+			} else {
+				// その他のブラウザ: スムーズスクロール
+				window.scrollTo({ top: targetY, behavior: "smooth" });
+			}
+		};
+
 		// スティッキー状態の場合はプロフィールヘッダーの高さ分にスクロール
 		if (isStickyActive && profileHeaderRef.current) {
 			const headerRect = profileHeaderRef.current.getBoundingClientRect();
 			const headerHeight = headerRect.height;
-			window.scrollTo({ top: headerHeight, behavior: "smooth" });
+			scrollToPosition(headerHeight);
+		} else {
+			// 通常状態の場合はページトップに戻る
+			scrollToPosition(0);
 		}
 	};
 
@@ -106,7 +123,7 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="min-h-svh bg-stone-100">
+		<div className="min-h-dvh bg-stone-100">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				username="shun.1020_potd"
