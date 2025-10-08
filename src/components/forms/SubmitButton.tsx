@@ -6,12 +6,12 @@ interface SubmitButtonProps {
 	className?: string;
 }
 
-export default function SubmitButton({ 
-	isLoading, 
-	isValid, 
-	loadingText = "処理中...", 
+export default function SubmitButton({
+	isLoading,
+	isValid,
+	loadingText = "処理中...",
 	children,
-	className = ""
+	className = "",
 }: SubmitButtonProps) {
 	return (
 		<button

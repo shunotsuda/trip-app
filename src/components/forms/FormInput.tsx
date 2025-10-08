@@ -13,16 +13,33 @@ interface FormInputProps {
 }
 
 const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-	({ type = "text", id, name, value, onChange, placeholder, error, required, className = "" }, ref) => {
+	(
+		{
+			type = "text",
+			id,
+			name,
+			value,
+			onChange,
+			placeholder,
+			error,
+			required,
+			className = "",
+		},
+		ref
+	) => {
 		return (
 			<div>
 				<label
 					htmlFor={id}
 					className="block text-sm font-medium text-gray-700 mb-2"
 				>
-					{name === "email" ? "メールアドレス" : 
-					 name === "password" ? "パスワード" :
-					 name === "confirmPassword" ? "パスワード確認" : name}
+					{name === "email"
+						? "メールアドレス"
+						: name === "password"
+						? "パスワード"
+						: name === "confirmPassword"
+						? "パスワード確認"
+						: name}
 				</label>
 				<input
 					ref={ref}
@@ -37,9 +54,7 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
 					} ${className}`}
 					placeholder={placeholder}
 				/>
-				{error && (
-					<p className="mt-1 text-xs text-red-600">{error}</p>
-				)}
+				{error && <p className="mt-1 text-xs text-red-600">{error}</p>}
 			</div>
 		);
 	}

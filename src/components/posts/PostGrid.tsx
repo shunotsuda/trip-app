@@ -18,7 +18,7 @@ interface PostGridProps {
 
 export default function PostGrid({ posts }: PostGridProps) {
 	return (
-		<div className="bg-white">
+		<div className="bg-stone-100">
 			{/* 投稿表示エリア */}
 			<div className="grid grid-cols-3 gap-1">
 				{posts.map((post, index) => (
