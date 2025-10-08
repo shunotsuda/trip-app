@@ -36,7 +36,7 @@ export default function RootLayout({
 		<html lang="ja">
 			<head></head>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-50`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased `}
 				suppressHydrationWarning={true}
 			>
 				{children}

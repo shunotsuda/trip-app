@@ -135,7 +135,7 @@ export default function ProfileTabs({
 			<Box
 				sx={{
 					position: "sticky",
-					top: "64px", // 16 * 4 = 64px (top-16)
+					top: "64px",
 					zIndex: 40,
 					backgroundColor: "white",
 					borderBottom: "1px solid #e5e7eb",

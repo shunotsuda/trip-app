@@ -3,11 +3,30 @@
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 
+/* ===== CSS Variables & Theme ===== */
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+	--text-muted: #525252;
+	--text-dim: #737373;
+	--text-subtle: #a3a3a3;
+	--border-soft: #e5e5e5;
+	--border: #d4d4d4;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: #0a0a0a;
+		--foreground: #ededed;
+		--text-muted: #a3a3a3;
+		--text-dim: #737373;
+		--text-subtle: #525252;
+		--border-soft: #404040;
+		--border: #525252;
+	}
+}
+
+/* ===== Tailwind Theme Integration ===== */
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -15,150 +34,126 @@
 	--font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
-}
-
+/* ===== Base Styles ===== */
 body {
+	min-height: 100%;
+	overflow-x: hidden;
 	background: var(--background);
 	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: var(
+		--font-sans,
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		"Helvetica Neue",
+		Arial,
+		"Noto Sans",
+		sans-serif
+	);
 }
 
-/* iPhoneでのビューポート問題を解決 */
-html,
-body {
-	height: 100%;
-	overflow-x: hidden;
-	overflow-y: auto; /* 縦スクロールを有効化（モバイル・PC共通） */
-}
-
-/* iPhoneでの動的ビューポート高さ対応 */
-.min-h-screen {
+/* ===== Viewport Utilities ===== */
+.min-h-screen-fix {
 	min-height: 100vh;
-	min-height: 100dvh; /* 動的ビューポート高さ */
+	min-height: 100dvh;
 }
 
-.h-screen {
+.h-screen-fix {
 	height: 100vh;
-	height: 100dvh; /* 動的ビューポート高さ */
+	height: 100dvh;
 }
 
-/* ボタンとリンクのクリック時の効果 */
+/* ===== Interactive Elements ===== */
 button:active,
-a:active,
 [role="button"]:active {
-	opacity: 0.6;
-	transform: scale(0.95);
-	transition: opacity 0.1s ease, transform 0.1s ease;
+	opacity: 0.8;
+	transition: opacity 0.1s ease;
 }
 
-/* テキストリンク専用のクリック効果（ロゴを除く） */
 a:active:not(.logo-link) {
-	opacity: 0.4;
-	background-color: rgba(0, 0, 0, 0.1);
-	border-radius: 4px;
-	padding: 2px 4px;
-	margin: -2px -4px;
-	transform: scale(0.95);
-	transition: all 0.1s ease;
+	opacity: 0.7;
+	transition: opacity 0.1s ease;
 }
 
-/* iPhoneでの入力フィールドの色を固定 */
+/* ===== Form Inputs ===== */
 input[type="email"],
 input[type="password"],
 input[type="text"] {
-	-webkit-text-fill-color: #1f2937 !important;
-	color: #1f2937 !important;
-	background-color: #ffffff !important;
-	border-color: #d1d5db !important;
+	color: var(--foreground);
+	background-color: var(--background);
+	border-color: var(--border);
+	accent-color: currentColor;
 }
 
-/* プレイスホルダーの色を半透明に */
+/* WebKit autofill styles */
+input[type="email"]:-webkit-autofill,
+input[type="password"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill {
+	-webkit-text-fill-color: var(--foreground);
+	box-shadow: 0 0 0px 1000px var(--background) inset;
+	transition: background-color 9999s ease-out, color 9999s ease-out;
+}
+
+/* Placeholder styles */
 input[type="email"]::placeholder,
 input[type="password"]::placeholder,
 input[type="text"]::placeholder {
-	-webkit-text-fill-color: #9ca3af !important;
-	color: #9ca3af !important;
-	opacity: 1 !important;
+	color: var(--text-subtle);
+	opacity: 1;
 }
 
-/* iOS Safariでの自動スタイル調整を無効化 */
+/* Focus styles */
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
-	-webkit-text-fill-color: #1f2937 !important;
-	color: #1f2937 !important;
-	background-color: #ffffff !important;
-	border-color: #3b82f6 !important;
+	outline: none;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
-/* エラー状態でも色を保持 */
-input[type="email"].border-red-300,
-input[type="password"].border-red-300,
-input[type="text"].border-red-300 {
-	-webkit-text-fill-color: #1f2937 !important;
-	color: #1f2937 !important;
-	background-color: #fef2f2 !important;
-	border-color: #f87171 !important;
+/* Error state */
+.input-error {
+	background-color: #fef2f2;
+	border-color: #f87171;
 }
 
-/* 背景グラデーション（ピーチベージュ） */
-.bg-stone-50 {
-	background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%) !important;
+/* ===== Custom Utility Classes ===== */
+.bg-peach {
+	background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%);
 }
 
-/* テキスト色 */
-.text-gray-600 {
-	color: #525252 !important;
+.text-muted {
+	color: var(--text-muted);
 }
 
-.text-gray-500 {
-	color: #737373 !important;
+.text-dim {
+	color: var(--text-dim);
 }
 
-.text-gray-400 {
-	color: #a3a3a3 !important;
+.text-subtle {
+	color: var(--text-subtle);
 }
 
-.text-gray-900 {
-	color: #171717 !important;
+.border-soft {
+	border-color: var(--border-soft);
 }
 
-.text-gray-700 {
-	color: #404040 !important;
+.border-mid {
+	border-color: var(--border);
 }
 
-/*ボーダー色 */
-.border-gray-200 {
-	border-color: #e5e5e5 !important;
+.bg-orange-gradient {
+	background: linear-gradient(to right, #fb923c, #f97316);
 }
 
-.border-gray-300 {
-	border-color: #d4d4d4 !important;
+.bg-orange-gradient:hover {
+	background: linear-gradient(to right, #ea580c, #dc2626);
 }
 
-/*ボタン色（オレンジ系） */
-.bg-gradient-to-r.from-cyan-400.to-pink-400 {
-	background: linear-gradient(
-		to right,
-		#fb923c,
-		#f97316
-	) !important; /* オレンジ系グラデーション */
-}
-
-.hover\:from-cyan-500:hover {
-	background: linear-gradient(to right, #ea580c, #dc2626) !important;
-}
-
-.hover\:to-pink-500:hover {
-	background: linear-gradient(to right, #ea580c, #dc2626) !important;
-}
-
-/* Line clamp utilities */
+/* ===== Text Utilities ===== */
 .line-clamp-2 {
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
