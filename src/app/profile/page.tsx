@@ -12,6 +12,7 @@ import {
 	FloatingActionButton,
 } from "@/components";
 import { profileData, itineraryData, posts } from "@/data/dummyData";
+import { SquaresPlusIcon } from "@heroicons/react/24/outline";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
@@ -80,7 +81,8 @@ export default function ProfilePage() {
 
 	// イベントハンドラー
 	const handleEditProfile = () => {
-		console.log("プロフィールを編集");
+		console.log("プロフィール編集ページに遷移");
+		// プロフィール編集ページに遷移する処理を実装
 	};
 
 	const handleShareProfile = () => {
@@ -97,16 +99,20 @@ export default function ProfilePage() {
 		// ここで新しい投稿作成画面やモーダルを開く処理を実装
 	};
 
-	const handleMentionClick = () => {
-		console.log("メンション");
+	const handleThemeToggle = () => {
+		console.log("テーマ切り替え");
+		// ダークモード/ライトモードの切り替え処理
 	};
 
-	const handleCreatePost = () => {
-		console.log("投稿を作成");
+	const handleAddToHomeScreen = () => {
+		console.log("ホーム画面に追加");
+		// PWAのホーム画面追加処理
 	};
 
 	const handleMenuClick = () => {
-		console.log("メニューを開く");
+		console.log("設定ページに遷移");
+		// 設定ページに遷移
+		window.location.href = "/settings";
 	};
 
 	const handleBackClick = () => {
@@ -119,12 +125,63 @@ export default function ProfilePage() {
 		<div className="min-h-dvh bg-stone-100">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
-				username="shun.1020_potd"
-				onMentionClick={handleMentionClick}
-				onCreatePost={handleCreatePost}
-				onMenuClick={handleMenuClick}
-				showBackButton={!isOwnProfile}
-				onBackClick={handleBackClick}
+				backButton={{
+					show: !isOwnProfile,
+					onClick: handleBackClick,
+				}}
+				title={{
+					type: "username",
+					content: "shun.1020_potd",
+					showDropdown: true,
+				}}
+				rightActions={[
+					{
+						id: "theme-toggle",
+						icon: (
+							<svg
+								className="w-6 h-6 text-black"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={1.5}
+									d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+								/>
+							</svg>
+						),
+						label: "テーマ切り替え",
+						onClick: handleThemeToggle,
+					},
+					{
+						id: "squares-plus",
+						icon: <SquaresPlusIcon className="w-6 h-6 text-black" />,
+						label: "Squares Plus",
+						onClick: handleAddToHomeScreen,
+					},
+					{
+						id: "menu",
+						icon: (
+							<svg
+								className="w-6 h-6 text-black"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={1.5}
+									d="M4 6h16M4 12h16M4 18h16"
+								/>
+							</svg>
+						),
+						label: "メニュー",
+						onClick: handleMenuClick,
+					},
+				]}
 			/>
 
 			{/* プロフィールヘッダー */}
