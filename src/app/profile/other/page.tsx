@@ -76,7 +76,7 @@ export default function OtherProfilePage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-stone-100 pb-16 md:pb-0">
+		<div className="min-h-dvh bg-stone-100 pb-20 md:pb-0">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				backButton={{

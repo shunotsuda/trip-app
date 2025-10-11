@@ -122,7 +122,7 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="min-h-dvh bg-stone-100">
+		<div className="min-h-dvh bg-stone-100 pb-20">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				backButton={{
@@ -302,9 +302,6 @@ export default function ProfilePage() {
 				onTabChange={setBottomNavActiveTab}
 				profileImage={profileData.profileImage}
 			/>
-
-			{/* ボトムナビゲーション高さ分のスペーサー */}
-			<div className="h-20"></div>
 		</div>
 	);
 }
