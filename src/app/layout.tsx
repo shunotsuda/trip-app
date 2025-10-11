@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ModalProvider } from "@/contexts";
+import { ModalProvider, LoadingProvider } from "@/contexts";
 import { ModalContainer } from "@/components/ui/Modal";
 
 const geistSans = Geist({
@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "TRIP APP",
+	title: "Travel Japan",
 	description: "旅行をより楽しく",
 	formatDetection: {
 		telephone: false,
@@ -42,8 +42,10 @@ export default function RootLayout({
 				suppressHydrationWarning={true}
 			>
 				<ModalProvider>
-					{children}
-					<ModalContainer />
+					<LoadingProvider>
+						{children}
+						<ModalContainer />
+					</LoadingProvider>
 				</ModalProvider>
 			</body>
 		</html>

@@ -5,3 +5,5 @@ export type {
 	ModalBackdrop,
 	ModalConfig,
 } from "./ModalContext";
+
+export { LoadingProvider, useLoading } from "./LoadingContext";

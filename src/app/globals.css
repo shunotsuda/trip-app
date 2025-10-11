@@ -56,15 +56,15 @@ body {
 	);
 }
 
-/* ===== Viewport Utilities ===== */
-.min-h-screen-fix {
-	min-height: 100vh;
-	min-height: 100dvh;
-}
-
-.h-screen-fix {
-	height: 100vh;
-	height: 100dvh;
+/* ボタン内のテキストを選択できなくする */
+button, 
+button * {
+  user-select: none;             /* 標準 */
+  -webkit-user-select: none;     /* iOS Safari/Chrome */
+  -ms-user-select: none;         /* 古いEdge */
+  -moz-user-select: none;        /* Firefox（必要なら） */
+  -webkit-touch-callout: none;   /* iOSの長押しコールアウト無効 */
+  -webkit-tap-highlight-color: transparent; /* モバイルのハイライト消し（任意） */
 }
 
 /* ===== Interactive Elements ===== */
@@ -72,9 +72,10 @@ button:active,
 [role="button"]:active {
 	opacity: 0.8;
 	transition: opacity 0.1s ease;
+	scale: 0.95;
 }
 
-a:active:not(.logo-link) {
+a:active {
 	opacity: 0.7;
 	transition: opacity 0.1s ease;
 }
@@ -146,13 +147,7 @@ input[type="text"]:focus {
 	border-color: var(--border);
 }
 
-.bg-orange-gradient {
-	background: linear-gradient(to right, #fb923c, #f97316);
-}
 
-.bg-orange-gradient:hover {
-	background: linear-gradient(to right, #ea580c, #dc2626);
-}
 
 /* ===== Text Utilities ===== */
 .line-clamp-2 {

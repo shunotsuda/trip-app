@@ -19,7 +19,7 @@ export default function SubmitButton({
 			disabled={!isValid || isLoading}
 			className={`w-full py-3 px-4 rounded-lg font-medium transition-colors duration-150 ${
 				isValid && !isLoading
-					? "bg-gradient-to-r from-cyan-400 to-pink-400 text-white hover:from-cyan-500 hover:to-pink-500"
+					? "bg-gradient-to-r from-purple-300 to-purple-400 text-white hover:from-purple-400 hover:to-purple-500"
 					: "bg-gray-300 text-gray-500 cursor-not-allowed"
 			} ${className}`}
 		>

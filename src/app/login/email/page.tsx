@@ -75,7 +75,6 @@ function EmailLoginContent() {
 		<PageLayout
 			title="メールアドレスでログイン"
 			backHref="/login"
-			logoHref="/login"
 		>
 			<form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
 				{/* Email Field */}

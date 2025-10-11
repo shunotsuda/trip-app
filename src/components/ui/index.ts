@@ -16,3 +16,4 @@ export type {
 	AirplaneColor,
 	AirplaneSize,
 } from "./AnimatedAirplane";
+export { default as LoadingScreen } from "./LoadingScreen";

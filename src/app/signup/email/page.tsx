@@ -80,11 +80,7 @@ export default function EmailSignupPage() {
 		password === confirmPassword;
 
 	return (
-		<PageLayout
-			title="メールアドレスで新規登録"
-			backHref="/login"
-			logoHref="/login"
-		>
+		<PageLayout title="メールアドレスで新規登録" backHref="/login">
 			<form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
 				{/* Email Field */}
 				<FormInput

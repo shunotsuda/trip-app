@@ -8,7 +8,6 @@ interface PageLayoutProps {
 	children: ReactNode;
 	showLogo?: boolean;
 	logoSize?: "sm" | "md" | "lg";
-	logoHref?: string;
 }
 
 export default function PageLayout({
@@ -18,7 +17,6 @@ export default function PageLayout({
 	children,
 	showLogo = true,
 	logoSize = "md",
-	logoHref = "/login",
 }: PageLayoutProps) {
 	return (
 		<div className="min-h-screen bg-stone-50 px-4 py-4">
@@ -30,7 +28,7 @@ export default function PageLayout({
 							<div className="hidden lg:flex items-center justify-between mb-6">
 								<BackButton href={backHref} onClick={backOnClick} />
 								<h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-								<Logo size={logoSize} href={logoHref} />
+								<Logo size={logoSize} />
 							</div>
 						) : (
 							<div className="hidden lg:block mb-6">
@@ -53,7 +51,7 @@ export default function PageLayout({
 
 					{showLogo && (
 						<div className="text-center mb-4 md:mb-3">
-							<Logo size={logoSize} href={logoHref} className="mx-auto" />
+							<Logo size={logoSize} className="mx-auto" />
 						</div>
 					)}
 

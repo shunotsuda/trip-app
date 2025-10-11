@@ -11,12 +11,14 @@ import {
 	TabPanel,
 	FloatingActionButton,
 } from "@/components";
+import { useLoading } from "@/contexts";
 import { profileData, itineraryData, posts } from "@/data/dummyData";
 import { SquaresPlusIcon } from "@heroicons/react/24/outline";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
 	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
+	const { showLoading, hideLoading } = useLoading();
 
 	// スティッキー監視用のrefとstate
 	const profileHeaderRef = useRef<HTMLDivElement>(null);
@@ -24,24 +26,31 @@ export default function ProfilePage() {
 
 	// タブ切り替え時に一番上から表示
 	const handleTabChange = (newTab: string) => {
-		setActiveTab(newTab);
+		// ローディング表示
+		showLoading("タブを切り替え中...");
 
-		// スティッキー状態の場合のみスクロール
-		if (isStickyActive && profileHeaderRef.current) {
-			const headerRect = profileHeaderRef.current.getBoundingClientRect();
-			const headerHeight = headerRect.height;
+		// 少し遅延してからタブ切り替え（ローディング効果を見せるため）
+		setTimeout(() => {
+			setActiveTab(newTab);
+			hideLoading();
 
-			// iOS Safari対応のスクロール
-			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+			// スティッキー状態の場合のみスクロール
+			if (isStickyActive && profileHeaderRef.current) {
+				const headerRect = profileHeaderRef.current.getBoundingClientRect();
+				const headerHeight = headerRect.height;
 
-			if (isIOS) {
-				// iOS: 即座にスクロール（スムーズスクロール無効）
-				window.scrollTo(0, headerHeight);
-			} else {
-				// その他のブラウザ: スムーズスクロール
-				window.scrollTo({ top: headerHeight, behavior: "smooth" });
+				// iOS Safari対応のスクロール
+				const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+				if (isIOS) {
+					// iOS: 即座にスクロール（スムーズスクロール無効）
+					window.scrollTo(0, headerHeight);
+				} else {
+					// その他のブラウザ: スムーズスクロール
+					window.scrollTo({ top: headerHeight, behavior: "smooth" });
+				}
 			}
-		}
+		}, 500);
 	};
 
 	// 自分のプロフィールかどうかの判定（URLパラメータやpropsで制御可能）
