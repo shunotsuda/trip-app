@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { PageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout";
 import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
 import {
 	validateEmail,
@@ -80,7 +80,7 @@ export default function EmailSignupPage() {
 		password === confirmPassword;
 
 	return (
-		<PageLayout title="メールアドレスで新規登録" backHref="/login">
+		<FormPageLayout title="メールアドレスで新規登録" backHref="/login">
 			<form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
 				{/* Email Field */}
 				<FormInput
@@ -141,6 +141,6 @@ export default function EmailSignupPage() {
 					</a>
 				</p>
 			</div>
-		</PageLayout>
+		</FormPageLayout>
 	);
 }

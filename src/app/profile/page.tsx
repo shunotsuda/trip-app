@@ -5,20 +5,19 @@ import {
 	ProfileHeader,
 	ProfileTabs,
 	PostGrid,
-	ItineraryCard,
 	BottomNavigationBar,
 	TopNavigationBar,
 	TabPanel,
 	FloatingActionButton,
+	ReviewGrid,
+	FavoriteGrid,
+	ItineraryGrid,
 } from "@/components";
-import { useLoading } from "@/contexts";
 import { profileData, itineraryData, posts } from "@/data/dummyData";
 import { SquaresPlusIcon } from "@heroicons/react/24/outline";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
-	const { showLoading, hideLoading } = useLoading();
 
 	// スティッキー監視用のrefとstate
 	const profileHeaderRef = useRef<HTMLDivElement>(null);
@@ -26,31 +25,24 @@ export default function ProfilePage() {
 
 	// タブ切り替え時に一番上から表示
 	const handleTabChange = (newTab: string) => {
-		// ローディング表示
-		showLoading("タブを切り替え中...");
+		setActiveTab(newTab);
 
-		// 少し遅延してからタブ切り替え（ローディング効果を見せるため）
-		setTimeout(() => {
-			setActiveTab(newTab);
-			hideLoading();
+		// スティッキー状態の場合のみスクロール
+		if (isStickyActive && profileHeaderRef.current) {
+			const headerRect = profileHeaderRef.current.getBoundingClientRect();
+			const headerHeight = headerRect.height;
 
-			// スティッキー状態の場合のみスクロール
-			if (isStickyActive && profileHeaderRef.current) {
-				const headerRect = profileHeaderRef.current.getBoundingClientRect();
-				const headerHeight = headerRect.height;
+			// iOS Safari対応のスクロール
+			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-				// iOS Safari対応のスクロール
-				const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-				if (isIOS) {
-					// iOS: 即座にスクロール（スムーズスクロール無効）
-					window.scrollTo(0, headerHeight);
-				} else {
-					// その他のブラウザ: スムーズスクロール
-					window.scrollTo({ top: headerHeight, behavior: "smooth" });
-				}
+			if (isIOS) {
+				// iOS: 即座にスクロール（スムーズスクロール無効）
+				window.scrollTo(0, headerHeight);
+			} else {
+				// その他のブラウザ: スムーズスクロール
+				window.scrollTo({ top: headerHeight, behavior: "smooth" });
 			}
-		}, 500);
+		}
 	};
 
 	// 自分のプロフィールかどうかの判定（URLパラメータやpropsで制御可能）
@@ -131,7 +123,7 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="min-h-dvh bg-stone-100 pb-20">
+		<div className="relative min-h-dvh  pb-20">
 			{/* トップナビゲーションバー */}
 			<TopNavigationBar
 				backButton={{
@@ -141,7 +133,7 @@ export default function ProfilePage() {
 				title={{
 					type: "username",
 					content: "shun.1020_potd",
-					showDropdown: true,
+					showDropdown: isOwnProfile,
 				}}
 				rightActions={[
 					{
@@ -216,89 +208,17 @@ export default function ProfilePage() {
 
 				{/* レビュータブ */}
 				<TabPanel value={activeTab} index="reviews">
-					<div className="bg-stone-100 text-center py-12">
-						<svg
-							className="w-16 h-16 text-gray-400 mx-auto mb-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-							/>
-						</svg>
-						<div className="text-black text-lg mb-2">レビューがありません</div>
-						<button className="text-blue-500 text-sm">
-							最初のレビューを書く
-						</button>
-					</div>
+					<ReviewGrid reviews={[]} />
 				</TabPanel>
 
 				{/* 気になるタブ */}
 				<TabPanel value={activeTab} index="favorites">
-					<div className="bg-stone-100 text-center py-12 ">
-						<svg
-							className="w-16 h-16 text-gray-400 mx-auto mb-4"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-							/>
-						</svg>
-						<div className="text-black text-lg mb-2">
-							気になる投稿がありません
-						</div>
-						<button className="text-blue-500 text-sm">
-							投稿を探してみよう
-						</button>
-					</div>
+					<FavoriteGrid favorites={[]} />
 				</TabPanel>
 
 				{/* 旅しおりタブ */}
 				<TabPanel value={activeTab} index="itinerary">
-					{itineraryData.length > 0 ? (
-						<div className="p-4">
-							<div className="grid grid-cols-2 gap-3">
-								{itineraryData.map((itinerary) => (
-									<ItineraryCard
-										key={itinerary.id}
-										title={itinerary.title}
-										startDate={itinerary.startDate}
-										images={itinerary.images}
-										members={itinerary.members}
-									/>
-								))}
-							</div>
-						</div>
-					) : (
-						<div className="bg-stone-100 text-center py-12">
-							<svg
-								className="w-16 h-16 text-gray-400 mx-auto mb-4"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={2}
-									d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-								/>
-							</svg>
-							<div className="text-black text-lg mb-2">しおりがありません</div>
-							<button className="text-blue-500 text-sm">
-								最初のしおりを作成
-							</button>
-						</div>
-					)}
+					<ItineraryGrid itineraries={itineraryData} />
 				</TabPanel>
 			</ProfileTabs>
 
@@ -306,11 +226,7 @@ export default function ProfilePage() {
 			<FloatingActionButton onClick={handleFloatingButtonClick} />
 
 			{/* ボトムナビゲーションバー */}
-			<BottomNavigationBar
-				activeTab={bottomNavActiveTab}
-				onTabChange={setBottomNavActiveTab}
-				profileImage={profileData.profileImage}
-			/>
+			<BottomNavigationBar />
 		</div>
 	);
 }

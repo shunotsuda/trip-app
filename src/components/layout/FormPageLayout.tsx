@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { BackButton, Logo } from "@/components/ui";
 
-interface PageLayoutProps {
+interface FormPageLayoutProps {
 	title: string;
 	backHref?: string;
 	backOnClick?: () => void;
@@ -10,14 +10,14 @@ interface PageLayoutProps {
 	logoSize?: "sm" | "md" | "lg";
 }
 
-export default function PageLayout({
+export default function FormPageLayout({
 	title,
 	backHref,
 	backOnClick,
 	children,
 	showLogo = true,
 	logoSize = "md",
-}: PageLayoutProps) {
+}: FormPageLayoutProps) {
 	return (
 		<div className="min-h-screen bg-stone-50 px-4 py-4">
 			<div className="w-full max-w-md md:max-w-lg lg:max-w-xl md:mx-auto pb-20 md:pb-0">

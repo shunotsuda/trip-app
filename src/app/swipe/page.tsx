@@ -1,12 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { BottomNavigationBar } from "@/components";
-import { profileData } from "@/data/dummyData";
 
 export default function SwipePage() {
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("swipe");
-
 	return (
 		<div className="min-h-dvh bg-stone-100 pb-20">
 			{/* ヘッダー */}
@@ -38,11 +34,7 @@ export default function SwipePage() {
 			</div>
 
 			{/* ボトムナビゲーションバー */}
-			<BottomNavigationBar
-				activeTab={bottomNavActiveTab}
-				onTabChange={setBottomNavActiveTab}
-				profileImage={profileData.profileImage}
-			/>
+			<BottomNavigationBar />
 		</div>
 	);
 }

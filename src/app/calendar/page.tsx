@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { BottomNavigationBar } from "@/components";
-import { profileData } from "@/data/dummyData";
 
 export default function CalendarPage() {
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("calendar");
-
 	return (
-		<div className="min-h-dvh bg-stone-100 pb-20">
+		<div className="min-h-dvh bg-white pb-20">
 			{/* ヘッダー */}
 			<div className="bg-white px-4 py-4 border-b border-gray-200">
 				<h1 className="text-xl font-semibold text-black">カレンダー</h1>
@@ -38,11 +34,7 @@ export default function CalendarPage() {
 			</div>
 
 			{/* ボトムナビゲーションバー */}
-			<BottomNavigationBar
-				activeTab={bottomNavActiveTab}
-				onTabChange={setBottomNavActiveTab}
-				profileImage={profileData.profileImage}
-			/>
+			<BottomNavigationBar />
 		</div>
 	);
 }

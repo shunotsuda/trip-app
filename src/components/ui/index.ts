@@ -17,3 +17,5 @@ export type {
 	AirplaneSize,
 } from "./AnimatedAirplane";
 export { default as LoadingScreen } from "./LoadingScreen";
+export { default as MaterialIcon } from "./MaterialIcon";
+export { default as Button } from "./Button";

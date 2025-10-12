@@ -1,101 +1,69 @@
 "use client";
 
-import { AnimatedAirplane } from "@/components/ui";
-import { JapanMap } from "@/components/ui";
-
 interface LoadingScreenProps {
 	message?: string;
-	showAirplanes?: boolean;
-	showMap?: boolean;
+	fullScreen?: boolean; // 全画面表示かどうか
+	style?: React.CSSProperties; // カスタムスタイル
 }
 
 export default function LoadingScreen({
 	message = "読み込み中...",
-	showAirplanes = true,
-	showMap = true,
+	fullScreen = true, // デフォルトは全画面
+	style,
 }: LoadingScreenProps) {
+	const containerClasses = fullScreen
+		? "fixed inset-0 z-50 bg-peach" // 全画面オーバーレイ
+		: "absolute inset-0 bg-peach z-10"; // コンテンツエリアのみ（完全に隠す）
+
 	return (
-		<div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center">
-			{/* 背景の日本地図 */}
-			{showMap && (
-				<JapanMap
-					className="absolute opacity-10"
+		<div
+			className={`${containerClasses} flex flex-col items-center justify-center`}
+			style={style}
+		>
+			<style>{`
+				@keyframes rotate-360 {
+					from { transform: rotate(0deg); }
+					to { transform: rotate(360deg); }
+				}
+			`}</style>
+
+			{/* ローディングリング */}
+			<div className="relative">
+				{/* リングのトラック（影） */}
+				<div
+					className="absolute rounded-full"
 					style={{
+						width: "60px",
+						height: "60px",
 						top: "50%",
 						left: "50%",
-						transform: "translate(-50%, -50%)",
-						width: "100vw",
-						height: "100vh",
+						marginTop: "-30px",
+						marginLeft: "-30px",
+						boxShadow: "0 0 10px 4px rgba(0, 0, 0, 0.1) inset",
 					}}
-				/>
-			)}
+				></div>
 
-			{/* アニメーション飛行機 */}
-			{showAirplanes && (
-				<div className="absolute inset-0 flex items-center justify-center">
-					{/* 小さな飛行機 - 内側軌道 */}
-					<AnimatedAirplane
-						orbitType="custom"
-						radiusX={60}
-						radiusY={30}
-						color="blue"
-						size="logo"
-						duration={4}
-						className="absolute"
-					/>
-					{/* 中サイズ飛行機 - 中間軌道 */}
-					<AnimatedAirplane
-						orbitType="custom"
-						radiusX={120}
-						radiusY={60}
-						color="green"
-						size="mobile"
-						duration={6}
-						className="absolute"
-					/>
-					{/* 大きな飛行機 - 外側軌道 */}
-					<AnimatedAirplane
-						orbitType="custom"
-						radiusX={200}
-						radiusY={100}
-						color="red"
-						size="tablet"
-						duration={8}
-						className="absolute"
-					/>
-				</div>
-			)}
-
-			{/* ローディングメッセージとスピナー */}
-			<div className="relative z-10 flex flex-col items-center justify-center space-y-4">
-				{/* スピナー */}
-				<div className="relative">
-					<div className="w-16 h-16 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin"></div>
-					<div
-						className="absolute inset-0 w-16 h-16 border-4 border-transparent border-r-green-500 rounded-full animate-spin"
-						style={{ animationDirection: "reverse", animationDuration: "1.5s" }}
-					></div>
-				</div>
-
-				{/* メッセージ */}
-				<div className="text-center">
-					<p className="text-lg font-medium text-gray-700 mb-2">{message}</p>
-					<div className="flex space-x-1 justify-center">
-						<div
-							className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-							style={{ animationDelay: "0ms" }}
-						></div>
-						<div
-							className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
-							style={{ animationDelay: "150ms" }}
-						></div>
-						<div
-							className="w-2 h-2 bg-red-500 rounded-full animate-bounce"
-							style={{ animationDelay: "300ms" }}
-						></div>
-					</div>
-				</div>
+				{/* 回転するリング（パープルグラデーション） */}
+				<div
+					className="absolute rounded-full"
+					style={{
+						width: "60px",
+						height: "60px",
+						top: "50%",
+						left: "50%",
+						marginTop: "-30px",
+						marginLeft: "-30px",
+						boxShadow:
+							"0 4px 0 rgb(216, 180, 254) inset, 0 -4px 0 rgb(192, 132, 252) inset",
+						animation: "rotate-360 2s linear infinite",
+					}}
+				></div>
 			</div>
+
+			{/* ローディングテキスト（全画面時のみ表示） */}
+			{fullScreen && (
+				<p className="mt-16 text-lg font-medium text-gray-700">{message}</p>
+			)}
 		</div>
 	);
 }

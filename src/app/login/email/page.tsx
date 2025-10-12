@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { PageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout";
 import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
 import {
 	validateEmail,
@@ -72,7 +72,7 @@ function EmailLoginContent() {
 		validateEmail(email) && Object.values(passwordValidation).every(Boolean);
 
 	return (
-		<PageLayout
+		<FormPageLayout
 			title="メールアドレスでログイン"
 			backHref="/login"
 		>
@@ -135,7 +135,7 @@ function EmailLoginContent() {
 					</a>
 				</p>
 			</div>
-		</PageLayout>
+		</FormPageLayout>
 	);
 }
 

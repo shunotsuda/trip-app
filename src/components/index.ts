@@ -16,6 +16,3 @@ export * from "./profile";
 
 // Posts Components
 export * from "./posts";
-
-// Icons
-export * from "./icons";

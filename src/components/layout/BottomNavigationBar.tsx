@@ -2,25 +2,10 @@
 
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import {
-	BookmarkIcon,
-	BookmarkIconFilled,
-} from "@/components/icons/BottomNavIcons";
-import { LiaMapMarkedAltSolid } from "react-icons/lia";
-import { HiHome } from "react-icons/hi2";
-import { BsFilesAlt, BsCalendar3 } from "react-icons/bs";
+import { MaterialIcon } from "@/components/ui";
+import { profileData } from "@/data/dummyData";
 
-interface BottomNavigationBarProps {
-	activeTab: string;
-	onTabChange: (tab: string) => void;
-	profileImage: string;
-}
-
-export default function BottomNavigationBar({
-	activeTab,
-	onTabChange,
-	profileImage,
-}: BottomNavigationBarProps) {
+export default function BottomNavigationBar() {
 	const router = useRouter();
 	const pathname = usePathname();
 
@@ -30,7 +15,6 @@ export default function BottomNavigationBar({
 		if (pathname === "/swipe") return "swipe";
 		if (pathname === "/calendar") return "calendar";
 		if (pathname === "/map") return "map";
-		if (pathname === "/bookmark") return "bookmark";
 		if (pathname === "/profile") return "profile";
 		return "home";
 	};
@@ -38,47 +22,94 @@ export default function BottomNavigationBar({
 	const currentActiveTab = getActiveTabFromPath();
 
 	const handleTabClick = (tabId: string) => {
-		onTabChange(tabId);
-
-		// ページ遷移
-		switch (tabId) {
-			case "home":
-				router.push("/");
-				break;
-			case "swipe":
-				router.push("/swipe");
-				break;
-			case "calendar":
-				router.push("/calendar");
-				break;
-			case "map":
-				router.push("/map");
-				break;
-			case "bookmark":
-				router.push("/bookmark");
-				break;
-			case "profile":
-				router.push("/profile");
-				break;
+		// 現在のページと同じ場合は何もしない
+		if (tabId === currentActiveTab) {
+			return;
 		}
+
+		// === 即座に遷移（現在の実装） ===
+		// ページ遷移
+		// switch (tabId) {
+		// 	case "home":
+		// 		router.push("/");
+		// 		break;
+		// 	case "swipe":
+		// 		router.push("/swipe");
+		// 		break;
+		// 	case "calendar":
+		// 		router.push("/calendar");
+		// 		break;
+		// 	case "map":
+		// 		router.push("/map");
+		// 		break;
+		// 	case "profile":
+		// 		router.push("/profile");
+		// 		break;
+		// }
+
+		// === スムーズ遷移版（ビジュアルフィードバック付き） ===
+		// アイコンをクリックした時のビジュアルフィードバックを少し見せてから遷移
+		setTimeout(() => {
+			switch (tabId) {
+				case "home":
+					router.push("/");
+					break;
+				case "swipe":
+					router.push("/swipe");
+					break;
+				case "calendar":
+					router.push("/calendar");
+					break;
+				case "map":
+					router.push("/map");
+					break;
+				case "profile":
+					router.push("/profile");
+					break;
+			}
+		}, 150); // 150msの遅延でアイコンの状態変化を見せる
 	};
 
 	const navItems = [
 		{
 			id: "home",
-			icon: <HiHome className="w-7 h-7" />,
+			icon: (
+				<MaterialIcon
+					icon="home"
+					filled={currentActiveTab === "home"}
+					size={28}
+				/>
+			),
 		},
 		{
 			id: "swipe",
-			icon: <BsFilesAlt className="w-7 h-7" />,
+			icon: (
+				<MaterialIcon
+					icon="amp_stories"
+					filled={currentActiveTab === "swipe"}
+					size={28}
+				/>
+			),
 		},
 		{
 			id: "calendar",
-			icon: <BsCalendar3 className="w-7 h-7" />,
+			icon: (
+				<MaterialIcon
+					icon="schedule_send"
+					filled={currentActiveTab === "calendar"}
+					size={28}
+				/>
+			),
 		},
 		{
 			id: "map",
-			icon: <LiaMapMarkedAltSolid className="w-7 h-7" />,
+			icon: (
+				<MaterialIcon
+					icon="map_search"
+					filled={currentActiveTab === "map"}
+					size={28}
+				/>
+			),
 		},
 		{
 			id: "profile",
@@ -91,7 +122,7 @@ export default function BottomNavigationBar({
 					}`}
 				>
 					<Image
-						src={profileImage}
+						src={profileData.profileImage}
 						alt="Profile"
 						width={28}
 						height={28}
@@ -104,7 +135,7 @@ export default function BottomNavigationBar({
 
 	return (
 		<nav className="fixed bottom-0 left-0 right-0 z-1000 bg-white border-t border-gray-200">
-			<div className="flex items-center justify-around w-full px-3 pt-3 pb-6">
+			<div className="flex items-center justify-around w-full px-3  pb-6">
 				{navItems.map((item) => (
 					<button
 						key={item.id}

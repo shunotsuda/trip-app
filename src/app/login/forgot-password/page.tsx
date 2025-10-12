@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { PageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout";
 import { FormInput, SubmitButton } from "@/components/forms";
 import { validateEmail, getEmailError } from "@/lib/validation";
 
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
 	const isFormValid = validateEmail(email);
 
 	return (
-		<PageLayout
+		<FormPageLayout
 			title="パスワードを忘れた方"
 			backHref="/login/email"
 			showLogo={false}
@@ -103,9 +103,9 @@ export default function ForgotPasswordPage() {
 				/* Success Message */
 				<div className="text-center">
 					<div className="mb-6">
-						<div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+						<div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
 							<svg
-								className="w-8 h-8 text-green-600"
+								className="w-8 h-8 text-purple-600"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -134,6 +134,6 @@ export default function ForgotPasswordPage() {
 					</div>
 				</div>
 			)}
-		</PageLayout>
+		</FormPageLayout>
 	);
 }

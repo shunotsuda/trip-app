@@ -2,19 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import {
-	TopNavigationBar,
-	BottomNavigationBar,
-	SearchBar,
-	SectionHeader,
-} from "@/components";
+import { TopNavigationBar, SearchBar, SectionHeader } from "@/components";
 import Card from "@/components/ui/Card";
 import { CardGroup } from "@/components/ui/Card";
 import { profileData } from "@/data/dummyData";
 
 export default function SettingsPage() {
 	const router = useRouter();
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("profile");
 	const [searchQuery, setSearchQuery] = useState("");
 
 	const handleBackClick = () => {

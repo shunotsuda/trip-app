@@ -39,7 +39,9 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
 			}}
 		>
 			{children}
-			{isLoading && <LoadingScreen message={loadingMessage} />}
+			{isLoading && (
+				<LoadingScreen message={loadingMessage} fullScreen={false} />
+			)}
 		</LoadingContext.Provider>
 	);
 }

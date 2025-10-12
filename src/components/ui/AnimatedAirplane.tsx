@@ -30,7 +30,7 @@ const colorClasses = {
 	green: "text-green-500",
 	yellow: "text-yellow-500",
 	purple: "text-purple-500",
-	gray: "text-gray-500",
+	gray: "text-gray-200",
 };
 
 const sizeClasses = {
@@ -65,8 +65,8 @@ export function AnimatedAirplane({
 	};
 
 	const orbitRadius = getRadius();
-	// ユニークなアニメーション名を生成
-	const uniqueId = Math.random().toString(36).substr(2, 9);
+	// propsベースの一貫したアニメーション名を生成（Hydration対策）
+	const uniqueId = `${orbitType}-${orbitRadius.x}-${orbitRadius.y}-${duration}-${color}`;
 	const animationName =
 		orbitType === "circle"
 			? `orbit-circle-${uniqueId}`
@@ -115,9 +115,10 @@ export function AnimatedAirplane({
 		return keyframes;
 	};
 
-	// アニメーションスタイルをインラインで定義
+	// アニメーションスタイルをインラインで定義（外部styleとマージ）
 	const animationStyle: React.CSSProperties = {
 		animation: `${animationName} ${duration}s linear infinite`,
+		...(style || {}), // 外部から渡されたstyleをマージ
 	};
 
 	return (
@@ -136,7 +137,6 @@ export function AnimatedAirplane({
 			/>
 			<div
 				className={cn("relative  flex items-center justify-center", className)}
-				style={style}
 			>
 				<svg
 					className={cn(sizeClasses[size], colorClasses[color])}

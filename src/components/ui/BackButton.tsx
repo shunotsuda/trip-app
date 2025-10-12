@@ -1,16 +1,17 @@
 import Link from "next/link";
+import { BaseComponentProps } from "@/types";
+import { cn } from "@/lib/utils";
 
-interface BackButtonProps {
+interface BackButtonProps extends BaseComponentProps {
 	href?: string;
 	onClick?: () => void;
-	className?: string;
 	children?: React.ReactNode;
 }
 
 export default function BackButton({
 	href,
 	onClick,
-	className = "",
+	className,
 	children = "戻る",
 }: BackButtonProps) {
 	const buttonContent = (
@@ -32,22 +33,21 @@ export default function BackButton({
 		</>
 	);
 
+	const buttonClasses = cn(
+		"inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors",
+		className
+	);
+
 	if (href) {
 		return (
-			<Link
-				href={href}
-				className={`inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors ${className}`}
-			>
+			<Link href={href} className={buttonClasses}>
 				{buttonContent}
 			</Link>
 		);
 	}
 
 	return (
-		<button
-			onClick={onClick}
-			className={`inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors ${className}`}
-		>
+		<button onClick={onClick} className={buttonClasses}>
 			{buttonContent}
 		</button>
 	);

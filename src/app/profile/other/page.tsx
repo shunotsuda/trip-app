@@ -12,7 +12,6 @@ import {
 
 export default function OtherProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
-	const [bottomNavActiveTab, setBottomNavActiveTab] = useState("home");
 
 	// 他人のプロフィールとして設定
 	const isOwnProfile = false;
@@ -255,11 +254,7 @@ export default function OtherProfilePage() {
 			</ProfileTabs>
 
 			{/* ボトムナビゲーションバー */}
-			<BottomNavigationBar
-				activeTab={bottomNavActiveTab}
-				onTabChange={setBottomNavActiveTab}
-				profileImage="/images/profile/プロフィールアイコン画像.JPG"
-			/>
+			<BottomNavigationBar />
 		</div>
 	);
 }

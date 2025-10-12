@@ -3,6 +3,23 @@
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 
+/* ===== Material Symbols ===== */
+.material-symbols-outlined {
+	font-family: "Material Symbols Outlined";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+}
+
 /* ===== CSS Variables & Theme ===== */
 :root {
 	--background: #ffffff;
@@ -57,14 +74,14 @@ body {
 }
 
 /* ボタン内のテキストを選択できなくする */
-button, 
+button,
 button * {
-  user-select: none;             /* 標準 */
-  -webkit-user-select: none;     /* iOS Safari/Chrome */
-  -ms-user-select: none;         /* 古いEdge */
-  -moz-user-select: none;        /* Firefox（必要なら） */
-  -webkit-touch-callout: none;   /* iOSの長押しコールアウト無効 */
-  -webkit-tap-highlight-color: transparent; /* モバイルのハイライト消し（任意） */
+	user-select: none; /* 標準 */
+	-webkit-user-select: none; /* iOS Safari/Chrome */
+	-ms-user-select: none; /* 古いEdge */
+	-moz-user-select: none; /* Firefox（必要なら） */
+	-webkit-touch-callout: none; /* iOSの長押しコールアウト無効 */
+	-webkit-tap-highlight-color: transparent; /* モバイルのハイライト消し（任意） */
 }
 
 /* ===== Interactive Elements ===== */
@@ -146,8 +163,6 @@ input[type="text"]:focus {
 .border-mid {
 	border-color: var(--border);
 }
-
-
 
 /* ===== Text Utilities ===== */
 .line-clamp-2 {
