@@ -118,7 +118,7 @@
 
 	/* ===== リンク色（ダークモード） ===== */
 	--link-blue: #51a2ff;
-	--link-blue-hover:#8ec5ff;
+	--link-blue-hover: #8ec5ff;
 	--link-cyan: #53eafd;
 	--link-cyan-hover: #a2f4fd;
 }
@@ -256,7 +256,7 @@ input[type="text"]:focus {
 .line-clamp-2 {
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
+	line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
-

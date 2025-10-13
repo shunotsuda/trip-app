@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
 	TopNavigationBar,
 	SearchBar,
@@ -45,14 +46,33 @@ export default function SettingsPage() {
 
 	// 背景色の選択肢
 	const backgrounds = [
-		{ id: "peach", class: "bg-accent", name: "ピーチ<=>ニュートラル" },
-		{ id: "white", class: "bg-[var(--text-white)]", name: "ホワイト<=>ブラック" },
-		{ id: "stone", class: "bg-[var(--bg-page)]", name: "ホワイト<=>グレー" },
-		{ id: "green", class: "bg-green-50", name: "グリーン" },
-		{ id: "blue", class: "bg-blue-50", name: "ブルー" },
-		{ id: "purple", class: "bg-purple-50", name: "パープル" },
-		{ id: "pink", class: "bg-pink-50", name: "ピンク" },
-		{ id: "yellow", class: "bg-yellow-50", name: "イエロー" },
+		{ id: "peach", class: "bg-accent", name: "ピーチ" },
+		{
+			id: "white",
+			class: "bg-[var(--text-white)]",
+			name: "ホワイト(ブラック)",
+		},
+		{ id: "stone", class: "bg-[var(--bg-page)]", name: "ホワイト(グレー)" },
+	];
+
+	// プリセット壁紙の選択肢
+	const wallpapers = [
+		{ id: "wall1", path: "/images/wallpapers/wall.jpg", name: "壁紙1" },
+		{
+			id: "wall2",
+			path: "/images/wallpapers/wallpaper_202305_1.jpg",
+			name: "壁紙2",
+		},
+		{
+			id: "wall3",
+			path: "/images/wallpapers/wallpaper_202311_1.jpg",
+			name: "壁紙3",
+		},
+		{
+			id: "wall4",
+			path: "/images/wallpapers/wallpaper_202403_1.jpg",
+			name: "壁紙4",
+		},
 	];
 
 	// 画像アップロード処理
@@ -93,13 +113,14 @@ export default function SettingsPage() {
 						className="mb-4"
 					/>
 
-					{/* プロフィールカード */}
+					{/* あなたのアカウント */}
+					<SectionHeader title="あなたのアカウント" className="px-1 mb-2" />
 					<div className="bg-[var(--bg-page)] rounded-lg shadow-sm mb-6">
 						<Card
 							item={{
 								id: "profile",
 								image: profileData.profileImage,
-								title: "プロフィール",
+								title: "~shun~",
 								subtitle: profileData.username,
 								showArrow: true,
 								onClick: handleProfileClick,
@@ -146,10 +167,13 @@ export default function SettingsPage() {
 								<div className="space-y-3">
 									{/* 現在の背景画像プレビュー */}
 									<div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-[var(--border)]">
-										<img
+										<Image
 											src={backgroundImage}
 											alt="背景画像"
-											className="w-full h-full object-cover"
+											fill
+											className="object-cover"
+											quality={100}
+											unoptimized
 										/>
 									</div>
 									{/* ボタン */}
@@ -210,11 +234,11 @@ export default function SettingsPage() {
 						</div>
 
 						{/* プリセット色 */}
-						<div>
+						<div className="mb-6">
 							<label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
 								プリセット色
 							</label>
-							<div className="grid grid-cols-4 gap-3">
+							<div className="grid grid-cols-3 gap-3">
 								{backgrounds.map((bg) => (
 									<button
 										key={bg.id}
@@ -224,7 +248,7 @@ export default function SettingsPage() {
 										} border-2 ${
 											background === bg.class && !backgroundImage
 												? "border-blue-500 ring-2 ring-blue-200"
-												: "border-gray-200"
+												: "border-[var(--border)]"
 										} transition-all hover:scale-105 active:scale-95`}
 									>
 										{background === bg.class && !backgroundImage && (
@@ -242,9 +266,53 @@ export default function SettingsPage() {
 												</svg>
 											</div>
 										)}
-										<span className="absolute -bottom-6 left-0 right-0 text-xs text-center text-[var(--text-tertiary)]">
+										<span className=" text-xs text-center text-[var(--text-tertiary)]">
 											{bg.name}
 										</span>
+									</button>
+								))}
+							</div>
+						</div>
+
+						{/* プリセット壁紙 */}
+						<div>
+							<label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
+								プリセット壁紙
+							</label>
+							<div className="grid grid-cols-2 gap-3">
+								{wallpapers.map((wallpaper) => (
+									<button
+										key={wallpaper.id}
+										onClick={() => setBackgroundImage(wallpaper.path)}
+										className={`relative aspect-video rounded-lg overflow-hidden border-2 ${
+											backgroundImage === wallpaper.path
+												? "border-blue-500 ring-2 ring-blue-200"
+												: "border-[var(--border)]"
+										} transition-all hover:scale-105 active:scale-95`}
+									>
+										<Image
+											src={wallpaper.path}
+											alt={wallpaper.name}
+											fill
+											className="object-cover"
+											quality={100}
+											unoptimized
+										/>
+										{backgroundImage === wallpaper.path && (
+											<div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+												<svg
+													className="w-8 h-8 text-white"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+												>
+													<path
+														fillRule="evenodd"
+														d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+														clipRule="evenodd"
+													/>
+												</svg>
+											</div>
+										)}
 									</button>
 								))}
 							</div>

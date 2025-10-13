@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 // カードアイテムの型定義
 export interface CardItem {
@@ -57,11 +58,13 @@ export default function Card({ item }: CardProps) {
 		>
 			{/* 左側：プロフィール画像またはアイコン */}
 			{image ? (
-				<div className="flex-shrink-0 w-14 h-14 mr-3">
-					<img
+				<div className="flex-shrink-0 w-14 h-14 mr-3 relative rounded-full overflow-hidden">
+					<Image
 						src={image}
 						alt={title}
-						className="w-full h-full rounded-full object-cover"
+						fill
+						className="object-cover"
+						sizes="56px"
 					/>
 				</div>
 			) : icon ? (
@@ -127,7 +130,7 @@ export function CardGroup({ group, className = "" }: CardGroupProps) {
 
 			{/* カードアイテム */}
 			<div className="divide-y divide-gray-100">
-				{items.map((item, index) => (
+				{items.map((item) => (
 					<Card key={item.id} item={item} />
 				))}
 			</div>

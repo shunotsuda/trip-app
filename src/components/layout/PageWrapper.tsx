@@ -11,9 +11,5 @@ export default function PageWrapper({
 	children,
 	className = "",
 }: PageWrapperProps) {
-	return (
-		<div className={`h-screen flex flex-col ${className}`}>
-			{children}
-		</div>
-	);
+	return <div className={`h-dvh flex flex-col ${className}`}>{children}</div>;
 }

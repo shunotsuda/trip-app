@@ -19,7 +19,7 @@ export default function FormPageLayout({
 	logoSize = "md",
 }: FormPageLayoutProps) {
 	return (
-		<div className="min-h-screen  px-4 py-4">
+		<div className="min-h-dvh px-4 py-4">
 			<div className="w-full max-w-md md:max-w-lg lg:max-w-xl md:mx-auto pb-20 md:pb-0">
 				{/* Desktop Header - Horizontal Layout */}
 				{title && (
@@ -27,7 +27,9 @@ export default function FormPageLayout({
 						{showLogo ? (
 							<div className="hidden lg:flex items-center justify-between mb-6">
 								<BackButton href={backHref} onClick={backOnClick} />
-								<h1 className="text-2xl font-bold text-[var(--text-emphasis)]">{title}</h1>
+								<h1 className="text-2xl font-bold text-[var(--text-emphasis)]">
+									{title}
+								</h1>
 								<Logo size={logoSize} />
 							</div>
 						) : (

@@ -16,7 +16,8 @@ export default function BackgroundLayer() {
 					alt="Background"
 					fill
 					className="object-cover"
-					quality={85}
+					quality={100}
+					unoptimized
 					priority
 				/>
 				{/* 半透明オーバーレイ */}
