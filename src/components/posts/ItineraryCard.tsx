@@ -49,19 +49,17 @@ export default function ItineraryCard({
 				max={3}
 				sx={{
 					"& .MuiAvatar-root": {
-						width: 24,
-						height: 24,
+						width: 20,
+						height: 20,
 						fontSize: "0.75rem",
-						border: "2px solid white",
 						boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
 					},
 					"& .MuiAvatarGroup-avatar": {
-						width: 24,
-						height: 24,
+						width: 20,
+						height: 20,
 						fontSize: "0.75rem",
 						backgroundColor: "#e5e7eb",
 						color: "#6b7280",
-						border: "2px solid white",
 						boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
 					},
 				}}
@@ -72,8 +70,8 @@ export default function ItineraryCard({
 						src={member.avatar}
 						alt={member.name || "メンバー"}
 						sx={{
-							width: 24,
-							height: 24,
+							width: 20,
+							height: 20
 						}}
 					>
 						{(member.name || "M").charAt(0).toUpperCase()}
@@ -180,7 +178,7 @@ export default function ItineraryCard({
 			{/* カード情報 */}
 			<div className="p-3">
 				{/* タイトル */}
-				<h3 className="text-sm font-bold text-gray-900 line-clamp-1 mb-2">
+				<h3 className="text-sm font-bold text-gray-900 line-clamp-1 mb-1">
 					{title || ""}
 				</h3>
 

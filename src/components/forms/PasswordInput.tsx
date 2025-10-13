@@ -40,7 +40,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 			<div>
 				<label
 					htmlFor={id}
-					className="block text-sm font-medium text-gray-700 mb-2"
+					className="block text-sm font-medium text-[var(--text-secondary)] mb-2"
 				>
 					{name === "password" ? "パスワード" : "パスワード確認"}
 				</label>
@@ -54,7 +54,9 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 						onChange={onChange}
 						required={required}
 						className={`w-full px-3 py-2.5 pr-10 border rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-colors ${
-							error ? "border-red-300 bg-red-50" : "border-gray-300"
+							error
+								? "border-red-300 bg-red-50"
+								: "border-[var(--border-input)]"
 						} ${className}`}
 						placeholder={placeholder}
 					/>

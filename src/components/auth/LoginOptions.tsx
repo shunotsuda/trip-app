@@ -6,7 +6,7 @@ export default function LoginOptions({ className = "" }: LoginOptionsProps) {
 	return (
 		<div className={`space-y-3 md:space-y-2 ${className}`}>
 			{/* GitHub Option */}
-			<button className="w-full bg-black text-white py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 hover:bg-gray-800 transition-colors duration-150 cursor-pointer">
+			<button className="w-full bg-black text-white py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 hover:opacity-75 transition-colors duration-150 cursor-pointer">
 				<svg
 					className="w-6 h-6 md:w-6 md:h-6"
 					viewBox="0 0 24 24"
@@ -20,7 +20,7 @@ export default function LoginOptions({ className = "" }: LoginOptionsProps) {
 			</button>
 
 			{/* Google Login */}
-			<button className="w-full bg-white text-gray-700 py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150 cursor-pointer">
+			<button className="w-full bg-white text-gray-700 py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 border border-gray-200 hover:opacity-75 hover:border-gray-300 transition-colors duration-150 cursor-pointer">
 				<svg className="w-6 h-6 md:w-6 md:h-6" viewBox="0 0 24 24">
 					<path
 						fill="#4285F4"
@@ -45,7 +45,7 @@ export default function LoginOptions({ className = "" }: LoginOptionsProps) {
 			</button>
 
 			{/* Facebook Login */}
-			<button className="w-full bg-white text-gray-700 py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 transition-colors duration-150 cursor-pointer">
+			<button className="w-full bg-white text-gray-700 py-4 md:py-4 px-6 rounded-2xl flex items-center justify-center space-x-3 border border-gray-200 hover:opacity-75 hover:border-gray-300 transition-colors duration-150 cursor-pointer">
 				<svg
 					className="w-6 h-6 md:w-6 md:h-6"
 					viewBox="0 0 24 24"

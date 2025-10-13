@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
 	ProfileHeader,
 	ProfileTabs,
 	PostGrid,
-	BottomNavigationBar,
 	TopNavigationBar,
+	BottomNavigationBar,
+	MainContentArea,
+	PageWrapper,
 	TabPanel,
 	FloatingActionButton,
 	ReviewGrid,
@@ -15,70 +17,19 @@ import {
 } from "@/components";
 import { profileData, itineraryData, posts } from "@/data/dummyData";
 import { SquaresPlusIcon } from "@heroicons/react/24/outline";
+import { useTheme } from "@/contexts";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
+	const { toggleMode } = useTheme();
 
-	// スティッキー監視用のrefとstate
-	const profileHeaderRef = useRef<HTMLDivElement>(null);
-	const [isStickyActive, setIsStickyActive] = useState(false);
-
-	// タブ切り替え時に一番上から表示
+	// タブ切り替え
 	const handleTabChange = (newTab: string) => {
 		setActiveTab(newTab);
-
-		// スティッキー状態の場合のみスクロール
-		if (isStickyActive && profileHeaderRef.current) {
-			const headerRect = profileHeaderRef.current.getBoundingClientRect();
-			const headerHeight = headerRect.height;
-
-			// iOS Safari対応のスクロール
-			const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-			if (isIOS) {
-				// iOS: 即座にスクロール（スムーズスクロール無効）
-				window.scrollTo(0, headerHeight);
-			} else {
-				// その他のブラウザ: スムーズスクロール
-				window.scrollTo({ top: headerHeight, behavior: "smooth" });
-			}
-		}
 	};
 
 	// 自分のプロフィールかどうかの判定（URLパラメータやpropsで制御可能）
 	const isOwnProfile = true; // 現在は自分のプロフィールとして設定
-
-	// スクロール監視とスティッキー判定
-	useEffect(() => {
-		const handleScroll = () => {
-			const currentScrollY = window.pageYOffset;
-
-			// プロフィールヘッダーの高さを取得
-			if (profileHeaderRef.current) {
-				const headerRect = profileHeaderRef.current.getBoundingClientRect();
-				const headerHeightValue = headerRect.height;
-
-				// スティッキー判定: スクロール量 > ヘッダー高さ
-				const shouldBeSticky = currentScrollY > headerHeightValue;
-				setIsStickyActive(shouldBeSticky);
-			}
-		};
-
-		// 初回実行
-		handleScroll();
-
-		// スクロールイベントリスナーを追加
-		window.addEventListener("scroll", handleScroll);
-
-		// リサイズイベントも監視（ヘッダー高さが変わる可能性があるため）
-		window.addEventListener("resize", handleScroll);
-
-		// クリーンアップ
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-			window.removeEventListener("resize", handleScroll);
-		};
-	}, []);
 
 	// イベントハンドラー
 	const handleEditProfile = () => {
@@ -101,8 +52,7 @@ export default function ProfilePage() {
 	};
 
 	const handleThemeToggle = () => {
-		console.log("テーマ切り替え");
-		// ダークモード/ライトモードの切り替え処理
+		toggleMode();
 	};
 
 	const handleAddToHomeScreen = () => {
@@ -123,8 +73,8 @@ export default function ProfilePage() {
 	};
 
 	return (
-		<div className="relative min-h-dvh  pb-20">
-			{/* トップナビゲーションバー */}
+		<PageWrapper>
+			{/* ヘッダー */}
 			<TopNavigationBar
 				backButton={{
 					show: !isOwnProfile,
@@ -140,7 +90,7 @@ export default function ProfilePage() {
 						id: "theme-toggle",
 						icon: (
 							<svg
-								className="w-6 h-6 text-black"
+								className="w-6 h-6 text-[var(--text-primary)]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -158,7 +108,9 @@ export default function ProfilePage() {
 					},
 					{
 						id: "squares-plus",
-						icon: <SquaresPlusIcon className="w-6 h-6 text-black" />,
+						icon: (
+							<SquaresPlusIcon className="w-6 h-6 text-[var(--text-primary)]" />
+						),
 						label: "Squares Plus",
 						onClick: handleAddToHomeScreen,
 					},
@@ -166,7 +118,7 @@ export default function ProfilePage() {
 						id: "menu",
 						icon: (
 							<svg
-								className="w-6 h-6 text-black"
+								className="w-6 h-6 text-[var(--text-primary)]"
 								fill="none"
 								stroke="currentColor"
 								viewBox="0 0 24 24"
@@ -185,8 +137,9 @@ export default function ProfilePage() {
 				]}
 			/>
 
-			{/* プロフィールヘッダー */}
-			<div ref={profileHeaderRef}>
+			{/* メインコンテンツエリア */}
+			<MainContentArea>
+				{/* プロフィールヘッダー */}
 				<ProfileHeader
 					username={profileData.username}
 					posts={profileData.posts}
@@ -198,35 +151,36 @@ export default function ProfilePage() {
 					onShareProfile={handleShareProfile}
 					onAddFriend={handleAddFriend}
 				/>
-			</div>
-			{/* プロフィールタブ */}
-			<ProfileTabs activeTab={activeTab} onTabChange={handleTabChange}>
-				{/* 投稿タブ */}
-				<TabPanel value={activeTab} index="posts">
-					<PostGrid posts={posts} />
-				</TabPanel>
 
-				{/* レビュータブ */}
-				<TabPanel value={activeTab} index="reviews">
-					<ReviewGrid reviews={[]} />
-				</TabPanel>
+				{/* プロフィールタブ */}
+				<ProfileTabs activeTab={activeTab} onTabChange={handleTabChange}>
+					{/* 投稿タブ */}
+					<TabPanel value={activeTab} index="posts">
+						<PostGrid posts={posts} />
+					</TabPanel>
 
-				{/* 気になるタブ */}
-				<TabPanel value={activeTab} index="favorites">
-					<FavoriteGrid favorites={[]} />
-				</TabPanel>
+					{/* レビュータブ */}
+					<TabPanel value={activeTab} index="reviews">
+						<ReviewGrid reviews={[]} />
+					</TabPanel>
 
-				{/* 旅しおりタブ */}
-				<TabPanel value={activeTab} index="itinerary">
-					<ItineraryGrid itineraries={itineraryData} />
-				</TabPanel>
-			</ProfileTabs>
+					{/* 気になるタブ */}
+					<TabPanel value={activeTab} index="favorites">
+						<FavoriteGrid favorites={[]} />
+					</TabPanel>
 
-			{/* フローティングアクションボタン */}
-			<FloatingActionButton onClick={handleFloatingButtonClick} />
+					{/* 旅しおりタブ */}
+					<TabPanel value={activeTab} index="itinerary">
+						<ItineraryGrid itineraries={itineraryData} />
+					</TabPanel>
+				</ProfileTabs>
 
-			{/* ボトムナビゲーションバー */}
+				{/* フローティングアクションボタン */}
+				<FloatingActionButton onClick={handleFloatingButtonClick} />
+			</MainContentArea>
+
+			{/* ボトムナビ */}
 			<BottomNavigationBar />
-		</div>
+		</PageWrapper>
 	);
 }

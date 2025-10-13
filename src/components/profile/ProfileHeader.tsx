@@ -34,12 +34,12 @@ export default function ProfileHeader({
 	const shouldShowReadMore = bio.length > maxLines;
 	const displayedBio = showFullBio ? bio : bio.slice(0, maxLines);
 	return (
-		<div className="px-4 bg-white">
+		<div className="px-4">
 			{/* プロフィール写真と基本情報 */}
 			<div className="flex items-start space-x-4 mb-4">
 				<div className="relative">
 					{/* プロフィール写真 */}
-					<div className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-gray-300 relative">
+					<div className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden border-2 border-[var(--border-icon)] relative">
 						<Image
 							src={profileImage}
 							alt="Profile"
@@ -72,28 +72,34 @@ export default function ProfileHeader({
 				{/* ユーザー名 */}
 				<div className="flex-1">
 					<div className="mb-3">
-						<h2 className="text-sm font-semibold text-black">{username}</h2>
+						<h2 className="text-sm font-semibold text-[var(--text-primary)]">
+							{username}
+						</h2>
 					</div>
 
 					{/* 統計情報 */}
 					<div className="flex justify-between">
 						<div className="text-center flex-1">
-							<div className="text-lg font-semibold text-black">
+							<div className="text-lg font-semibold text-[var(--text-primary)]">
 								{formatJapaneseNumber(posts)}
 							</div>
-							<div className="text-sm text-gray-600">投稿</div>
+							<div className="text-sm text-[var(--text-tertiary)]">投稿</div>
 						</div>
 						<div className="text-center flex-1">
-							<div className="text-lg font-semibold text-black">
+							<div className="text-lg font-semibold text-[var(--text-primary)]">
 								{formatJapaneseNumber(followers)}
 							</div>
-							<div className="text-sm text-gray-600">フォロワー</div>
+							<div className="text-sm text-[var(--text-tertiary)]">
+								フォロワー
+							</div>
 						</div>
 						<div className="text-center flex-1">
-							<div className="text-lg font-semibold text-black">
+							<div className="text-lg font-semibold text-[var(--text-primary)]">
 								{formatJapaneseNumber(following)}
 							</div>
-							<div className="text-sm text-gray-600">フォロー中</div>
+							<div className="text-sm text-[var(--text-tertiary)]">
+								フォロー中
+							</div>
 						</div>
 					</div>
 				</div>
@@ -102,7 +108,10 @@ export default function ProfileHeader({
 			{/* 自己紹介 */}
 			<div className="mb-4">
 				{displayedBio.map((line, index) => (
-					<div key={index} className="text-sm text-black leading-relaxed">
+					<div
+						key={index}
+						className="text-sm text-[var(--text-primary)] leading-relaxed"
+					>
 						{line}
 					</div>
 				))}
@@ -111,7 +120,7 @@ export default function ProfileHeader({
 				{shouldShowReadMore && (
 					<button
 						onClick={() => setShowFullBio(!showFullBio)}
-						className="text-sm text-gray-400 hover:text-gray-600 mt-1 transition-colors"
+						className="text-sm text-[var(--text-disabled)] hover:text-[var(--text-tertiary)] mt-1 transition-colors"
 					>
 						{showFullBio ? "続きを隠す" : "続きを読む"}
 					</button>
@@ -122,19 +131,19 @@ export default function ProfileHeader({
 			<div className="flex space-x-2">
 				<button
 					onClick={onEditProfile}
-					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors whitespace-nowrap"
+					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-[var(--bg-profile-button)] text-[var(--text-primary)] hover:bg-[var(--bg-profile-button-hover)] transition-colors whitespace-nowrap"
 				>
 					プロフィールを編集
 				</button>
 				<button
 					onClick={onShareProfile}
-					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-gray-100 text-black hover:bg-gray-200 transition-colors whitespace-nowrap"
+					className="flex-1 py-1.5 px-2 rounded-lg text-xs sm:text-sm font-medium bg-[var(--bg-profile-button)] text-[var(--text-primary)] hover:bg-[var(--bg-profile-button-hover)] transition-colors whitespace-nowrap"
 				>
-					プロフィールをシェア
+					QRコードを表示
 				</button>
 				<button
 					onClick={onAddFriend}
-					className="p-1.5 rounded-lg bg-gray-100 text-black hover:bg-gray-200 transition-colors"
+					className="p-1.5 rounded-lg bg-[var(--bg-profile-button)] text-[var(--text-primary)] hover:bg-[var(--bg-profile-button-hover)] transition-colors"
 				>
 					<svg
 						className="w-5 h-5"

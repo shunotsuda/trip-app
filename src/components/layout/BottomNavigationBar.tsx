@@ -26,48 +26,23 @@ export default function BottomNavigationBar() {
 		if (tabId === currentActiveTab) {
 			return;
 		}
-
-		// === 即座に遷移（現在の実装） ===
-		// ページ遷移
-		// switch (tabId) {
-		// 	case "home":
-		// 		router.push("/");
-		// 		break;
-		// 	case "swipe":
-		// 		router.push("/swipe");
-		// 		break;
-		// 	case "calendar":
-		// 		router.push("/calendar");
-		// 		break;
-		// 	case "map":
-		// 		router.push("/map");
-		// 		break;
-		// 	case "profile":
-		// 		router.push("/profile");
-		// 		break;
-		// }
-
-		// === スムーズ遷移版（ビジュアルフィードバック付き） ===
-		// アイコンをクリックした時のビジュアルフィードバックを少し見せてから遷移
-		setTimeout(() => {
-			switch (tabId) {
-				case "home":
-					router.push("/");
-					break;
-				case "swipe":
-					router.push("/swipe");
-					break;
-				case "calendar":
-					router.push("/calendar");
-					break;
-				case "map":
-					router.push("/map");
-					break;
-				case "profile":
-					router.push("/profile");
-					break;
-			}
-		}, 150); // 150msの遅延でアイコンの状態変化を見せる
+		switch (tabId) {
+			case "home":
+				router.push("/");
+				break;
+			case "swipe":
+				router.push("/swipe");
+				break;
+			case "calendar":
+				router.push("/calendar");
+				break;
+			case "map":
+				router.push("/map");
+				break;
+			case "profile":
+				router.push("/profile");
+				break;
+		}
 	};
 
 	const navItems = [
@@ -92,21 +67,21 @@ export default function BottomNavigationBar() {
 			),
 		},
 		{
-			id: "calendar",
+			id: "map",
 			icon: (
 				<MaterialIcon
-					icon="schedule_send"
-					filled={currentActiveTab === "calendar"}
+					icon="map_pin_review"
+					filled={currentActiveTab === "map"}
 					size={28}
 				/>
 			),
 		},
 		{
-			id: "map",
+			id: "calendar",
 			icon: (
 				<MaterialIcon
-					icon="map_search"
-					filled={currentActiveTab === "map"}
+					icon="edit_calendar"
+					filled={currentActiveTab === "calendar"}
 					size={28}
 				/>
 			),
@@ -117,8 +92,8 @@ export default function BottomNavigationBar() {
 				<div
 					className={`w-7 h-7 rounded-full overflow-hidden ${
 						currentActiveTab === "profile"
-							? "border-2 border-black"
-							: "border border-gray-300"
+							? "border-2 border-[var(--border-emphasis)]"
+							: "border border-[var(--border-input)]"
 					}`}
 				>
 					<Image
@@ -134,8 +109,8 @@ export default function BottomNavigationBar() {
 	];
 
 	return (
-		<nav className="fixed bottom-0 left-0 right-0 z-1000 bg-white border-t border-gray-200">
-			<div className="flex items-center justify-around w-full px-3  pb-6">
+		<nav className=" border-t border-[var(--border)]">
+			<div className="flex items-center justify-around w-full px-3 pb-6">
 				{navItems.map((item) => (
 					<button
 						key={item.id}
@@ -144,7 +119,10 @@ export default function BottomNavigationBar() {
 					>
 						<div
 							className={`w-7 h-7 flex items-center justify-center ${
-								currentActiveTab === item.id ? "text-black" : "text-gray-400"
+								// currentActiveTab === item.id
+								// 	? "text-[var(--text-primary)]"
+								// 	: "text-[var(--text-disabled)]"
+								"text-[var(--text-primary)]"
 							}`}
 						>
 							{item.icon}

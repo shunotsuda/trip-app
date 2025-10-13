@@ -137,8 +137,8 @@ export default function ProfileTabs({
 					position: "sticky",
 					top: "64px",
 					zIndex: 40,
-					backgroundColor: "white",
-					borderBottom: "1px solid #e5e7eb",
+					backgroundColor: "var(--bg-page)",
+					borderBottom: "1px solid var(--border)",
 				}}
 			>
 				<Tabs

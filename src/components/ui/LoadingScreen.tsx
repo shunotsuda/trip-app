@@ -12,8 +12,8 @@ export default function LoadingScreen({
 	style,
 }: LoadingScreenProps) {
 	const containerClasses = fullScreen
-		? "fixed inset-0 z-50 bg-peach" // 全画面オーバーレイ
-		: "absolute inset-0 bg-peach z-10"; // コンテンツエリアのみ（完全に隠す）
+		? "fixed inset-0 z-50 " // 全画面オーバーレイ
+		: "absolute inset-0 z-10"; // コンテンツエリアのみ（完全に隠す）
 
 	return (
 		<div
@@ -62,7 +62,7 @@ export default function LoadingScreen({
 
 			{/* ローディングテキスト（全画面時のみ表示） */}
 			{fullScreen && (
-				<p className="mt-16 text-lg font-medium text-gray-700">{message}</p>
+				<p className="mt-16 text-lg font-medium text-[var(--text-secondary)]">{message}</p>
 			)}
 		</div>
 	);

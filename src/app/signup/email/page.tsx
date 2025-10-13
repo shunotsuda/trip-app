@@ -131,7 +131,7 @@ export default function EmailSignupPage() {
 
 			{/* Login Link */}
 			<div className="mt-4 md:mt-5 lg:mt-6 text-center">
-				<p className="text-sm md:text-base lg:text-lg text-gray-600">
+				<p className="text-sm md:text-base lg:text-lg text-[var(--text-tertiary)]">
 					すでにアカウントをお持ちの方は
 					<a
 						href="/login/email"

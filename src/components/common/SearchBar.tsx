@@ -19,7 +19,7 @@ export default function SearchBar({
 		>
 			{/* 検索アイコン */}
 			<svg
-				className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0"
+				className="w-4 h-4 text-[var(--text-disabled)] mr-2 flex-shrink-0"
 				fill="none"
 				stroke="currentColor"
 				viewBox="0 0 24 24"
@@ -38,7 +38,7 @@ export default function SearchBar({
 				placeholder={placeholder}
 				value={value}
 				onChange={(e) => onChange?.(e.target.value)}
-				className="flex-1 bg-transparent outline-none text-sm text-gray-900 placeholder-gray-400 border-none appearance-none focus:outline-none focus:ring-0 focus:border-none"
+				className="flex-1 bg-transparent outline-none text-sm text-[var(--text-emphasis)] placeholder-gray-400 border-none appearance-none focus:outline-none focus:ring-0 focus:border-none"
 				style={{ backgroundColor: "transparent" }}
 			/>
 		</div>

@@ -22,12 +22,13 @@ export default function FloatingActionButton({
 	return (
 		<button
 			onClick={handleClick}
-			className={`fixed bottom-20 right-4 w-14 h-14 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50 flex items-center justify-center ${
-				isPressed ? "scale-95" : "scale-100"
-			} ${className}`}
+			className={`
+				fixed bottom-20 right-4 w-14 h-14 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50 flex items-center justify-center ${
+					isPressed ? "scale-95" : "scale-100"
+				} ${className}`}
 			style={{
 				boxShadow:
-					"0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)",
+					"0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.7)",
 			}}
 		>
 			{/* 赤いプラスアイコン */}

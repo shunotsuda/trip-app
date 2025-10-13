@@ -17,38 +17,148 @@
 	word-wrap: normal;
 	direction: ltr;
 	-webkit-font-feature-settings: "liga";
+	font-feature-settings: "liga";
 	-webkit-font-smoothing: antialiased;
 }
 
+/* ===== tailwindcssで使用するための置き換え早見表 ===== */
+
+/* text-black      text-[var(--text-primary)]   */
+/* text-white      text-[var(--text-white)]     */
+/* text-gray-900   text-[var(--text-emphasis)]  */
+/* text-gray-800   text-[var(--text-strong)]    */
+/* text-gray-700   text-[var(--text-secondary)]	*/
+/* text-gray-600   text-[var(--text-tertiary)]  */
+/* text-gray-500   text-[var(--text-muted)]     */
+/* text-gray-400   text-[var(--text-disabled)]  */
+
+/* bg-white        bg-[var(--bg-page)]          */
+/* bg-stone-100    bg-[var(--bg-content)]       */
+/* bg-stone-50     bg-[var(--bg-content-light)] */
+/* bg-gray-100     bg-[var(--bg-profile-button)] */
+/* bg-gray-200     bg-[var(--bg-profile-button-hover)] */
+/* bg-gray-100     bg-[var(--bg-hover)]         */
+/* bg-gray-50      bg-[var(--bg-hover-subtle)]  */
+/* bg-peach        bg-accent                    */
+
+/* border-gray-200 border-[var(--border)]          */
+/* border-gray-300 border-[var(--border-input)]    */
+/* border-gray-100 border-[var(--border-subtle)]   */
+/* border-gray-700 border-[var(--border-icon)]    */
+/* border-black    border-[var(--border-emphasis)] */
+
+/* link-blue         text-[var(--link-blue)]         */
+/* link-blue-hover   text-[var(--link-blue-hover)]   */
+/* link-cyan         text-[var(--link-cyan)]         */
+/* link-cyan-hover   text-[var(--link-cyan-hover)]   */
+
 /* ===== CSS Variables & Theme ===== */
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
-	--text-muted: #525252;
-	--text-dim: #737373;
-	--text-subtle: #a3a3a3;
-	--border-soft: #e5e5e5;
-	--border: #d4d4d4;
+	/* ===== ページ構造の背景色（ダークモード対応） ===== */
+	--bg-page: #ffffff;
+	--bg-content: #f5f5f4;
+	--bg-content-light: #fafaf9;
+	--bg-profile-button: #f3f4f6;
+	--bg-profile-button-hover: #e5e7eb;
+	--bg-hover: #f3f4f6;
+	--bg-hover-subtle: #f9fafb;
+	--bg-accent: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%);
+
+	/* ===== テキスト色（ダークモード対応） ===== */
+	--text-primary: #000000;
+	--text-white: #ffffff;
+	--text-emphasis: #101828;
+	--text-strong: #1f2937;
+	--text-secondary: #374151;
+	--text-tertiary: #4a5565;
+	--text-muted: #6a7282;
+	--text-disabled: #99a1af;
+
+	/* ===== ボーダー色（ダークモード対応） ===== */
+	--border: #e5e7eb;
+	--border-input: #d1d5db;
+	--border-subtle: #f3f4f6;
+	--border-icon: #374151;
+	--border-emphasis: #000000;
+
+	/* ===== リンク色 ===== */
+	--link-blue: #2b7fff;
+	--link-blue-hover: #155dfc;
+	--link-cyan: #00d3f2;
+	--link-cyan-hover: #00b8db;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-		--text-muted: #a3a3a3;
-		--text-dim: #737373;
-		--text-subtle: #525252;
-		--border-soft: #404040;
-		--border: #525252;
-	}
+[data-theme="dark"] {
+	/* ===== ページ構造の背景色（ダークモード） ===== */
+	--bg-page: #1a1a1a;
+	--bg-content: #262626;
+	--bg-content-light: #2d2d2d;
+	--bg-profile-button: #374151;
+	--bg-profile-button-hover: #2d2d2d;
+	--bg-hover: #374151;
+	--bg-hover-subtle: #2d2d2d;
+	--bg-accent: linear-gradient(180deg, #2d2d2d 0%, #1f1f1f 100%);
+
+	/* ===== テキスト色（ダークモード） ===== */
+	--text-primary: #ffffff;
+	--text-white: #000000;
+	--text-emphasis: #f9fafb;
+	--text-strong: #f3f4f6;
+	--text-secondary: #d1d5db;
+	--text-tertiary: #9ca3af;
+	--text-muted: #6b7280;
+	--text-disabled: #4b5563;
+
+	/* ===== ボーダー色（ダークモード） ===== */
+	--border: #404040;
+	--border-input: #525252;
+	--border-subtle: #2d2d2d;
+	--border-icon: #d1d5db;
+	--border-emphasis: #ffffff;
+
+	/* ===== リンク色（ダークモード） ===== */
+	--link-blue: #51a2ff;
+	--link-blue-hover:#8ec5ff;
+	--link-cyan: #53eafd;
+	--link-cyan-hover: #a2f4fd;
 }
 
 /* ===== Tailwind Theme Integration ===== */
 @theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
+	/* フォント */
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
+
+	/* 背景色 */
+	--color-bg-page: var(--bg-page);
+	--color-bg-content: var(--bg-content);
+	--color-bg-content-light: var(--bg-content-light);
+	--color-bg-hover: var(--bg-hover);
+	--color-bg-hover-subtle: var(--bg-hover-subtle);
+	--color-bg-accent: var(--bg-accent);
+
+	/* テキスト色 */
+	--color-text-primary: var(--text-primary);
+	--color-text-white: var(--text-white);
+	--color-text-emphasis: var(--text-emphasis);
+	--color-text-strong: var(--text-strong);
+	--color-text-secondary: var(--text-secondary);
+	--color-text-tertiary: var(--text-tertiary);
+	--color-text-muted: var(--text-muted);
+	--color-text-disabled: var(--text-disabled);
+
+	/* ボーダー色 */
+	--color-border: var(--border);
+	--color-border-input: var(--border-input);
+	--color-border-subtle: var(--border-subtle);
+	--color-border-icon: var(--border-icon);
+	--color-border-emphasis: var(--border-emphasis);
+
+	/* リンク色 */
+	--color-link-blue: var(--link-blue);
+	--color-link-blue-hover: var(--link-blue-hover);
+	--color-link-cyan: var(--link-cyan);
+	--color-link-cyan-hover: var(--link-cyan-hover);
 }
 
 /* ===== Base Styles ===== */
@@ -56,8 +166,7 @@ body {
 	min-height: 100%;
 	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch; /* iOS Safari スムーズスクロール */
-	background: var(--background);
-	color: var(--foreground);
+	color: var(--text-primary);
 	font-family: var(
 		--font-sans,
 		ui-sans-serif,
@@ -89,7 +198,7 @@ button:active,
 [role="button"]:active {
 	opacity: 0.8;
 	transition: opacity 0.1s ease;
-	scale: 0.95;
+	transform: scale(0.95);
 }
 
 a:active {
@@ -101,9 +210,9 @@ a:active {
 input[type="email"],
 input[type="password"],
 input[type="text"] {
-	color: var(--foreground);
-	background-color: var(--background);
-	border-color: var(--border);
+	color: var(--text-primary);
+	background-color: var(--bg-page);
+	border-color: var(--border-input);
 	accent-color: currentColor;
 }
 
@@ -111,8 +220,8 @@ input[type="text"] {
 input[type="email"]:-webkit-autofill,
 input[type="password"]:-webkit-autofill,
 input[type="text"]:-webkit-autofill {
-	-webkit-text-fill-color: var(--foreground);
-	box-shadow: 0 0 0px 1000px var(--background) inset;
+	-webkit-text-fill-color: var(--text-primary);
+	box-shadow: 0 0 0px 1000px var(--bg-page) inset;
 	transition: background-color 9999s ease-out, color 9999s ease-out;
 }
 
@@ -120,7 +229,7 @@ input[type="text"]:-webkit-autofill {
 input[type="email"]::placeholder,
 input[type="password"]::placeholder,
 input[type="text"]::placeholder {
-	color: var(--text-subtle);
+	color: var(--text-muted);
 	opacity: 1;
 }
 
@@ -140,30 +249,9 @@ input[type="text"]:focus {
 }
 
 /* ===== Custom Utility Classes ===== */
-.bg-peach {
-	background: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%);
+.bg-accent {
+	background: var(--bg-accent);
 }
-
-.text-muted {
-	color: var(--text-muted);
-}
-
-.text-dim {
-	color: var(--text-dim);
-}
-
-.text-subtle {
-	color: var(--text-subtle);
-}
-
-.border-soft {
-	border-color: var(--border-soft);
-}
-
-.border-mid {
-	border-color: var(--border);
-}
-
 /* ===== Text Utilities ===== */
 .line-clamp-2 {
 	display: -webkit-box;
@@ -171,3 +259,4 @@ input[type="text"]:focus {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+

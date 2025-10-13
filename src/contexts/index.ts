@@ -7,3 +7,5 @@ export type {
 } from "./ModalContext";
 
 export { LoadingProvider, useLoading } from "./LoadingContext";
+
+export { ThemeProvider, useTheme } from "./ThemeContext";

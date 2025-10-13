@@ -36,7 +36,6 @@ interface TopNavigationBarProps {
 
 	// スタイル関連
 	className?: string;
-	sticky?: boolean;
 }
 
 export default function TopNavigationBar({
@@ -44,18 +43,9 @@ export default function TopNavigationBar({
 	title,
 	rightActions = [],
 	className = "",
-	sticky = true,
 }: TopNavigationBarProps) {
-	const headerClasses = [
-		"h-16 bg-white px-4 py-3",
-		sticky ? "sticky top-0 z-50" : "",
-		className,
-	]
-		.filter(Boolean)
-		.join(" ");
-
 	return (
-		<header className={headerClasses}>
+		<header className={`h-16 px-4 py-3 ${className}`}>
 			<div className="flex items-center justify-between">
 				{backButton.show ? (
 					/* 戻るボタンがある場合：3カラムレイアウト */
@@ -64,10 +54,10 @@ export default function TopNavigationBar({
 						<div className="w-10 flex justify-start">
 							<button
 								onClick={() => backButton.onClick?.()}
-								className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+								className="p-1 hover:bg-[var(--bg-hover)] rounded-full transition-colors"
 							>
 								<svg
-									className="w-6 h-6 text-black"
+									className="w-6 h-6 text-[var(--text-primary)]"
 									fill="none"
 									stroke="currentColor"
 									viewBox="0 0 24 24"
@@ -86,12 +76,12 @@ export default function TopNavigationBar({
 						<div className="flex items-center space-x-1 flex-1 justify-center">
 							{title.type === "username" ? (
 								<>
-									<span className="text-base font-semibold text-black">
+									<span className="text-base font-semibold text-[var(--text-primary)]">
 										{title.content}
 									</span>
 									{title.showDropdown && (
 										<svg
-											className="w-4 h-4 text-black"
+											className="w-4 h-4 text-[var(--text-primary)]"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
@@ -106,7 +96,7 @@ export default function TopNavigationBar({
 									)}
 								</>
 							) : (
-								<span className="text-base font-semibold text-black">
+								<span className="text-base font-semibold text-[var(--text-primary)]">
 									{title.content}
 								</span>
 							)}
@@ -139,12 +129,12 @@ export default function TopNavigationBar({
 						<div className="flex items-center space-x-1 flex-1">
 							{title.type === "username" ? (
 								<>
-									<span className="text-base font-semibold text-black">
+									<span className="text-base font-semibold text-[var(--text-primary)]">
 										{title.content}
 									</span>
 									{title.showDropdown && (
 										<svg
-											className="w-4 h-4 text-black"
+											className="w-4 h-4 text-[var(--text-primary)]"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
@@ -159,7 +149,7 @@ export default function TopNavigationBar({
 									)}
 								</>
 							) : (
-								<span className="text-base font-semibold text-black">
+								<span className="text-base font-semibold text-[var(--text-primary)]">
 									{title.content}
 								</span>
 							)}
@@ -172,7 +162,7 @@ export default function TopNavigationBar({
 									<button
 										key={action.id}
 										onClick={action.onClick}
-										className={`p-1 hover:bg-gray-100 rounded-full transition-colors ${
+										className={`p-1 hover:bg-[var(--bg-hover)] rounded-full transition-colors ${
 											action.className || ""
 										}`}
 										title={action.label}

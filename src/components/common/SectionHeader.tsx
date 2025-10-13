@@ -16,7 +16,7 @@ export default function SectionHeader({
 	return (
 		<div className={`flex items-center justify-between mb-3 ${className}`}>
 			{/* セクションタイトル */}
-			<h3 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+			<h3 className="text-sm font-medium text-[var(--text-tertiary)] uppercase tracking-wide">
 				{title}
 			</h3>
 

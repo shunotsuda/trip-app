@@ -67,7 +67,7 @@ export default function ForgotPasswordPage() {
 				<>
 					{/* Description */}
 					<div className="text-center mb-6 md:mb-8">
-						<p className="text-sm md:text-base text-gray-600 leading-relaxed">
+						<p className="text-sm md:text-base text-[var(--text-tertiary)] leading-relaxed">
 							パスワード再設定用の確認コードを送信します
 							<br />
 							登録しているメールアドレスを入力してください
@@ -103,7 +103,7 @@ export default function ForgotPasswordPage() {
 				/* Success Message */
 				<div className="text-center">
 					<div className="mb-6">
-						<div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+						<div className="w-16 h-16 mx-auto mb-4  rounded-full flex items-center justify-center">
 							<svg
 								className="w-8 h-8 text-purple-600"
 								fill="none"
@@ -118,16 +118,16 @@ export default function ForgotPasswordPage() {
 								/>
 							</svg>
 						</div>
-						<h2 className="text-xl font-bold text-gray-900 mb-2">送信完了</h2>
-						<p className="text-sm md:text-base text-gray-600 mb-4">
+						<h2 className="text-xl font-bold text-[var(--text-emphasis)] mb-2">送信完了</h2>
+						<p className="text-sm md:text-base text-[var(--text-tertiary)] mb-4">
 							パスワード再設定用の確認コードを
 							<br />
 							<strong>{email}</strong>
 							<br />
 							に送信しました。
 						</p>
-						<div className="bg-gray-50 rounded-lg p-4 mb-6">
-							<p className="text-sm text-gray-500">
+						<div className=" rounded-lg p-4 mb-6">
+							<p className="text-sm text-[var(--text-tertiary)]">
 								💡 メールが届かない場合は、迷惑メールフォルダもご確認ください。
 							</p>
 						</div>

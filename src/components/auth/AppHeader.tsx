@@ -8,10 +8,12 @@ export default function AppHeader({ className = "" }: AppHeaderProps) {
 	return (
 		<div className={`text-center mb-4 md:mb-3 ${className}`}>
 			<Logo size="md" className="mx-auto mb-3 md:mb-2" />
-			<h1 className="text-3xl md:text-3xl lg:text-4xl  font-serif text-shadow-2xs text-gray-900 mb-2 md:mb-2">
+			<h1 className="text-3xl md:text-3xl lg:text-4xl  font-serif text-shadow-2xs text-[var(--text-emphasis)] mb-2 md:mb-2">
 				Travel Japan
 			</h1>
-			<p className="text-xs md:text-base text-gray-600">旅行をより楽しく</p>
+			<p className="text-xs md:text-base text-[var(--text-tertiary)]">
+				旅行をより楽しく
+			</p>
 		</div>
 	);
 }

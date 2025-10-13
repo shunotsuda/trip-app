@@ -72,10 +72,7 @@ function EmailLoginContent() {
 		validateEmail(email) && Object.values(passwordValidation).every(Boolean);
 
 	return (
-		<FormPageLayout
-			title="メールアドレスでログイン"
-			backHref="/login"
-		>
+		<FormPageLayout title="メールアドレスでログイン" backHref="/login">
 			<form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
 				{/* Email Field */}
 				<FormInput
@@ -117,7 +114,7 @@ function EmailLoginContent() {
 			<div className="mt-4 md:mt-5 lg:mt-6 text-center">
 				<a
 					href="/login/forgot-password"
-					className="text-cyan-400 hover:text-cyan-500 transition-colors text-sm md:text-base"
+					className="text-[var(--link-cyan)] hover:text-[var(--link-cyan-hover)]  transition-colors text-sm md:text-base"
 				>
 					パスワードを忘れた方
 				</a>
@@ -125,11 +122,11 @@ function EmailLoginContent() {
 
 			{/* Signup Link */}
 			<div className="mt-4 md:mt-5 lg:mt-6 text-center">
-				<p className="text-sm md:text-base lg:text-lg text-gray-600">
+				<p className="text-sm md:text-base lg:text-lg text-[var(--text-tertiary)]">
 					アカウントをお持ちでない方は
 					<a
 						href="/signup/email"
-						className="text-cyan-400 hover:text-cyan-500 transition-colors font-medium"
+						className="text-[var(--link-cyan)] hover:text-[var(--link-cyan-hover)]  transition-colors font-medium"
 					>
 						新規登録
 					</a>
