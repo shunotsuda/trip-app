@@ -33,6 +33,11 @@ export const STORAGE_KEYS = {
 	THEME_MODE: "userThemeMode",
 	BACKGROUND: "userBackground",
 	BACKGROUND_IMAGE: "userBackgroundImage",
+	// 画像解析結果
+	BG_OVERLAY_LIGHT: "userBgOverlayLight",
+	BG_OVERLAY_DARK: "userBgOverlayDark",
+	BG_BLEND_MODE_LIGHT: "userBgBlendModeLight",
+	BG_BLEND_MODE_DARK: "userBgBlendModeDark",
 } as const;
 
 // ===== Cookieキー =====
@@ -40,6 +45,11 @@ export const COOKIE_KEYS = {
 	THEME_MODE: "userThemeMode",
 	BACKGROUND: "userBackground",
 	BACKGROUND_IMAGE: "userBackgroundImage",
+	// 画像解析結果
+	BG_OVERLAY_LIGHT: "userBgOverlayLight",
+	BG_OVERLAY_DARK: "userBgOverlayDark",
+	BG_BLEND_MODE_LIGHT: "userBgBlendModeLight",
+	BG_BLEND_MODE_DARK: "userBgBlendModeDark",
 } as const;
 
 // ===== URL パス =====

@@ -23,3 +23,6 @@ export { default as FloatingActionButton } from "./FloatingActionButton";
 export { default as SearchBar } from "./SearchBar";
 export { default as SectionHeader } from "./SectionHeader";
 export { default as TabPanel } from "./TabPanel";
+
+// 背景プレート
+export { default as TextPlate } from "./TextPlate";

@@ -14,6 +14,11 @@ import Card from "@/components/ui/Card";
 import { CardGroup } from "@/components/ui/Card";
 import { profileData } from "@/data/dummyData";
 import { useTheme } from "@/contexts";
+import {
+	analyzeImage,
+	saveImageAnalysisResult,
+	clearImageAnalysisResult,
+} from "@/lib/theme/imageAnalysis";
 
 export default function SettingsPage() {
 	const router = useRouter();
@@ -75,15 +80,56 @@ export default function SettingsPage() {
 		},
 	];
 
-	// 画像アップロード処理
-	const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// 画像アップロード処理（解析機能付き）
+	const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setBackgroundImage(reader.result as string);
-			};
-			reader.readAsDataURL(file);
+		if (!file) return;
+
+		try {
+			// ファイルをData URLに変換
+			const dataUrl = await new Promise<string>((resolve) => {
+				const reader = new FileReader();
+				reader.onloadend = () => resolve(reader.result as string);
+				reader.readAsDataURL(file);
+			});
+
+			// 背景画像を設定（即座に表示）
+			setBackgroundImage(dataUrl);
+
+			// 画像解析を実行（バックグラウンドで）
+			console.log("🔍 画像解析を開始...");
+			const analysisResult = await analyzeImage(dataUrl);
+
+			// 解析結果を保存
+			saveImageAnalysisResult(analysisResult);
+
+			console.log("✅ 画像解析完了:", {
+				luminance: analysisResult.averageLuminance.toFixed(3),
+				contrast: analysisResult.contrast.toFixed(3),
+				alphaLight: analysisResult.overlayAlphaLight,
+				alphaDark: analysisResult.overlayAlphaDark,
+				blendModeLight: analysisResult.blendModeLight,
+				blendModeDark: analysisResult.blendModeDark,
+			});
+
+			// localStorage と Cookie の保存内容を出力
+			console.log("📦 localStorage保存内容:", {
+				userBackgroundImage:
+					localStorage.getItem("userBackgroundImage")?.substring(0, 50) + "...",
+				userBgOverlayLight: localStorage.getItem("userBgOverlayLight"),
+				userBgOverlayDark: localStorage.getItem("userBgOverlayDark"),
+				userBgBlendModeLight: localStorage.getItem("userBgBlendModeLight"),
+				userBgBlendModeDark: localStorage.getItem("userBgBlendModeDark"),
+			});
+
+			console.log("🍪 Cookie保存内容:", {
+				cookies: document.cookie
+					.split("; ")
+					.filter((c) => c.startsWith("userBg") || c.startsWith("userTheme")),
+			});
+		} catch (error) {
+			console.error("❌ 画像解析エラー:", error);
+			// エラー時もデフォルト値で表示は継続
 		}
 	};
 
@@ -192,7 +238,10 @@ export default function SettingsPage() {
 											画像を変更
 										</label>
 										<button
-											onClick={() => setBackgroundImage(null)}
+											onClick={() => {
+												setBackgroundImage(null);
+												clearImageAnalysisResult(); // 解析結果もクリア
+											}}
 											className="px-4 py-3 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
 										>
 											削除
@@ -242,7 +291,11 @@ export default function SettingsPage() {
 								{backgrounds.map((bg) => (
 									<button
 										key={bg.id}
-										onClick={() => setBackground(bg.class)}
+										onClick={() => {
+											setBackground(bg.class);
+											setBackgroundImage(null); // 背景画像をクリア
+											clearImageAnalysisResult(); // 解析結果もクリア
+										}}
 										className={`relative aspect-square rounded-lg ${
 											bg.class
 										} border-2 ${
@@ -283,7 +336,53 @@ export default function SettingsPage() {
 								{wallpapers.map((wallpaper) => (
 									<button
 										key={wallpaper.id}
-										onClick={() => setBackgroundImage(wallpaper.path)}
+										onClick={async () => {
+											// プリセット壁紙も解析して最適化
+											try {
+												setBackgroundImage(wallpaper.path);
+												console.log(
+													"🔍 プリセット画像解析を開始:",
+													wallpaper.name
+												);
+												const analysisResult = await analyzeImage(
+													wallpaper.path
+												);
+												saveImageAnalysisResult(analysisResult);
+												console.log(
+													"✅ プリセット画像解析完了:",
+													analysisResult
+												);
+
+												// localStorage と Cookie の保存内容を出力
+												console.log("📦 localStorage保存内容:", {
+													userBackgroundImage: localStorage.getItem(
+														"userBackgroundImage"
+													),
+													userBgOverlayLight:
+														localStorage.getItem("userBgOverlayLight"),
+													userBgOverlayDark:
+														localStorage.getItem("userBgOverlayDark"),
+													userBgBlendModeLight: localStorage.getItem(
+														"userBgBlendModeLight"
+													),
+													userBgBlendModeDark: localStorage.getItem(
+														"userBgBlendModeDark"
+													),
+												});
+
+												console.log("🍪 Cookie保存内容:", {
+													cookies: document.cookie
+														.split("; ")
+														.filter(
+															(c) =>
+																c.startsWith("userBg") ||
+																c.startsWith("userTheme")
+														),
+												});
+											} catch (error) {
+												console.error("❌ プリセット画像解析エラー:", error);
+											}
+										}}
 										className={`relative aspect-video rounded-lg overflow-hidden border-2 ${
 											backgroundImage === wallpaper.path
 												? "border-blue-500 ring-2 ring-blue-200"
@@ -377,278 +476,6 @@ export default function SettingsPage() {
 						className="mb-6"
 					/>
 
-					{/* アカウント設定 */}
-					<SectionHeader title="アカウント設定" className="px-1 mb-2" />
-					<CardGroup
-						group={{
-							id: "account-settings",
-							items: [
-								{
-									id: "password-security",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-											/>
-										</svg>
-									),
-									title: "パスワードとセキュリティ",
-									showArrow: true,
-									onClick: () => console.log("パスワードとセキュリティ"),
-								},
-								{
-									id: "personal-info",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-											/>
-										</svg>
-									),
-									title: "個人の情報",
-									showArrow: true,
-									onClick: () => console.log("個人の情報"),
-								},
-								{
-									id: "info-access",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-											/>
-										</svg>
-									),
-									title: "あなたの情報とアクセス許可",
-									showArrow: true,
-									onClick: () => console.log("あなたの情報とアクセス許可"),
-								},
-								{
-									id: "ad-settings",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
-											/>
-										</svg>
-									),
-									title: "広告表示の設定",
-									showArrow: true,
-									onClick: () => console.log("広告表示の設定"),
-								},
-								{
-									id: "meta-pay",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-											/>
-										</svg>
-									),
-									title: "Meta Pay",
-									showArrow: true,
-									onClick: () => console.log("Meta Pay"),
-								},
-								{
-									id: "subscription",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-											/>
-										</svg>
-									),
-									title: "サブスクリプション",
-									showArrow: true,
-									onClick: () => console.log("サブスクリプション"),
-								},
-							],
-						}}
-						className="mb-6"
-					/>
-					{/* アカウント設定 */}
-					<SectionHeader title="アカウント設定" className="px-1 mb-2" />
-					<CardGroup
-						group={{
-							id: "account-settings",
-							items: [
-								{
-									id: "password-security",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-											/>
-										</svg>
-									),
-									title: "パスワードとセキュリティ",
-									showArrow: true,
-									onClick: () => console.log("パスワードとセキュリティ"),
-								},
-								{
-									id: "personal-info",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-											/>
-										</svg>
-									),
-									title: "個人の情報",
-									showArrow: true,
-									onClick: () => console.log("個人の情報"),
-								},
-								{
-									id: "info-access",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-											/>
-										</svg>
-									),
-									title: "あなたの情報とアクセス許可",
-									showArrow: true,
-									onClick: () => console.log("あなたの情報とアクセス許可"),
-								},
-								{
-									id: "ad-settings",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
-											/>
-										</svg>
-									),
-									title: "広告表示の設定",
-									showArrow: true,
-									onClick: () => console.log("広告表示の設定"),
-								},
-								{
-									id: "meta-pay",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-											/>
-										</svg>
-									),
-									title: "Meta Pay",
-									showArrow: true,
-									onClick: () => console.log("Meta Pay"),
-								},
-								{
-									id: "subscription",
-									icon: (
-										<svg
-											className="w-6 h-6"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-											/>
-										</svg>
-									),
-									title: "サブスクリプション",
-									showArrow: true,
-									onClick: () => console.log("サブスクリプション"),
-								},
-							],
-						}}
-						className="mb-6"
-					/>
 					{/* アカウント設定 */}
 					<SectionHeader title="アカウント設定" className="px-1 mb-2" />
 					<CardGroup

@@ -111,6 +111,7 @@ export default function MaterialIcon({
 			tabIndex={isInteractive ? 0 : undefined}
 			role={isInteractive ? "button" : undefined}
 			aria-label={ariaLabel || (isInteractive ? `${icon} ボタン` : undefined)}
+			suppressHydrationWarning
 		>
 			{icon}
 		</span>

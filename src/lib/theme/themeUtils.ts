@@ -4,6 +4,7 @@
  */
 
 import { STORAGE_KEYS, COOKIE_KEYS, THEME } from "@/config/constants";
+import { loadImageAnalysisResult } from "./imageAnalysis";
 
 export interface ThemeConfig {
 	mode?: string | null;
@@ -39,7 +40,29 @@ export function updateCssVariables(
 		style.setProperty("--user-bg-mode", "image");
 		style.setProperty("--user-bg-image", `url("${backgroundImage}")`);
 		style.setProperty("--user-bg-color", "transparent");
-		// オーバーレイ色はCSS変数で自動切り替え（設定不要）
+
+		// 保存された解析結果を適用
+		const analysisResult = loadImageAnalysisResult();
+
+		// テーマに応じたα値とブレンドモードを選択
+		const currentAlpha =
+			mode === "dark"
+				? analysisResult.overlayAlphaDark
+				: analysisResult.overlayAlphaLight;
+
+		const currentBlendMode =
+			mode === "dark"
+				? analysisResult.blendModeDark
+				: analysisResult.blendModeLight;
+
+		// 動的オーバーレイ色を設定
+		const overlayColor =
+			mode === "dark"
+				? `rgba(0, 0, 0, ${currentAlpha})`
+				: `rgba(255, 255, 255, ${currentAlpha})`;
+
+		style.setProperty("--user-bg-overlay", overlayColor);
+		style.setProperty("--user-bg-blend-mode", currentBlendMode);
 	} else {
 		// 色モード
 		style.setProperty("--user-bg-mode", "color");

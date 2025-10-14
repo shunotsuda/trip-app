@@ -92,6 +92,7 @@
 	--user-bg-color: var(--bg-accent);
 	--user-bg-image: none;
 	--user-bg-overlay: rgba(255, 255, 255, 0.35); /* ライトモード用 */
+	--user-bg-blend-mode: normal; /* ブレンドモード */
 }
 
 [data-theme="dark"] {
@@ -197,6 +198,7 @@ body {
 			var(--user-bg-overlay)
 		),
 		var(--user-bg-image);
+	background-blend-mode: var(--user-bg-blend-mode), normal;
 	background-size: cover, cover;
 	background-position: center, center;
 	background-attachment: fixed, fixed;
