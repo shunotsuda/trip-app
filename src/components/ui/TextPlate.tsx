@@ -9,6 +9,7 @@
 
 import React, { ReactNode } from "react";
 import { cn } from "@/lib/utils/helpers";
+import { useTheme } from "@/contexts/ThemeContext";
 
 /**
  * TextPlate のプロパティ定義
@@ -20,6 +21,8 @@ interface TextPlateProps {
 	as?: React.ElementType;
 	/** 追加CSSクラス */
 	className?: string;
+	/** 強制的に有効にする（画像背景以外でも使用したい場合） */
+	forceEnable?: boolean;
 	// 将来の拡張用: tone調整（濃さ変更機能）
 	// tone?: -1 | 0 | 1;
 }
@@ -32,7 +35,7 @@ interface TextPlateProps {
  *
  * 使用例:
  * ```tsx
- * <TextPlate tone={0}>
+ * <TextPlate>
  *   <h1>旅行計画</h1>
  *   <p>次の旅行をもっと楽しく</p>
  * </TextPlate>
@@ -41,14 +44,24 @@ interface TextPlateProps {
  * @param children - プレート内のコンテンツ
  * @param as - 使用するHTML要素
  * @param className - 追加スタイル
- * @param tone - 濃さ調整（-1: 薄め、0: 標準、1: 濃いめ）
+ * @param forceEnable - 強制的に有効にする（画像背景以外でも使用したい場合）
  */
 export default function TextPlate({
 	children,
 	as = "div",
 	className = "",
+	forceEnable = false,
 }: TextPlateProps) {
 	const Component = as as React.ElementType;
+	const { backgroundImage } = useTheme();
+
+	// 画像背景がある場合のみTextPlateを有効化
+	const shouldEnable = forceEnable || !!backgroundImage;
+
+	// 画像背景がない場合は通常のコンテンツを返す
+	if (!shouldEnable) {
+		return <Component className={className}>{children}</Component>;
+	}
 
 	/**
 	 * プレートのクラス定義
@@ -84,10 +97,9 @@ export default function TextPlate({
  * </TextPlate>
  * ```
  *
- * 2. 濃さ調整:
+ * 2. 強制有効化:
  * ```tsx
- * <TextPlate tone={1}>より読みやすく</TextPlate>
- * <TextPlate tone={-1}>控えめに</TextPlate>
+ * <TextPlate forceEnable={true}>画像背景以外でも使用</TextPlate>
  * ```
  *
  * 3. セマンティックHTML:
@@ -99,6 +111,6 @@ export default function TextPlate({
  *
  * 注意事項:
  * - backdrop-filterはSafariで重くなる場合があるため、多用は避ける
- * - tone調整は±1の範囲内で使用を推奨
- * - 背景画像なしの場合でも見た目が崩れないよう配慮
+ * - 画像背景がない場合は自動的に無効化される
+ * - forceEnableで強制的に有効化することも可能
  */

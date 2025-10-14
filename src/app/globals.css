@@ -62,7 +62,7 @@
 	--bg-profile-button-hover: #e5e7eb;
 	--bg-hover: #f3f4f6;
 	--bg-hover-subtle: #f9fafb;
-	--bg-accent: linear-gradient(180deg, #fefefe 0%, #f5f0e8 100%);
+	--bg-accent: #f5f0e8;
 
 	/* ===== テキスト色（ダークモード対応） ===== */
 	--text-primary: #000000;
@@ -104,7 +104,7 @@
 	--bg-profile-button-hover: #2d2d2d;
 	--bg-hover: #374151;
 	--bg-hover-subtle: #2d2d2d;
-	--bg-accent: linear-gradient(180deg, #2d2d2d 0%, #1f1f1f 100%);
+	--bg-accent: #2d2d2d;
 
 	/* ===== テキスト色（ダークモード） ===== */
 	--text-primary: #ffffff;
@@ -192,7 +192,10 @@ body {
 	);
 
 	/* ===== ユーザー背景システム ===== */
+	/* 基本背景色 */
 	background: var(--user-bg-color);
+
+	/* 画像がある場合のみオーバーレイと画像を適用 */
 	background-image: linear-gradient(
 			var(--user-bg-overlay),
 			var(--user-bg-overlay)

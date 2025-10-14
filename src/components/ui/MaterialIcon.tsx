@@ -56,7 +56,7 @@ export default function MaterialIcon({
 	 * テーマに応じたフォント調整
 	 * ダークモードでは線が太く見えるため、weightとgradientを調整
 	 */
-	const wght = mode === "dark" ? 100 : 300;
+	const wght = mode === "dark" ? 200 : 300;
 	const grad = mode === "dark" ? -25 : 0;
 
 	/**
