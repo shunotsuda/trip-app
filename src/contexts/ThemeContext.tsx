@@ -7,6 +7,11 @@ import React, {
 	useEffect,
 	ReactNode,
 } from "react";
+import {
+	updateCssVariables,
+	loadThemeFromLocalStorage,
+	saveThemeConfig,
+} from "@/lib/theme/themeUtils";
 
 interface ThemeContextType {
 	background: string;
@@ -27,57 +32,91 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
 	// localStorageから初期値を読み込む（フラッシュ防止）
 	const [background, setBackground] = useState(() => {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem("userBackground") || "bg-accent";
-		}
-		return "bg-accent";
+		const config = loadThemeFromLocalStorage();
+		return config.background || "bg-accent";
 	});
 
 	const [backgroundImage, setBackgroundImage] = useState<string | null>(() => {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem("userBackgroundImage");
-		}
-		return null;
+		const config = loadThemeFromLocalStorage();
+		return config.backgroundImage || null;
 	});
 
 	const [mode, setMode] = useState<"light" | "dark">(() => {
-		if (typeof window !== "undefined") {
-			const savedMode = localStorage.getItem("userThemeMode") as
-				| "light"
-				| "dark"
-				| null;
-			return savedMode || "light";
-		}
-		return "light";
+		const config = loadThemeFromLocalStorage();
+		return (config.mode as "light" | "dark") || "light";
 	});
 
-	// 初回マウント時とmodeが変わったらdata-theme属性を更新
+	// テーマ/背景変更時にCSS変数を更新
 	useEffect(() => {
-		document.documentElement.setAttribute("data-theme", mode);
-	}, [mode]);
+		updateCssVariables(document.documentElement, {
+			mode,
+			backgroundImage,
+			background,
+		});
+	}, [mode, backgroundImage, background]);
 
-	// 背景色を保存
+	// ページフォーカス/可視性変更時にlocalStorageから再同期
+	useEffect(() => {
+		const syncFromLocalStorage = () => {
+			const config = loadThemeFromLocalStorage();
+
+			// stateとlocalStorageが異なる場合のみ更新
+			if (config.mode && config.mode !== mode) {
+				setMode(config.mode as "light" | "dark");
+			}
+			if (config.backgroundImage !== backgroundImage) {
+				setBackgroundImage(config.backgroundImage || null);
+			}
+			if (config.background && config.background !== background) {
+				setBackground(config.background);
+			}
+
+			// CSS変数を即座に同期
+			updateCssVariables(document.documentElement, config);
+		};
+
+		window.addEventListener("focus", syncFromLocalStorage);
+		document.addEventListener("visibilitychange", () => {
+			if (!document.hidden) syncFromLocalStorage();
+		});
+		window.addEventListener("popstate", syncFromLocalStorage);
+
+		return () => {
+			window.removeEventListener("focus", syncFromLocalStorage);
+			document.removeEventListener("visibilitychange", syncFromLocalStorage);
+			window.removeEventListener("popstate", syncFromLocalStorage);
+		};
+	}, [mode, backgroundImage, background]);
+
+	// 背景色を設定・保存
 	const handleSetBackground = (bg: string) => {
+		console.log("Setting background:", bg);
 		setBackground(bg);
 		setBackgroundImage(null); // 色を選んだら画像をクリア
-		localStorage.setItem("userBackground", bg);
-		localStorage.removeItem("userBackgroundImage");
+
+		// localStorage & Cookie保存
+		saveThemeConfig({ background: bg, backgroundImage: null });
+
+		console.log("Background saved:", bg);
 	};
 
-	// 背景画像を保存
+	// 背景画像を設定・保存
 	const handleSetBackgroundImage = (imageUrl: string | null) => {
+		console.log("Setting background image:", imageUrl);
 		setBackgroundImage(imageUrl);
-		if (imageUrl) {
-			localStorage.setItem("userBackgroundImage", imageUrl);
-		} else {
-			localStorage.removeItem("userBackgroundImage");
-		}
+
+		// localStorage & Cookie保存
+		saveThemeConfig({ backgroundImage: imageUrl });
+
+		console.log("Background image saved:", imageUrl);
 	};
 
-	// モードを保存
+	// モードを設定・保存
 	const handleSetMode = (newMode: "light" | "dark") => {
 		setMode(newMode);
-		localStorage.setItem("userThemeMode", newMode);
+
+		// localStorage & Cookie保存
+		saveThemeConfig({ mode: newMode });
 	};
 
 	// モードを切り替え

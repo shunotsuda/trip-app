@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FormPageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout/PageLayout";
 import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
 import {
 	validateEmail,
 	validatePassword,
 	getEmailError,
 	getConfirmPasswordError,
-} from "@/lib/validation";
+} from "@/lib/validation/rules";
 
 export default function EmailSignupPage() {
 	const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ export default function EmailSignupPage() {
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setEmail(value);
-		setEmailError(getEmailError(value));
+		setEmailError(getEmailError(value) || "");
 	};
 
 	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,7 +44,7 @@ export default function EmailSignupPage() {
 	) => {
 		const value = e.target.value;
 		setConfirmPassword(value);
-		setConfirmPasswordError(getConfirmPasswordError(password, value));
+		setConfirmPasswordError(getConfirmPasswordError(password, value) || "");
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {

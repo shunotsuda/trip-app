@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ItineraryCard } from "@/components";
+import { ItineraryCard } from "@/components/features/posts";
 
 interface Itinerary {
 	id: string;

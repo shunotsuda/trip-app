@@ -21,7 +21,7 @@ export default function SwipePage() {
 
 			{/* メインコンテンツエリア */}
 			<MainContentArea className="">
-				<div className="p-4">
+				<div className="p-4 bg-[var(--bg-content)] opacity-50">
 					<div className="rounded-lg shadow-sm p-6 text-center">
 						<svg
 							className="w-16 h-16 text-[var(--text-disabled)] mx-auto mb-4"

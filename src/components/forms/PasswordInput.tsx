@@ -13,8 +13,14 @@ interface PasswordInputProps {
 	className?: string;
 	showValidation?: boolean;
 	validation?: {
+		ok?: boolean;
 		length: boolean;
-		alphanumeric: boolean;
+		hasLetter?: boolean;
+		hasNumber?: boolean;
+		hasSymbol?: boolean;
+		noSpace?: boolean;
+		notSingleRepeating?: boolean;
+		alphanumeric?: boolean;
 	};
 }
 

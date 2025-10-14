@@ -2,13 +2,13 @@
 
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { FormPageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout/PageLayout";
 import { FormInput, PasswordInput, SubmitButton } from "@/components/forms";
 import {
 	validateEmail,
 	validatePassword,
 	getEmailError,
-} from "@/lib/validation";
+} from "@/lib/validation/rules";
 
 function EmailLoginContent() {
 	const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ function EmailLoginContent() {
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setEmail(value);
-		setEmailError(getEmailError(value));
+		setEmailError(getEmailError(value) || "");
 	};
 
 	const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {

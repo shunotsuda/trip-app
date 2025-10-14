@@ -135,7 +135,7 @@ export default function ProfileTabs({
 			<Box
 				sx={{
 					position: "sticky",
-					top: "64px",
+					top: "0",
 					zIndex: 40,
 					backgroundColor: "var(--bg-page)",
 					borderBottom: "1px solid var(--border)",
@@ -148,7 +148,6 @@ export default function ProfileTabs({
 					sx={{
 						minHeight: "48px",
 						"& .MuiTabs-indicator": {
-							backgroundColor: "transparent",
 						},
 						"& .MuiTab-root": {
 							minHeight: "48px",

@@ -86,6 +86,12 @@
 	--link-blue-hover: #155dfc;
 	--link-cyan: #00d3f2;
 	--link-cyan-hover: #00b8db;
+
+	/* ===== ユーザー背景システム（デフォルト値） ===== */
+	--user-bg-mode: color; /* 'color' | 'image' */
+	--user-bg-color: var(--bg-accent);
+	--user-bg-image: none;
+	--user-bg-overlay: rgba(255, 255, 255, 0.35); /* ライトモード用 */
 }
 
 [data-theme="dark"] {
@@ -121,6 +127,9 @@
 	--link-blue-hover: #8ec5ff;
 	--link-cyan: #53eafd;
 	--link-cyan-hover: #a2f4fd;
+
+	/* ===== ユーザー背景システム（ダークモード） ===== */
+	--user-bg-overlay: rgba(0, 0, 0, 0.45); /* ダークモード用 */
 }
 
 /* ===== Tailwind Theme Integration ===== */
@@ -180,6 +189,17 @@ body {
 		"Noto Sans",
 		sans-serif
 	);
+
+	/* ===== ユーザー背景システム ===== */
+	background: var(--user-bg-color);
+	background-image: linear-gradient(
+			var(--user-bg-overlay),
+			var(--user-bg-overlay)
+		),
+		var(--user-bg-image);
+	background-size: cover, cover;
+	background-position: center, center;
+	background-attachment: fixed, fixed;
 }
 
 /* ボタン内のテキストを選択できなくする */

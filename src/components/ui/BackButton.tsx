@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BaseComponentProps } from "@/types";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/helpers";
 
 interface BackButtonProps extends BaseComponentProps {
 	href?: string;

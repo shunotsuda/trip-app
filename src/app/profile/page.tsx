@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
 	ProfileHeader,
 	ProfileTabs,
@@ -21,6 +22,7 @@ import { useTheme } from "@/contexts";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
+	const router = useRouter();
 	const { toggleMode } = useTheme();
 
 	// タブ切り替え
@@ -63,7 +65,7 @@ export default function ProfilePage() {
 	const handleMenuClick = () => {
 		console.log("設定ページに遷移");
 		// 設定ページに遷移
-		window.location.href = "/settings";
+		router.push("/settings");
 	};
 
 	const handleBackClick = () => {

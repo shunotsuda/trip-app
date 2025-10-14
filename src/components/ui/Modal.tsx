@@ -43,7 +43,6 @@ const backdropClasses: Record<ModalBackdrop, string> = {
 export default function Modal({ config, index }: ModalProps) {
 	const { closeModal } = useModal();
 	const modalRef = useRef<HTMLDivElement>(null);
-	const isOpen = true; // このコンポーネントが表示されている時点で開いている
 
 	// バックドロップクリック時の処理
 	const handleBackdropClick = (event: React.MouseEvent) => {

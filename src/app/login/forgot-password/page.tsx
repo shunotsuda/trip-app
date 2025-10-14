@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { FormPageLayout } from "@/components/layout";
+import { FormPageLayout } from "@/components/layout/PageLayout";
 import { FormInput, SubmitButton } from "@/components/forms";
-import { validateEmail, getEmailError } from "@/lib/validation";
+import { validateEmail, getEmailError } from "@/lib/validation/rules";
 
 export default function ForgotPasswordPage() {
 	const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
 	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		setEmail(value);
-		setEmailError(getEmailError(value));
+		setEmailError(getEmailError(value) || "");
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -118,7 +118,9 @@ export default function ForgotPasswordPage() {
 								/>
 							</svg>
 						</div>
-						<h2 className="text-xl font-bold text-[var(--text-emphasis)] mb-2">送信完了</h2>
+						<h2 className="text-xl font-bold text-[var(--text-emphasis)] mb-2">
+							送信完了
+						</h2>
 						<p className="text-sm md:text-base text-[var(--text-tertiary)] mb-4">
 							パスワード再設定用の確認コードを
 							<br />

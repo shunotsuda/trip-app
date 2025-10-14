@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/helpers";
 
 export type OrbitType = "circle" | "custom";
 export type AirplaneColor =

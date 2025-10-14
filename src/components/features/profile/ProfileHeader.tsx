@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { formatJapaneseNumber } from "@/lib/numberFormat";
+import { formatJapaneseNumber } from "@/lib/utils/format";
 
 interface ProfileHeaderProps {
 	username: string;

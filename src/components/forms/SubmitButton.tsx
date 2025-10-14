@@ -1,35 +1,59 @@
-import { BaseComponentProps } from "@/types";
-import { cn } from "@/lib/utils";
+/**
+ * フォーム送信用ボタンコンポーネント
+ *
+ * 汎用Buttonコンポーネントをベースとした、
+ * フォーム送信に特化したボタンUI。
+ * バリデーション状態やローディング状態を考慮。
+ */
 
+import { BaseComponentProps } from "@/types";
+import Button from "@/components/ui/Button";
+
+/**
+ * SubmitButton のプロパティ定義
+ */
 interface SubmitButtonProps extends BaseComponentProps {
-	isLoading: boolean;
+	/** フォームのバリデーション状態 */
 	isValid: boolean;
+	/** ローディング状態フラグ */
+	isLoading: boolean;
+	/** ローディング時に表示するテキスト */
 	loadingText?: string;
+	/** ボタンに表示するコンテンツ */
 	children: React.ReactNode;
 }
 
+/**
+ * SubmitButton コンポーネント
+ *
+ * フォーム送信専用のボタン。内部で汎用Buttonコンポーネントを使用し、
+ * type="submit"とフル幅表示を自動設定。
+ *
+ * @param isValid - フォームのバリデーション結果
+ * @param isLoading - 送信処理中フラグ
+ * @param loadingText - ローディング時表示テキスト
+ * @param children - ボタンの表示内容
+ * @param className - 追加CSSクラス
+ */
 export default function SubmitButton({
-	isLoading,
 	isValid,
-	loadingText = "処理中...",
+	isLoading,
+	loadingText = "送信中...",
 	children,
 	className,
 }: SubmitButtonProps) {
-	const isDisabled = !isValid || isLoading;
-
 	return (
-		<button
+		<Button
 			type="submit"
-			disabled={isDisabled}
-			className={cn(
-				"w-full py-3 px-4 rounded-lg font-medium transition-colors duration-150",
-				isValid && !isLoading
-					? "bg-gradient-to-r from-purple-300 to-purple-400 text-white hover:from-purple-400 hover:to-purple-500"
-					: "bg-gray-300 text-gray-500 cursor-not-allowed",
-				className
-			)}
+			variant="primary"
+			size="lg"
+			fullWidth
+			disabled={!isValid}
+			isLoading={isLoading}
+			loadingText={loadingText}
+			className={className}
 		>
-			{isLoading ? loadingText : children}
-		</button>
+			{children}
+		</Button>
 	);
 }
