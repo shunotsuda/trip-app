@@ -10,3 +10,4 @@ export { default as ProfileTabs } from "./ProfileTabs";
 export { default as FavoriteGrid } from "./FavoriteGrid";
 export { default as ItineraryGrid } from "./ItineraryGrid";
 export { default as ReviewGrid } from "./ReviewGrid";
+export { default as UserIdDisplay } from "./UserIdDisplay";

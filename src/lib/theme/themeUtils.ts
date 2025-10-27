@@ -9,7 +9,6 @@ import { loadImageAnalysisResult } from "./imageAnalysis";
 export interface ThemeConfig {
 	mode?: string | null;
 	backgroundImage?: string | null;
-	background?: string | null;
 }
 
 /**
@@ -21,7 +20,7 @@ export function updateCssVariables(
 	element: HTMLElement | Element,
 	config: ThemeConfig
 ): void {
-	const { mode = "light", backgroundImage, background = "bg-accent" } = config;
+	const { mode = "light", backgroundImage } = config;
 
 	// data-theme属性を設定
 	if (mode) {
@@ -64,26 +63,10 @@ export function updateCssVariables(
 		style.setProperty("--user-bg-overlay", overlayColor);
 		style.setProperty("--user-bg-blend-mode", currentBlendMode);
 	} else {
-		// 色モード
-		style.setProperty("--user-bg-mode", "color");
+		// デフォルトモード（画像なし）
+		style.setProperty("--user-bg-mode", "default");
 		style.setProperty("--user-bg-image", "none");
-
-		// 背景色をTailwindクラスからCSS変数に変換
-		let colorVar: string;
-		switch (background) {
-			case "bg-accent":
-				colorVar = "var(--bg-accent)";
-				break;
-			case "bg-[var(--text-white)]":
-				colorVar = "var(--text-white)";
-				break;
-			case "bg-[var(--bg-page)]":
-				colorVar = "var(--bg-page)";
-				break;
-			default:
-				colorVar = "var(--bg-accent)";
-		}
-		style.setProperty("--user-bg-color", colorVar);
+		style.setProperty("--user-bg-color", "var(--bg-page)");
 	}
 }
 
@@ -96,15 +79,12 @@ export function loadThemeFromLocalStorage(): ThemeConfig {
 		return {
 			mode: "light",
 			backgroundImage: null,
-			background: "bg-accent",
 		};
 	}
 
 	return {
 		mode: localStorage.getItem(STORAGE_KEYS.THEME_MODE) || THEME.MODE.LIGHT,
 		backgroundImage: localStorage.getItem(STORAGE_KEYS.BACKGROUND_IMAGE),
-		background:
-			localStorage.getItem(STORAGE_KEYS.BACKGROUND) || THEME.DEFAULT_BACKGROUND,
 	};
 }
 
@@ -146,19 +126,6 @@ export function saveThemeConfig(config: Partial<ThemeConfig>): void {
 			localStorage.removeItem(STORAGE_KEYS.BACKGROUND_IMAGE);
 			document.cookie = `${COOKIE_KEYS.BACKGROUND_IMAGE}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; samesite=lax`;
 		}
-	}
-
-	if (config.background !== undefined) {
-		localStorage.setItem(
-			STORAGE_KEYS.BACKGROUND,
-			config.background || THEME.DEFAULT_BACKGROUND
-		);
-		document.cookie = `${COOKIE_KEYS.BACKGROUND}=${
-			config.background || THEME.DEFAULT_BACKGROUND
-		}; expires=${expireString}; path=/; samesite=lax`;
-		// 背景色設定時は画像をクリア
-		localStorage.removeItem(STORAGE_KEYS.BACKGROUND_IMAGE);
-		document.cookie = `${COOKIE_KEYS.BACKGROUND_IMAGE}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; samesite=lax`;
 	}
 }
 

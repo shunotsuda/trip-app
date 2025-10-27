@@ -5,6 +5,7 @@ import "./globals.css";
 import { ModalProvider, LoadingProvider, ThemeProvider } from "@/contexts";
 import { ModalContainer } from "@/components/ui/Modal";
 import { COOKIE_KEYS, THEME } from "@/config/constants";
+import { QueryProvider } from "@/providers/QueryProvider";
 import Script from "next/script";
 
 const geistSans = Geist({
@@ -208,16 +209,18 @@ export default async function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 				suppressHydrationWarning
 			>
-				<ModalProvider>
-					<LoadingProvider>
-						<ThemeProvider>
-							<div className="relative z-0 bg-transparent">
-								{children}
-								<ModalContainer />
-							</div>
-						</ThemeProvider>
-					</LoadingProvider>
-				</ModalProvider>
+				<QueryProvider>
+					<ModalProvider>
+						<LoadingProvider>
+							<ThemeProvider>
+								<div className="relative z-0 bg-transparent">
+									{children}
+									<ModalContainer />
+								</div>
+							</ThemeProvider>
+						</LoadingProvider>
+					</ModalProvider>
+				</QueryProvider>
 			</body>
 		</html>
 	);

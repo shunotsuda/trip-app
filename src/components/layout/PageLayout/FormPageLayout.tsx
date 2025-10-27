@@ -26,7 +26,7 @@ export default function FormPageLayout({
 					<>
 						{showLogo ? (
 							<div className="hidden lg:flex items-center justify-between mb-6">
-								<BackButton href={backHref} onClick={backOnClick} />
+								<BackButton onClick={backOnClick} fallbackRoute={backHref} />
 								<h1 className="text-2xl font-bold text-[var(--text-emphasis)]">
 									{title}
 								</h1>
@@ -35,7 +35,7 @@ export default function FormPageLayout({
 						) : (
 							<div className="hidden lg:block mb-6">
 								<div className="mb-4">
-									<BackButton href={backHref} onClick={backOnClick} />
+									<BackButton onClick={backOnClick} fallbackRoute={backHref} />
 								</div>
 								<h1 className="text-2xl font-bold text-[var(--text-emphasis)] text-center">
 									{title}
@@ -48,7 +48,7 @@ export default function FormPageLayout({
 				{/* Mobile Layout */}
 				<div className="lg:hidden">
 					<div className="mb-4 md:mb-3">
-						<BackButton href={backHref} onClick={backOnClick} />
+						<BackButton onClick={backOnClick} fallbackRoute={backHref} />
 					</div>
 
 					{showLogo && (

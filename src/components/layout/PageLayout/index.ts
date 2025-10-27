@@ -8,3 +8,4 @@
 export { default as PageWrapper } from "./PageWrapper";
 export { default as FormPageLayout } from "./FormPageLayout";
 export { default as MainContentArea } from "./MainContentArea";
+export { default as FlexibleHeader } from "./FlexibleHeader";

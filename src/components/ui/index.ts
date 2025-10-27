@@ -13,6 +13,7 @@ export { default as LoadingScreen } from "./LoadingScreen";
 export { default as Logo } from "./Logo";
 export { default as MaterialIcon } from "./MaterialIcon";
 export { default as BackButton } from "./BackButton";
+export { default as HamburgerToggle } from "./HamburgerToggle";
 
 // 特殊UIコンポーネント
 export { AnimatedAirplane } from "./AnimatedAirplane";

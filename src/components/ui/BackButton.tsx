@@ -1,54 +1,62 @@
-import Link from "next/link";
-import { BaseComponentProps } from "@/types";
-import { cn } from "@/lib/utils/helpers";
+"use client";
 
-interface BackButtonProps extends BaseComponentProps {
-	href?: string;
+import React from "react";
+import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils/helpers";
+import MaterialIcon from "@/components/ui/MaterialIcon";
+
+interface BackButtonProps {
+	/** カスタムクリックハンドラー（指定された場合は自作モード） */
 	onClick?: () => void;
-	children?: React.ReactNode;
+	/** ページ戻るモード時のフォールバックルート */
+	fallbackRoute?: string;
+	/** 追加のクラス名 */
+	className?: string;
+	/** アイコンサイズ */
+	size?: number;
 }
 
 export default function BackButton({
-	href,
 	onClick,
-	className,
-	children = "戻る",
+	fallbackRoute = "/",
+	className = "",
+	size = 20,
 }: BackButtonProps) {
-	const buttonContent = (
-		<>
-			<svg
-				className="w-5 h-5 mr-2"
-				fill="none"
-				stroke="currentColor"
-				viewBox="0 0 24 24"
-			>
-				<path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth={2}
-					d="M15 19l-7-7 7-7"
-				/>
-			</svg>
-			{children}
-		</>
-	);
+	const router = useRouter();
 
-	const buttonClasses = cn(
-		"inline-flex items-center text-gray-600 hover:text-gray-800 transition-colors",
-		className
-	);
+	const handleClick = () => {
+		if (onClick) {
+			// 自作モード：カスタム関数を実行
+			onClick();
+			return;
+		}
 
-	if (href) {
-		return (
-			<Link href={href} className={buttonClasses}>
-				{buttonContent}
-			</Link>
-		);
-	}
+		// ページ戻るモード：履歴ベース + フォールバック
+		if (window.history.length > 1) {
+			router.back();
+		} else {
+			router.push(fallbackRoute);
+		}
+	};
 
 	return (
-		<button onClick={onClick} className={buttonClasses}>
-			{buttonContent}
+		<button
+			onClick={handleClick}
+			className={cn(
+				"p-2 rounded-full dim",
+				"flex items-center justify-center",
+				"text-[var(--text-primary)]",
+				"transition-colors duration-150",
+				"focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1",
+				className
+			)}
+			aria-label="戻る"
+		>
+			<MaterialIcon
+				icon="arrow_back_ios"
+				size={size}
+				className="text-[var(--text-primary)]"
+			/>
 		</button>
 	);
 }

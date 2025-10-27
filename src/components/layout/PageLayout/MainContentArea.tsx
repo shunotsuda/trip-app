@@ -7,11 +7,15 @@ interface MainContentAreaProps {
 	className?: string;
 }
 
-export default function MainContentArea({
+const MainContentArea = ({
 	children,
 	className = "",
-}: MainContentAreaProps) {
+}: MainContentAreaProps) => {
 	return (
-		<main className={`flex-1 overflow-y-auto relative ${className}`}>{children}</main>
+		<main className={`flex-grow min-h-0 overflow-hidden ${className}`}>
+			{children}
+		</main>
 	);
-}
+};
+
+export default MainContentArea;

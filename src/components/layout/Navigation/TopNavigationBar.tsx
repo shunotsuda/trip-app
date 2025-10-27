@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { BackButton } from "@/components/ui";
 
 // 汎用的なヘッダーボタンの型定義
 export interface HeaderButton {
@@ -52,31 +53,14 @@ export default function TopNavigationBar({
 					<>
 						{/* 左側：戻るボタン */}
 						<div className="w-10 flex justify-start">
-							<button
-								onClick={() => backButton.onClick?.()}
-								className="p-1 hover:bg-[var(--bg-hover)] rounded-full transition-colors"
-							>
-								<svg
-									className="w-6 h-6 text-[var(--text-primary)]"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={1.5}
-										d="M15 19l-7-7 7-7"
-									/>
-								</svg>
-							</button>
+							<BackButton onClick={backButton.onClick} />
 						</div>
 
 						{/* 中央のタイトル/ユーザー名 */}
 						<div className="flex items-center space-x-1 flex-1 justify-center">
 							{title.type === "username" ? (
 								<>
-									<span className="text-base font-semibold text-[var(--text-primary)]">
+									<span className="text-lg font-bold text-[var(--text-primary)]">
 										{title.content}
 									</span>
 									{title.showDropdown && (
@@ -96,7 +80,7 @@ export default function TopNavigationBar({
 									)}
 								</>
 							) : (
-								<span className="text-base font-semibold text-[var(--text-primary)]">
+								<span className="text-lg font-bold text-[var(--text-primary)]">
 									{title.content}
 								</span>
 							)}
@@ -129,7 +113,7 @@ export default function TopNavigationBar({
 						<div className="flex items-center space-x-1 flex-1">
 							{title.type === "username" ? (
 								<>
-									<span className="text-base font-semibold text-[var(--text-primary)]">
+									<span className="text-lg font-bold text-[var(--text-primary)]">
 										{title.content}
 									</span>
 									{title.showDropdown && (
@@ -149,7 +133,7 @@ export default function TopNavigationBar({
 									)}
 								</>
 							) : (
-								<span className="text-base font-semibold text-[var(--text-primary)]">
+								<span className="text-lg font-bold text-[var(--text-primary)]">
 									{title.content}
 								</span>
 							)}

@@ -49,12 +49,14 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
 					value={value}
 					onChange={onChange}
 					required={required}
-					className={`w-full px-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-colors ${
-						error ? "border-red-300 bg-red-50" : "border-[var(--border-input)]"
+					className={`w-full px-3 py-2.5 border rounded-lg transition-colors ${
+						error ? "input-error" : "border-[var(--border-input)]"
 					} ${className}`}
 					placeholder={placeholder}
 				/>
-				{error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+				{error && (
+					<p className="mt-1 text-xs text-[var(--text-alert)]">{error}</p>
+				)}
 			</div>
 		);
 	}

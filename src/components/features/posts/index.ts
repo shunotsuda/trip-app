@@ -7,3 +7,4 @@
 
 export { default as ItineraryCard } from "./ItineraryCard";
 export { default as PostGrid } from "./PostGrid";
+export { InfinitePostList } from "./InfinitePostList";

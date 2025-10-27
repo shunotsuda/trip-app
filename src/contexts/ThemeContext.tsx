@@ -14,10 +14,8 @@ import {
 } from "@/lib/theme/themeUtils";
 
 interface ThemeContextType {
-	background: string;
 	backgroundImage: string | null;
 	mode: "light" | "dark";
-	setBackground: (bg: string) => void;
 	setBackgroundImage: (imageUrl: string | null) => void;
 	setMode: (mode: "light" | "dark") => void;
 	toggleMode: () => void;
@@ -30,12 +28,6 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-	// localStorageから初期値を読み込む（フラッシュ防止）
-	const [background, setBackground] = useState(() => {
-		const config = loadThemeFromLocalStorage();
-		return config.background || "bg-accent";
-	});
-
 	const [backgroundImage, setBackgroundImage] = useState<string | null>(() => {
 		const config = loadThemeFromLocalStorage();
 		return config.backgroundImage || null;
@@ -51,9 +43,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 		updateCssVariables(document.documentElement, {
 			mode,
 			backgroundImage,
-			background,
 		});
-	}, [mode, backgroundImage, background]);
+	}, [mode, backgroundImage]);
 
 	// ページフォーカス/可視性変更時にlocalStorageから再同期
 	useEffect(() => {
@@ -66,9 +57,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 			}
 			if (config.backgroundImage !== backgroundImage) {
 				setBackgroundImage(config.backgroundImage || null);
-			}
-			if (config.background && config.background !== background) {
-				setBackground(config.background);
 			}
 
 			// CSS変数を即座に同期
@@ -86,19 +74,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 			document.removeEventListener("visibilitychange", syncFromLocalStorage);
 			window.removeEventListener("popstate", syncFromLocalStorage);
 		};
-	}, [mode, backgroundImage, background]);
-
-	// 背景色を設定・保存
-	const handleSetBackground = (bg: string) => {
-		console.log("Setting background:", bg);
-		setBackground(bg);
-		setBackgroundImage(null); // 色を選んだら画像をクリア
-
-		// localStorage & Cookie保存
-		saveThemeConfig({ background: bg, backgroundImage: null });
-
-		console.log("Background saved:", bg);
-	};
+	}, [mode, backgroundImage]);
 
 	// 背景画像を設定・保存
 	const handleSetBackgroundImage = (imageUrl: string | null) => {
@@ -128,10 +104,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 	return (
 		<ThemeContext.Provider
 			value={{
-				background,
 				backgroundImage,
 				mode,
-				setBackground: handleSetBackground,
 				setBackgroundImage: handleSetBackgroundImage,
 				setMode: handleSetMode,
 				toggleMode: handleToggleMode,

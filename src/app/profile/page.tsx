@@ -6,7 +6,6 @@ import {
 	ProfileHeader,
 	ProfileTabs,
 	PostGrid,
-	TopNavigationBar,
 	BottomNavigationBar,
 	MainContentArea,
 	PageWrapper,
@@ -15,15 +14,17 @@ import {
 	ReviewGrid,
 	FavoriteGrid,
 	ItineraryGrid,
+	FlexibleHeader,
+	UserIdDisplay,
+	HamburgerToggle,
+	BackButton,
 } from "@/components";
 import { profileData, itineraryData, posts } from "@/data/dummyData";
-import { SquaresPlusIcon } from "@heroicons/react/24/outline";
-import { useTheme } from "@/contexts";
 
 export default function ProfilePage() {
 	const [activeTab, setActiveTab] = useState("posts");
+	const [isAccountDropdownOpen, setIsAccountDropdownOpen] = useState(false);
 	const router = useRouter();
-	const { toggleMode } = useTheme();
 
 	// タブ切り替え
 	const handleTabChange = (newTab: string) => {
@@ -53,90 +54,51 @@ export default function ProfilePage() {
 		// ここで新しい投稿作成画面やモーダルを開く処理を実装
 	};
 
-	const handleThemeToggle = () => {
-		toggleMode();
-	};
-
-	const handleAddToHomeScreen = () => {
-		console.log("ホーム画面に追加");
-		// PWAのホーム画面追加処理
-	};
-
 	const handleMenuClick = () => {
 		console.log("設定ページに遷移");
-		// 設定ページに遷移
 		router.push("/settings");
 	};
 
-	const handleBackClick = () => {
-		console.log("戻る");
-		// ここで前のページに戻る処理を実装
-		// window.history.back() など
+	const handleAccountClick = () => {
+		setIsAccountDropdownOpen(!isAccountDropdownOpen);
+		console.log("アカウント切り替えメニューをトグル");
 	};
 
 	return (
 		<PageWrapper>
 			{/* ヘッダー */}
-			<TopNavigationBar
-				backButton={{
-					show: !isOwnProfile,
-					onClick: handleBackClick,
-				}}
-				title={{
-					type: "username",
-					content: "shun.1020_potd",
-					showDropdown: isOwnProfile,
-				}}
-				rightActions={[
-					{
-						id: "theme-toggle",
-						icon: (
-							<svg
-								className="w-6 h-6 text-[var(--text-primary)]"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={1.5}
-									d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-								/>
-							</svg>
-						),
-						label: "テーマ切り替え",
-						onClick: handleThemeToggle,
-					},
-					{
-						id: "squares-plus",
-						icon: (
-							<SquaresPlusIcon className="w-6 h-6 text-[var(--text-primary)]" />
-						),
-						label: "Squares Plus",
-						onClick: handleAddToHomeScreen,
-					},
-					{
-						id: "menu",
-						icon: (
-							<svg
-								className="w-6 h-6 text-[var(--text-primary)]"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									strokeWidth={1.5}
-									d="M4 6h16M4 12h16M4 18h16"
-								/>
-							</svg>
-						),
-						label: "メニュー",
-						onClick: handleMenuClick,
-					},
-				]}
+			<FlexibleHeader
+				leftRatio={1}
+				className="h-16 px-4"
+				leftContent={
+					!isOwnProfile ? (
+						<UserIdDisplay
+							userId="shun1020_trip-app"
+							hasMultipleAccounts={true}
+							isOpen={isAccountDropdownOpen}
+							onClick={handleAccountClick}
+						/>
+					) : (
+						<div className="flex items-center gap-2">
+							<div className="w-10 flex justify-start">
+								<BackButton fallbackRoute="/login" size={24} />
+							</div>
+							<UserIdDisplay
+								userId="shun1020_trip-app"
+								hasMultipleAccounts={false}
+								isOpen={false}
+								onClick={() => {}}
+							/>
+						</div>
+					)
+				}
+				rightContent={
+						<HamburgerToggle
+							isOpen={false}
+							onClick={handleMenuClick}
+							size={40}
+						/>
+				}
 			/>
 
 			{/* メインコンテンツエリア */}

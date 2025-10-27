@@ -3,172 +3,369 @@
 @import "swiper/css/pagination";
 @import "swiper/css/navigation";
 
-/* ===== Material Symbols ===== */
-.material-symbols-outlined {
-	font-family: "Material Symbols Outlined";
-	font-weight: normal;
-	font-style: normal;
-	font-size: 24px;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
-	display: inline-block;
-	white-space: nowrap;
-	word-wrap: normal;
-	direction: ltr;
-	-webkit-font-feature-settings: "liga";
-	font-feature-settings: "liga";
-	-webkit-font-smoothing: antialiased;
+/* ===== スクロールバー非表示 ===== */
+.scrollbar-hide {
+	/* Firefox */
+	scrollbar-width: none;
+	/* IE and Edge */
+	-ms-overflow-style: none;
 }
 
-/* ===== tailwindcssで使用するための置き換え早見表 ===== */
+.scrollbar-hide::-webkit-scrollbar {
+	/* Chrome, Safari, Opera */
+	display: none;
+}
 
-/* text-black      text-[var(--text-primary)]   */
-/* text-white      text-[var(--text-white)]     */
-/* text-gray-900   text-[var(--text-emphasis)]  */
-/* text-gray-800   text-[var(--text-strong)]    */
-/* text-gray-700   text-[var(--text-secondary)]	*/
-/* text-gray-600   text-[var(--text-tertiary)]  */
-/* text-gray-500   text-[var(--text-muted)]     */
-/* text-gray-400   text-[var(--text-disabled)]  */
+/* ===== スクロール伝播防止 ===== */
+.overscroll-none {
+	overscroll-behavior: none;
+}
 
-/* bg-white        bg-[var(--bg-page)]          */
-/* bg-stone-100    bg-[var(--bg-content)]       */
-/* bg-stone-50     bg-[var(--bg-content-light)] */
-/* bg-gray-100     bg-[var(--bg-profile-button)] */
-/* bg-gray-200     bg-[var(--bg-profile-button-hover)] */
-/* bg-gray-100     bg-[var(--bg-hover)]         */
-/* bg-gray-50      bg-[var(--bg-hover-subtle)]  */
-/* bg-peach        bg-accent                    */
+/* ===== CSS Variables & Theme ===== */
+:root {
+	/* ===== Page ===== */
+	--page-bg: #ffffff;
+	--page-text-primary: #0b1014;
+	--page-text-secondary: #6a717a;
+	--page-border: #eaeef1;
+	--page-border-light: #f8f9f9;
 
-/* border-gray-200 border-[var(--border)]          */
-/* border-gray-300 border-[var(--border-input)]    */
-/* border-gray-100 border-[var(--border-subtle)]   */
-/* border-gray-700 border-[var(--border-icon)]    */
-/* border-black    border-[var(--border-emphasis)] */
+	/* ===== Content ===== */
+	--content-bg: ;
+	--content-text: ;
+	--content-border: ;
 
-/* link-blue         text-[var(--link-blue)]         */
-/* link-blue-hover   text-[var(--link-blue-hover)]   */
-/* link-cyan         text-[var(--link-cyan)]         */
-/* link-cyan-hover   text-[var(--link-cyan-hover)]   */
+	/* ===== Modal ===== */
+	--modal-bg: ;
+	--modal-content-bg: ;
+	--modal-text-primary: ;
+	--modal-text-secondary: ;
+
+	/* ===== Button: Blue ===== */
+	--btn-blue-bg: ;
+	--btn-blue-bg-press: ;
+	--btn-blue-bg-disabled: ;
+	--btn-blue-text: ;
+	--btn-blue-text-press: ;
+	--btn-blue-text-disabled: ;
+
+	/* ===== Button: Gray ===== */
+	--btn-gray-bg: ;
+	--btn-gray-bg-press: ;
+	--btn-gray-text: ;
+	--btn-gray-text-press: ;
+
+	/* ===== Button: Select ===== */
+	--btn-select-bg: ;
+	--btn-select-bg-press: ;
+	--btn-select-bg-active: ;
+	--btn-select-text: ;
+	--btn-select-text-press: ;
+	--btn-select-text-active: ;
+
+	/* ===== Button: Text Only ===== */
+	--btn-text-only-bg: ;
+	--btn-text-only-blue: ;
+	--btn-text-only-blue-press: ;
+	--btn-text-only-blue-disabled: ;
+	--btn-text-only-light-blue: ;
+
+	/* ===== Search Bar ===== */
+	--search-bar-bg: ;
+	--search-bar-bg-dark: ;
+	--search-bar-text: ;
+	--search-bar-icon: ;
+	--search-bar-border: ;
+
+	/* ===== Input ===== */
+	--input-bg: ;
+	--input-text: ;
+	--input-border: ;
+	--input-border-focus: ;
+	--input-icon: ;
+
+	/* ===== Icon ===== */
+	--icon-primary: #0b1014; /*stroke-slate-900*/
+	--icon-hover: #23282c; /*stroke-slate-800*/
+	--icon-active: #ced0d0; /*stroke-neutral-300 or stroke-stone-300*/
+	--icon-disabled: #e6e8e8; /*stroke-neutral-200*/
+
+	--icon-secondary: #6a717a; /*stroke-slate-500*/
+	--icon-secondary-hover: #888d95; /*stroke-slate-400*/
+	--icon-secondary-active: #b4b8bc; /*妥協なら stroke-zinc-400（#A1A1AA ちょい暗い） or stroke-slate-300（#CBD5E1 かなり明るい）*/
+	--icon-secondary-disabled: #e6e8e8; /*stroke-neutral-200*/
+
+	/* ===== Link ===== */
+	--link-blue: ;
+	--link-blue-press: ;
+
+	/* ===== Alert/Error ===== */
+	--text-alert: ;
+
+	/* ===== Overlay (投稿画像上の要素など) ===== */
+	--overlay-bg: ;
+	--overlay-text: ;
+	--overlay-icon: ;
+
+	/* ===== User Background System ===== */
+	--user-bg-mode: ;
+	--user-bg-color: ;
+	--user-bg-image: ;
+	--user-bg-overlay: ;
+	--user-bg-blend-mode: ;
+
+	/* ===== Focus ===== */
+	--focus-ring: rgb(59, 130, 246);
+
+	/* ===== Tab ===== */
+	--tab-bg: transparent;
+	--tab-bg-active: #f3f5f6;
+	--tab-text: #6a717a;
+	--tab-text-active: #0b1014;
+	--tab-border: #eaeef1;
+	--tab-indicator: #3b82f6;
+}
+
+[data-theme="dark"] {
+	/* ===== Page (Dark) ===== */
+	--page-bg: ;
+	--page-text-primary: ;
+	--page-text-secondary: ;
+	--page-border: ;
+
+	/* ===== Content (Dark) ===== */
+	--content-bg: ;
+
+	/* ===== Modal (Dark) ===== */
+	--modal-bg: ;
+	--modal-content-bg: ;
+
+	/* ===== Button: Blue (Dark) ===== */
+	--btn-blue-bg: ;
+	--btn-blue-bg-press: ;
+	--btn-blue-bg-disabled: ;
+	--btn-blue-text: ;
+	--btn-blue-text-disabled: ;
+
+	/* ===== Button: Gray (Dark) ===== */
+	--btn-gray-bg: ;
+	--btn-gray-bg-press: ;
+	--btn-gray-text: ;
+
+	/* ===== Search Bar (Dark) ===== */
+	--search-bar-bg: ;
+	--search-bar-bg-dark: ;
+	--search-bar-icon: ;
+
+	/* ===== Input (Dark) ===== */
+	--input-border: ;
+	--input-icon: ;
+
+	/* ===== Icon (Dark) ===== */
+	--icon-primary: #f8f9f9; /*stroke-slate-50 or stroke-slate-100*/
+	--icon-primary-hover: #ffffff; /*stroke-white*/
+	--icon-primary-active: #6a6d70; /*stroke-zinc-500（やや近い）*/
+	--icon-primary-disabled: #3a4046; /*stroke-zinc-700 or stroke-slate-700*/
+
+	--icon-secondary: #a2aab4; /*stroke-zinc-400 が最も近い*/
+	--icon-secondary-hover: #b5bdc7; /*stroke-slate-300（少し明るめだが階段は自然）*/
+	--icon-secondary-active: #565d64; /*stroke-zinc-600 が近い*/
+	--icon-secondary-disabled: #3a4046; /*stroke-zinc-700 or stroke-slate-700*/
+
+	/* ===== Link (Dark) ===== */
+	--link-blue: ;
+	--link-blue-press: ;
+
+	/* ===== Alert/Error (Dark) ===== */
+	--text-alert: ;
+
+	/* ===== Overlay (Dark) ===== */
+	--overlay-bg: ;
+	--overlay-text: ;
+	--overlay-icon: ;
+
+	/* ===== User Background System (Dark) ===== */
+	--user-bg-overlay: rgba(0, 0, 0, 0.45);
+
+	/* ===== Focus (Dark) ===== */
+	--focus-ring: #60a5fa;
+
+	/* ===== Tab (Dark) ===== */
+	--tab-bg: transparent;
+	--tab-bg-active: #2a3036;
+	--tab-text: #a2aab4;
+	--tab-text-active: #f8f9f9;
+	--tab-border: #23282d;
+	--tab-indicator: #60a5fa;
+}
 
 /* ===== CSS Variables & Theme ===== */
 :root {
 	/* ===== ページ構造の背景色（ダークモード対応） ===== */
-	--bg-page: #ffffff;
-	--bg-content: #f5f5f4;
-	--bg-content-light: #fafaf9;
-	--bg-profile-button: #f3f4f6;
-	--bg-profile-button-hover: #e5e7eb;
-	--bg-hover: #f3f4f6;
-	--bg-hover-subtle: #f9fafb;
-	--bg-accent: #f5f0e8;
+	--page-bg: #ffffff;
+
+	--bg-content: #ffffff;
+	--bg-modal: #f8f9f9;
+	--bg-modal-content: #f3f5f6;
+
+	/* ===== 青色ボタン===== */
+	/* 例：完了　送信　ログイン　フォロー　新規登録　*/
+	--bg-btn-blue: #4a5df9;
+	--bg-btn-blue-press: #4d64ff;
+	--bg-btn-blue-disabled: #a1bbff;
+
+	--text-btn-blue: #ffffff; /* 青色ボタンのテキスト色 */
+	--text-btn-blue-press: #f5f7ff; /* 青色ボタンの押下時のテキスト色 */
+	--text-btn-blue-disabled: #d0ddff; /* 青色ボタンの無効時のテキスト色 */
+
+	/* ===== 灰色ボタン ===== */
+	/* 例：削除　フォロー中　*/
+	--bg-btn-gray: #eff2f5;
+	--bg-btn-gray-press: #e6eaee;
+
+	--text-btn-gray: #0b1014;
+	--text-btn-gray-press: #0b1014;
+
+	/* ===== セレクトボタン ===== */
+	/* 例：全ての期間　全ての種類　全てのカテゴリ　絞り込み　*/
+	--bg-btn-select: #f3f5f6;
+	--bg-btn-select-press: #e6eaee;
+	--bg-btn-select-active: #e0f1fe;
+
+	--text-btn-select: #0b1014;
+	--text-btn-select-press: #0b1014;
+	--text-btn-select-active: #0094f5;
+
+	/* ===== テキストのみのボタン ===== */
+	/* 例：すべてクリア　すべて見る　*/
+	--bg-btn-only-text: transparent;
+
+	--text-btn-only-text-blue: #4a5df9;
+	--text-btn-only-text-blue-press: #dbdefd;
+	--text-btn-only-text-blue-disabled: #dbdfde;
+	--text-btn-only-text-light-blue: #0094f5;
+
+	--bg-search-bar: #25292d; /* 検索バーの背景色 */
+	--bg-search-bar-dark: #2b3036; /* 検索バーの背景色 モーダル内 */
 
 	/* ===== テキスト色（ダークモード対応） ===== */
-	--text-primary: #000000;
+	--text-primary: #0b1014;
+	--text-primary-press: #cecfd0;
+	--text-secondary: #6a717a;
+	--text-secondary-press: #dcdddf;
 	--text-white: #ffffff;
-	--text-emphasis: #101828;
+	--text-black: #000000;
+	--text-alert: #f50000; /* ログアウトなどのテキスト色 */
+	--text-blue: #4a5df9; /* すべて見るとかすべてクリアとかのテキスト色 */
+	--text-light-blue: #0094f5; /* ライトブルー */
+
+	--text-btn-select: #0b1014; /* セレクトボタンのテキスト色 */
+	--text-btn-select-press: #0b1014; /* セレクトボタンの押下時のテキスト色 */
+	--text-btn-select-active: #0094f5; /* セレクトボタンのアクティブ時のテキスト色 */
+
+	--text-btn-only-text-blue: #0b1014;
+	--text-btn-only-text-blue-press: #0b1014;
+	--text-btn-only-text-blue-disabled: #0b1014;
+
+	/* --text-emphasis: #101828;
 	--text-strong: #1f2937;
 	--text-secondary: #374151;
 	--text-tertiary: #4a5565;
 	--text-muted: #6a7282;
-	--text-disabled: #99a1af;
+	--text-disabled: #99a1af; */
 
 	/* ===== ボーダー色（ダークモード対応） ===== */
-	--border: #e5e7eb;
+	--border: #eaeef1;
+	--border-light: #f8f9f9;
+
 	--border-input: #d1d5db;
-	--border-subtle: #f3f4f6;
-	--border-icon: #374151;
-	--border-emphasis: #000000;
+	--border-icon: #dbdfe4;
+	--border-primary: #0b1014;
+	--border-secondary: #6a717a;
 
 	/* ===== リンク色 ===== */
-	--link-blue: #2b7fff;
-	--link-blue-hover: #155dfc;
-	--link-cyan: #00d3f2;
-	--link-cyan-hover: #00b8db;
+	--link-blue: #3c49d2;
+	--link-blue-press: #182480;
+
+	/* ボタン（ブルー） */
+	--btn-blue: #4a5df9;
+	--btn-blue-press: #4d64ff;
+
+	/* ボタン（グレー） */
+	--btn-gray: #eff2f5;
+	--btn-gray-press: #e6eaee;
 
 	/* ===== ユーザー背景システム（デフォルト値） ===== */
 	--user-bg-mode: color; /* 'color' | 'image' */
-	--user-bg-color: var(--bg-accent);
+	--user-bg-color: var(--bg-page);
 	--user-bg-image: none;
 	--user-bg-overlay: rgba(255, 255, 255, 0.35); /* ライトモード用 */
 	--user-bg-blend-mode: normal; /* ブレンドモード */
+
+	/* ===== フォーカスリング色 ===== */
+	--focus-ring: rgb(59, 130, 246); /* ライトモード：青 */
 }
 
 [data-theme="dark"] {
-	/* ===== ページ構造の背景色（ダークモード） ===== */
-	--bg-page: #1a1a1a;
-	--bg-content: #262626;
-	--bg-content-light: #2d2d2d;
-	--bg-profile-button: #374151;
-	--bg-profile-button-hover: #2d2d2d;
-	--bg-hover: #374151;
-	--bg-hover-subtle: #2d2d2d;
-	--bg-accent: #2d2d2d;
+	/* ===== 背景色（ダークモード） ===== */
+	--bg-page: #0b1014; /* ページ背景色 */
+	--bg-content: #25292d; /* メッセージ背景　検索バー*/
+	--bg-modal: #212328; /* モーダルの背景色 */
+	--bg-modal-content: #2b3036;
+
+	--bg-btn-blue: #4a5df9; /* ボタン（青色） */
+	--bg-btn-blue-press: #3b52e7;
+	--bg-btn-blue-disabled: #232e67;
+
+	--bg-btn-gray: #2a3036; /* ボタン（灰色）bg-pageで使用 */
+	--bg-btn-gray-press: #343c45; /* text:f8f9f9f */
+	--bg-btn-zinc: #25292e; /* ボタン（シング）bg-modalで使用*/
+	--bg-btn-zinc-press: #25292e; /* text:f8f9f9f */
+
+	--bg-btn-only-text: transparent;
+
+	--bg-search-bar: #25292d; /* 検索バーの背景色 */
+	--bg-search-bar-dark: #2b3036; /* 検索バーの背景色 モーダル内 */
 
 	/* ===== テキスト色（ダークモード） ===== */
-	--text-primary: #ffffff;
+	--text-primary: #f8f9f9;
+	--text-secondary: #a2aab4;
+	--text-primary-press: #6a6d70;
+	--text-secondary-press: #484d54;
 	--text-white: #000000;
-	--text-emphasis: #f9fafb;
+	--text-black: #ffffff;
+	--text-alert: #ff516e;
+	--text-blue: #7595ff;
+	--text-blue-press: #a1bbff;
+	--text-blue-disabled: #42507e;
+
+	--text-btn-blue: #ffffff;
+	--text-btn-blue-disabled: #9197b3;
+	--text-btn-gray: #f8f9f9;
+
+	/* --text-emphasis: #f9fafb;
 	--text-strong: #f3f4f6;
 	--text-secondary: #d1d5db;
 	--text-tertiary: #9ca3af;
 	--text-muted: #6b7280;
-	--text-disabled: #4b5563;
+	--text-disabled: #4b5563; */
 
 	/* ===== ボーダー色（ダークモード） ===== */
-	--border: #404040;
+	--border: #23282d;
 	--border-input: #525252;
 	--border-subtle: #2d2d2d;
 	--border-icon: #d1d5db;
 	--border-emphasis: #ffffff;
 
+	/* ===== フォーカスリング色（ダークモード） ===== */
+	--focus-ring: #60a5fa; /* ダークモード：明るい青 */
+
 	/* ===== リンク色（ダークモード） ===== */
-	--link-blue: #51a2ff;
-	--link-blue-hover: #8ec5ff;
-	--link-cyan: #53eafd;
-	--link-cyan-hover: #a2f4fd;
+	--link-blue: #8593ff; /* 既存 */
+	--link-blue-press: #c7cdff;
 
 	/* ===== ユーザー背景システム（ダークモード） ===== */
 	--user-bg-overlay: rgba(0, 0, 0, 0.45); /* ダークモード用 */
-}
-
-/* ===== Tailwind Theme Integration ===== */
-@theme inline {
-	/* フォント */
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
-
-	/* 背景色 */
-	--color-bg-page: var(--bg-page);
-	--color-bg-content: var(--bg-content);
-	--color-bg-content-light: var(--bg-content-light);
-	--color-bg-hover: var(--bg-hover);
-	--color-bg-hover-subtle: var(--bg-hover-subtle);
-	--color-bg-accent: var(--bg-accent);
-
-	/* テキスト色 */
-	--color-text-primary: var(--text-primary);
-	--color-text-white: var(--text-white);
-	--color-text-emphasis: var(--text-emphasis);
-	--color-text-strong: var(--text-strong);
-	--color-text-secondary: var(--text-secondary);
-	--color-text-tertiary: var(--text-tertiary);
-	--color-text-muted: var(--text-muted);
-	--color-text-disabled: var(--text-disabled);
-
-	/* ボーダー色 */
-	--color-border: var(--border);
-	--color-border-input: var(--border-input);
-	--color-border-subtle: var(--border-subtle);
-	--color-border-icon: var(--border-icon);
-	--color-border-emphasis: var(--border-emphasis);
-
-	/* リンク色 */
-	--color-link-blue: var(--link-blue);
-	--color-link-blue-hover: var(--link-blue-hover);
-	--color-link-cyan: var(--link-cyan);
-	--color-link-cyan-hover: var(--link-cyan-hover);
 }
 
 /* ===== Base Styles ===== */
@@ -192,7 +389,7 @@ body {
 	);
 
 	/* ===== ユーザー背景システム ===== */
-	/* 基本背景色 */
+	/* デフォルト背景色 */
 	background: var(--user-bg-color);
 
 	/* 画像がある場合のみオーバーレイと画像を適用 */
@@ -218,19 +415,6 @@ button * {
 	-webkit-tap-highlight-color: transparent; /* モバイルのハイライト消し（任意） */
 }
 
-/* ===== Interactive Elements ===== */
-button:active,
-[role="button"]:active {
-	opacity: 0.8;
-	transition: opacity 0.1s ease;
-	transform: scale(0.95);
-}
-
-a:active {
-	opacity: 0.7;
-	transition: opacity 0.1s ease;
-}
-
 /* ===== Form Inputs ===== */
 input[type="email"],
 input[type="password"],
@@ -242,9 +426,7 @@ input[type="text"] {
 }
 
 /* WebKit autofill styles */
-input[type="email"]:-webkit-autofill,
-input[type="password"]:-webkit-autofill,
-input[type="text"]:-webkit-autofill {
+input:-webkit-autofill {
 	-webkit-text-fill-color: var(--text-primary);
 	box-shadow: 0 0 0px 1000px var(--bg-page) inset;
 	transition: background-color 9999s ease-out, color 9999s ease-out;
@@ -254,8 +436,7 @@ input[type="text"]:-webkit-autofill {
 input[type="email"]::placeholder,
 input[type="password"]::placeholder,
 input[type="text"]::placeholder {
-	color: var(--text-muted);
-	opacity: 1;
+	color: var(--text-secondary);
 }
 
 /* Focus styles */
@@ -263,20 +444,44 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus {
 	outline: none;
-	border-color: #3b82f6;
+	border-color: var(--focus-ring);
 	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
 /* Error state */
 .input-error {
-	background-color: #fef2f2;
-	border-color: #f87171;
+	background-color: #fef2f2 !important;
+	border-color: #f87171 !important;
 }
 
-/* ===== Custom Utility Classes ===== */
-.bg-accent {
-	background: var(--bg-accent);
+/* ===== Interactive Elements with Filter ===== */
+.dim:hover {
+	filter: brightness(0.9);
+	transition: filter 0.15s ease;
 }
+
+.dim:active {
+	filter: brightness(0.8);
+	transform: scale(0.95);
+	transition: filter 0.1s ease, transform 0.1s ease;
+}
+
+/* ===== Focus Styles ===== */
+/* 基本的なフォーカスリング */
+.focus-ring:focus {
+	outline: none;
+	border-color: var(--focus-ring);
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* キーボード操作時のみ表示 */
+.focus-ring-visible:focus-visible {
+	outline: none;
+	border-color: var(--focus-ring);
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+	/* --focus-offset-bg */
+}
+
 /* ===== Text Utilities ===== */
 .line-clamp-2 {
 	display: -webkit-box;
@@ -284,4 +489,45 @@ input[type="text"]:focus {
 	line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+/* ===== Material Symbols ===== */
+.material-symbols-outlined {
+	font-family: "Material Symbols Outlined";
+	font-weight: normal;
+	font-style: normal;
+	font-size: 24px;
+	line-height: 1;
+	letter-spacing: normal;
+	text-transform: none;
+	display: inline-block;
+	white-space: nowrap;
+	word-wrap: normal;
+	direction: ltr;
+	-webkit-font-feature-settings: "liga";
+	font-feature-settings: "liga";
+	-webkit-font-smoothing: antialiased;
+}
+
+/* ===== Swiper Fix ===== */
+.swiper {
+	overflow: hidden;
+	position: relative;
+}
+
+.swiper-wrapper {
+	display: flex;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	transition-property: transform;
+	box-sizing: content-box;
+}
+
+.swiper-slide {
+	flex-shrink: 0;
+	width: 100%;
+	height: 100%;
+	position: relative;
 }

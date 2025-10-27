@@ -23,14 +23,7 @@ import {
 export default function SettingsPage() {
 	const router = useRouter();
 	const [searchQuery, setSearchQuery] = useState("");
-	const {
-		background,
-		backgroundImage,
-		mode,
-		setBackground,
-		setBackgroundImage,
-		toggleMode,
-	} = useTheme();
+	const { backgroundImage, mode, setBackgroundImage, toggleMode } = useTheme();
 
 	const handleBackClick = () => {
 		// 履歴がある場合は戻る、ない場合はプロフィールページに遷移
@@ -48,17 +41,6 @@ export default function SettingsPage() {
 	const handleViewAllClick = () => {
 		console.log("すべて見る");
 	};
-
-	// 背景色の選択肢
-	const backgrounds = [
-		{ id: "peach", class: "bg-accent", name: "ピーチ" },
-		{
-			id: "white",
-			class: "bg-[var(--text-white)]",
-			name: "ホワイト(ブラック)",
-		},
-		{ id: "stone", class: "bg-[var(--bg-page)]", name: "ホワイト(グレー)" },
-	];
 
 	// プリセット壁紙の選択肢
 	const wallpapers = [
@@ -280,51 +262,6 @@ export default function SettingsPage() {
 									</label>
 								</div>
 							)}
-						</div>
-
-						{/* プリセット色 */}
-						<div className="mb-6">
-							<label className="block text-sm font-medium text-[var(--text-secondary)] mb-3">
-								プリセット色
-							</label>
-							<div className="grid grid-cols-3 gap-3">
-								{backgrounds.map((bg) => (
-									<button
-										key={bg.id}
-										onClick={() => {
-											setBackground(bg.class);
-											setBackgroundImage(null); // 背景画像をクリア
-											clearImageAnalysisResult(); // 解析結果もクリア
-										}}
-										className={`relative aspect-square rounded-lg ${
-											bg.class
-										} border-2 ${
-											background === bg.class && !backgroundImage
-												? "border-blue-500 ring-2 ring-blue-200"
-												: "border-[var(--border)]"
-										} transition-all hover:scale-105 active:scale-95`}
-									>
-										{background === bg.class && !backgroundImage && (
-											<div className="absolute inset-0 flex items-center justify-center">
-												<svg
-													className="w-6 h-6 text-blue-500"
-													fill="currentColor"
-													viewBox="0 0 20 20"
-												>
-													<path
-														fillRule="evenodd"
-														d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-														clipRule="evenodd"
-													/>
-												</svg>
-											</div>
-										)}
-										<span className=" text-xs text-center text-[var(--text-tertiary)]">
-											{bg.name}
-										</span>
-									</button>
-								))}
-							</div>
 						</div>
 
 						{/* プリセット壁紙 */}

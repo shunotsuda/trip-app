@@ -59,10 +59,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 						value={value}
 						onChange={onChange}
 						required={required}
-						className={`w-full px-3 py-2.5 pr-10 border rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent outline-none transition-colors ${
-							error
-								? "border-red-300 bg-red-50"
-								: "border-[var(--border-input)]"
+						className={`w-full px-3 py-2.5 pr-10 border rounded-lg outline-none transition-colors ${
+							error ? "input-error" : "border-[var(--border-input)]"
 						} ${className}`}
 						placeholder={placeholder}
 					/>
