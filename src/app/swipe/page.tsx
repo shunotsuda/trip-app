@@ -39,18 +39,26 @@ export default function SwipePage() {
 	});
 
 	// 無限スクロール用データ取得
-	const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-		useInfiniteQuery({
-			queryKey: ["posts"],
-			queryFn: async ({ pageParam = 1 }) => {
-				const res = await fetch(`/api/posts?page=${pageParam}&limit=20`);
-				if (!res.ok) throw new Error("Failed to fetch");
-				return res.json();
-			},
-			getNextPageParam: (lastPage) =>
-				lastPage.hasMore ? lastPage.page + 1 : undefined,
-			initialPageParam: 1,
-		});
+	const {
+		data,
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage,
+		isLoading,
+		isError,
+		error,
+		refetch,
+	} = useInfiniteQuery({
+		queryKey: ["posts"],
+		queryFn: async ({ pageParam = 1 }) => {
+			const res = await fetch(`/api/posts-error?page=${pageParam}&limit=20`);
+			if (!res.ok) throw new Error("サーバーからデータを取得できませんでした");
+			return res.json();
+		},
+		getNextPageParam: (lastPage) =>
+			lastPage.hasMore ? lastPage.page + 1 : undefined,
+		initialPageParam: 1,
+	});
 
 	const allPosts = data?.pages.flatMap((page) => page.data) ?? [];
 
@@ -76,8 +84,15 @@ export default function SwipePage() {
 		// 高さを計算
 		let newHeight = 0;
 		if (currentIndex === 0) {
-			// タブ1（無限スクロール）は高さを"auto"にする
-			newHeight = 0;
+			// タブ1（無限スクロール）
+			const firstChild = activeSlide.firstElementChild as HTMLElement;
+			if (firstChild && (isLoading || isError)) {
+				// ローディング・エラー時は固定高さを設定
+				newHeight = firstChild.offsetHeight;
+			} else {
+				// 通常時はauto
+				newHeight = 0;
+			}
 		} else {
 			// タブ2, 3は固定コンテンツの高さを取得
 			const firstChild = activeSlide.firstElementChild as HTMLElement;
@@ -104,6 +119,23 @@ export default function SwipePage() {
 			});
 		}
 	};
+
+	// タブ1のローディング・エラー状態変化時に高さを更新
+	useEffect(() => {
+		if (activeTab === 0 && swiperRef.current) {
+			const activeSlide = swiperRef.current.slides[0];
+			if (activeSlide) {
+				const firstChild = activeSlide.firstElementChild as HTMLElement;
+				if (firstChild && (isLoading || isError)) {
+					// ローディング・エラー時は固定高さを設定
+					setSwiperHeight(firstChild.offsetHeight);
+				} else if (!isLoading && !isError) {
+					// 通常時はautoに戻す
+					setSwiperHeight(0);
+				}
+			}
+		}
+	}, [isLoading, isError, activeTab]);
 
 	// 無限スクロール検知
 	useEffect(() => {
@@ -241,7 +273,10 @@ export default function SwipePage() {
 								hasNextPage={hasNextPage}
 								isFetchingNextPage={isFetchingNextPage}
 								isLoading={isLoading}
+								isError={isError}
+								error={error}
 								onLoadMore={fetchNextPage}
+								onRetry={refetch}
 							/>
 						</SwiperSlide>
 

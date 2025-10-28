@@ -1,5 +1,7 @@
 "use client";
 
+import { Spinner } from "@/components/ui/Spinner";
+
 interface Post {
 	id: string;
 	title: string;
@@ -15,7 +17,10 @@ interface InfinitePostListProps {
 	hasNextPage?: boolean;
 	isFetchingNextPage?: boolean;
 	isLoading?: boolean;
+	isError?: boolean;
+	error?: Error | null;
 	onLoadMore?: () => void;
+	onRetry?: () => void;
 }
 
 export function InfinitePostList({
@@ -23,13 +28,44 @@ export function InfinitePostList({
 	hasNextPage,
 	isFetchingNextPage,
 	isLoading,
+	isError,
+	error,
 	onLoadMore,
+	onRetry,
 }: InfinitePostListProps) {
+	// エラー表示
+	if (isError) {
+		return (
+			<div className="p-8 pt-16 text-center space-y-4">
+				<div className="text-6xl">⚠️</div>
+				<div className="text-gray-700 font-semibold text-lg">
+					投稿の読み込みに失敗しました
+				</div>
+				<div className="text-gray-500 text-sm">
+					{error?.message || "ネットワークエラーが発生しました"}
+				</div>
+				{onRetry && (
+					<div className="pt-2">
+						<button
+							onClick={onRetry}
+							className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
+						>
+							再試行
+						</button>
+					</div>
+				)}
+			</div>
+		);
+	}
+
+	// ローディング表示
 	if (isLoading) {
 		return (
-			<div className="flex flex-col items-center justify-center gap-4 p-8">
-				<div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-				<div className="text-gray-500 font-medium">投稿を読み込み中...</div>
+			<div className="p-8 pt-16 text-center">
+				<div className="space-y-4">
+					<Spinner size={60} />
+					<div className="text-gray-500 font-medium">投稿を読み込み中...</div>
+				</div>
 			</div>
 		);
 	}
@@ -60,10 +96,7 @@ export function InfinitePostList({
 			{hasNextPage && (
 				<div className="flex flex-col items-center justify-center h-32 gap-3">
 					{isFetchingNextPage ? (
-						<>
-							<div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-							<div className="text-gray-500 text-sm">さらに読み込み中...</div>
-						</>
+						<Spinner size={40} />
 					) : (
 						onLoadMore && (
 							<button

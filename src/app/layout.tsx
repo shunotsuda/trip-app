@@ -95,14 +95,23 @@ export default async function RootLayout({
 		>
 			<head>
 				{/* Material Symbols 用の最適化 */}
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link
 					rel="preconnect"
 					href="https://fonts.gstatic.com"
 					crossOrigin=""
 				/>
+				{/* フォントファイルを直接プリロード */}
+				<link
+					rel="preload"
+					as="font"
+					type="font/woff2"
+					href="https://fonts.gstatic.com/s/materialsymbolsoutlined/v214/kJF1BvYX7BgnkSrUwT8OhrdQw4oELdPIeeII9v6oDMzByHX9rA6RzaxHMPdY43zj-jCxv3fzvRNU22ZXGJpEpjC_1v-p_4MrImHCIJIZrDCvHOej.woff2"
+					crossOrigin="anonymous"
+				/>
 				<link
 					rel="stylesheet"
-					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+					href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block"
 				/>
 
 				{/* フォールバック: 初回訪問やCookie-localStorage同期用 */}

@@ -17,6 +17,9 @@ export function TabNav({ activeTab, onChange, slideProgress }: TabNavProps) {
 	const translateX = underlinePosition * 100; // 0, 100, 200% (タブの位置 × 100%)
 	const width = 100 / tabs.length; // 各タブの幅（33.33%）
 
+	// スワイプ中かどうかを判定（slideProgressが整数でない = スワイプ中）
+	const isSwiping = slideProgress !== undefined && slideProgress % 1 !== 0;
+
 	return (
 		<div className="relative flex">
 			{tabs.map((tab) => (
@@ -35,7 +38,9 @@ export function TabNav({ activeTab, onChange, slideProgress }: TabNavProps) {
 			))}
 			{/* 動的なアンダーライン */}
 			<div
-				className="absolute bottom-0 h-0.5 bg-gray-900"
+				className={`absolute bottom-0 h-0.5 bg-gray-900 ${
+					isSwiping ? "" : "transition-transform duration-300"
+				}`}
 				style={{
 					width: `${width}%`,
 					transform: `translateX(${translateX}%)`,
